@@ -28,16 +28,15 @@ public class Stepdefs {
     WebDriver driver;	
 	@Given("^Abrir Firefox y escribir url de la aplicación$")
 	public void abrir_Firefox_y_escribir_url_de_la_aplicación() {
-
 	    try {
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");
+	    	
 		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
 
 		    
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://app-sanidad.herokuapp.com");
+	    driver.get("http://http://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	fail("Can't connect to application");
 	    }
@@ -100,7 +99,7 @@ public class Stepdefs {
 	       
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       String new_url = driver.getCurrentUrl();
-	       assertNotEquals(new_url, "app-sanidad.herokuapp.com/citas", "URL cant be app-sanidad.herokuapp.com/citas");
+	       assertNotEquals(new_url, "http://app-sanidad.herokuapp.com/citas", "URL cant be app-sanidad.herokuapp.com/citas");
 	}
 
 	@Then("^petición aceptada$")
