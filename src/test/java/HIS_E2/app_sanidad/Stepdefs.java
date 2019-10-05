@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.java.en.Given;
@@ -40,7 +39,7 @@ public class Stepdefs {
 		    
 	    driver.get("http://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
-	    	fail("Can't connecto to application");
+	    	fail("Can't connect to application");
 	    }
 	}
 
