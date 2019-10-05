@@ -1,5 +1,6 @@
 language: java
 script:
+- cd app-sanidad
 - mvn test
 notifications:
   slack: hisespacio:0qEQjO7RRhAMmk67zdatTrtr

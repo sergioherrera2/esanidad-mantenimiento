@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Built-By: edu_r
+Build-Jdk: 1.8.0_201
+Created-By: Maven Integration for Eclipse
+Main-Class: HIS_E2.app_sanidad.App
+
