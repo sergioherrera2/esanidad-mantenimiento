@@ -2,11 +2,13 @@ package HIS_E2.app_sanidad;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
+
 import java.util.concurrent.TimeUnit;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,10 +27,11 @@ public class Stepdefs {
     WebDriver driver;	
 	@Given("^Abrir Firefox y escribir url de la aplicación$")
 	public void abrir_Firefox_y_escribir_url_de_la_aplicación() {
-	       System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
-	       driver= new FirefoxDriver();					
-	       driver.manage().window().maximize();			
-	       driver.get("http://app-sanidad.herokuapp.com");
+		System.setProperty("webdriver.chrome.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");
+	    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+	    driver = new ChromeDriver();					
+	    driver.manage().window().maximize();			
+	    driver.get("http://app-sanidad.herokuapp.com");
 	}
 
 	@When("^escribir usuario y contraseña$")
@@ -73,8 +76,12 @@ public class Stepdefs {
 	}
 
 	@Then("^petición aceptada$")
-	public void petición_aceptada() throws Exception {
-	       this.mockMvc.perform(get("/citas") .param("username", "a").param("password", "a")).andExpect(status().isOk());
+	public void petición_aceptada()  {
+	       try {
+			this.mockMvc.perform(get("/citas") .param("username", "a").param("password", "a")).andExpect(status().isOk());
+		} catch (Exception e) {
+			fail("No funciona la petición GET");
+		}
 	}
 
 }
