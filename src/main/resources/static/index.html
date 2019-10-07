@@ -14,19 +14,23 @@
 	</head>
 	<body>
             <div ng-controller="login" class="container">
-
+				<img src="logos_sescam.png" width=64 height=64 >
                     <form class="form-signin" >
                     <label>Usuario:
-                        <input type="text" ng-model="text1">
+                        <input type="text" id="username" name="username" ng-model="text1">
                     </label>
                     <label>Contraseña:
-                        <input type="password" ng-model="pwd1"> 
+                        <input type="password" id="password" name="password" ng-model="pwd1"> 
                     </label> 
-                      <input type="button" id="myButton" ng-model="butLogin" value="Entrar"></input>
+                      <input type="button" id="btnLogin" name="btnLogin" ng-model="butLogin" value="Entrar"></input>
                      
                       <script type="text/javascript">
-    					document.getElementById("myButton").onclick = function () {
+    					document.getElementById("btnLogin").onclick = function () {
+    					if(document.getElementById("username").value == "" || document.getElementById("password").value == ""){
+    					alert("Usuario o contraseña en blanco");
+    					} else{
        					 location.href = 'https://app-sanidad.herokuapp.com/citas';
+       					 }
   					  };
 						</script>
                     </form>
