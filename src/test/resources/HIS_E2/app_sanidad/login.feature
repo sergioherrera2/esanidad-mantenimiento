@@ -8,7 +8,6 @@ Feature: Entrar pagina listas con cualquier usuario y contraseña
 		When escribir usuario y contraseña		
 		Then clickeas boton login y se abre pagina de listas
 		
-		
 	@tag2
 	  Scenario: Autenticación incorrecta sin campos
     Given Abrir Firefox y escribir url de la aplicación
