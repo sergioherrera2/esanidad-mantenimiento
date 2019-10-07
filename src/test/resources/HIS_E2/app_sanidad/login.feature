@@ -2,12 +2,11 @@
 @tag
 Feature: Entrar pagina listas con cualquier usuario y contraseña 
 
-#  @tag1
-#  Scenario: Autenticación correcta
-#    Given Abrir Firefox y escribir url de la aplicación
-#		When escribir usuario y contraseña		
-#		Then clickeas boton login y se abre pagina de listas
-		
+  @tag1
+  Scenario: Autenticación correcta
+    Given Abrir Firefox y escribir url de la aplicación
+		When escribir usuario y contraseña		
+		Then clickeas boton login y se abre pagina de listas
 		
 	@tag2
 	  Scenario: Autenticación incorrecta sin campos
