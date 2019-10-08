@@ -36,7 +36,7 @@ public class Stepdefs {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://http://app-sanidad.herokuapp.com");
+	    driver.get("http://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
