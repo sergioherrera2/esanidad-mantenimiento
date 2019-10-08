@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: app-sanidad
-Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: juanl
-Implementation-Vendor-Id: HIS_E2
-Build-Jdk: 1.8.0_191
-Created-By: Maven Integration for Eclipse
-Main-Class: HIS_E2.app_sanidad.BootApplication
-
