@@ -36,8 +36,9 @@ public class Stepdefs {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://http://app-sanidad.herokuapp.com");
+	    driver.get("http://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
+	    	driver.quit();
 	    	fail("Can't connect to application");
 	    }
 	}
@@ -48,6 +49,7 @@ public class Stepdefs {
 		       driver.findElement(By.name("username")).sendKeys("username12");							
 		       driver.findElement(By.name("password")).sendKeys("password12");	
 		}catch(Exception e) {
+			driver.quit();
 			fail("No se encuentran los campos");
 		}
 
@@ -59,6 +61,7 @@ public class Stepdefs {
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       String new_url = driver.getCurrentUrl();
 	       assertEquals(new_url, "http://app-sanidad.herokuapp.com/citas", "URL before login and after login must be different");
+	       driver.quit();
 	}
 	
 	
@@ -70,6 +73,7 @@ public class Stepdefs {
 
 		}catch(Exception e) {
 			fail("No se encuentran los campos");
+			driver.quit();
 		}
 
 	}
@@ -80,6 +84,7 @@ public class Stepdefs {
 			driver.findElement(By.name("password")).sendKeys("password12");
 		}catch(Exception e) {
 			fail("No se encuentran los campos");
+			driver.quit();
 		}
 
 	}
@@ -94,6 +99,7 @@ public class Stepdefs {
 		try{
 			driver.findElement(By.name("btnLogin")).click();
 		}catch(Exception e) {
+			driver.quit();
 			fail("No existe el boton de login");
 		}
 	       
@@ -108,7 +114,9 @@ public class Stepdefs {
 			this.mockMvc.perform(get("/citas") .param("username", "a").param("password", "a")).andExpect(status().isOk());
 		} catch (Exception e) {
 			fail("No funciona la petición GET");
+			driver.quit();
 		}
+	       driver.quit();
 	}
 
 }
