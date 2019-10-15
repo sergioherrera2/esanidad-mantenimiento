@@ -38,7 +38,7 @@ public class StepsdefsSprint2 {
     @Autowired
     private MockMvc mockMvc;
     WebDriver driver;
-	private Usuario user;	
+	//private Usuario user;	
 	@Autowired
 //	private UserRepository usersRepo;
 	private OkHttpClient client;
