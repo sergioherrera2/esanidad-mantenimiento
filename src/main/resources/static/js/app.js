@@ -1,5 +1,5 @@
 function add($scope) {
-    $scope.items = ['cita1', 'cita2', 'cita3'];
+    $scope.items = ['Edu', 'Miguel', 'Antonio', 'Juan Luis', 'Juan'];
     $scope.AddItem = function() {
         $scope.items.push($scope.newItem);
     };
