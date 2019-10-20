@@ -168,32 +168,6 @@ body {
     background-size: cover;
 }
 
-.tabla {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-    margin-left: 290px;
-    margin-top: 100px;
-    margin-right: 60px;
-    text-align: center;
-}
-
-.table {
-    display: inline-block;
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    -webkit-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-}
-
-.cuerpoT {
-    background-color: #90c39c;
-    color: blue;
-}
-
 .imgRedonda {
     margin-top: 25px;
     margin-left: 75px;
@@ -204,4 +178,39 @@ body {
 
 .menu-list {
     margin-top: 60px;
+}
+
+.radioBotton {
+    margin-left: 700px;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    background-color: #90c39c;
+}
+
+.contenido {
+    margin-left: 500px;
+    margin-top: 150px;
+    width: 50px;
+    max-width: 100px;
+    background: white;
+    color: blue;
+}
+
+.btnAceptar {
+    margin-top: 60px;
+}
+
+.btnAceptar .btn {
+    margin-right: 20px;
+    padding-right: 30px;
+    margin-left: 850px;
+    padding-left: 30px;
+    background-color: #ffa610;
+    border-color: #ffa610;
+    border-radius: 0;
+    color: #fff;
 }

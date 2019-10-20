@@ -19,7 +19,7 @@
     <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
 
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/app/paciente.css" />
+    <link rel="stylesheet" href="css/app/borrarCita.css" />
 
 </head>
 
@@ -33,25 +33,27 @@
     <div class="menu-list">
 
         <ul id="menu-content" class="menu-content collapse out">
-            <li data-toggle="collapse" data-target="#products" class="collapsed active" <a href="#">
-                <i class="fas fa-tachometer-alt fa-lg"></i> Mis Citas
+
+            <li>
+                <a href="https://fierce-ridge-44791.herokuapp.com/paciente">
+                    <i class="fas fa-tachometer-alt fa-lg"></i> Mis Citas
                 </a>
             </li>
 
-            <li>
+            <li data-toggle="collapse" data-target="#products" class="collapsed">
                 <a href="https://fierce-ridge-44791.herokuapp.com/pedirCita"><i class="fab fa-studiovinari fa-lg"></i> Pedir Cita <span class="arrow"></span></a>
             </li>
 
 
 
-            <li>
+            <li data-toggle="collapse" data-target="#products" class="collapsed">
                 <a href="https://fierce-ridge-44791.herokuapp.com/modificarCita"><i class="fab fa-studiovinari fa-lg"></i> Modificar Cita <span class="arrow"></span></a>
             </li>
 
 
 
-            <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <a href="https://fierce-ridge-44791.herokuapp.com/borrarCita"><i class="fab fa-pagelines fa-lg"></i> Eliminar Cita <span class="arrow"></span></a>
+            <li data-toggle="collapse" data-target="#new" class="collapsed active">
+                <a href="#"><i class="fab fa-pagelines fa-lg"></i> Eliminar Cita <span class="arrow"></span></a>
             </li>
 
 
@@ -67,39 +69,29 @@
     </div>
     <div class="contenido"></div>
 </div>
-<div class="tabla">
+<div class="contenido">
 
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Fecha</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Centro de Salud</th>
-                <th scope="col">Especialista</th>
-            </tr>
-        </thead>
-        <tbody class="cuerpoT">
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="radioBotton">
 
+        <form action="../../form-result.php" method="post" target="_blank">
+
+            <input type="radio" name="citaL" value="citaL"> 01/10/19 16:12 Centro Pincha Bien Podólogo<br>
+
+            <input type="radio" name="citaM" value="citaM">02/1019 16:25 Centro Pincha Mal Podólogo<br>
+
+            <input type="radio" name="citaX" value="citaX"> 03/10/19 16:12 Centro Pincha Regular Podólogo <br>
+
+
+        </form>
+
+    </div>
+
+    <div class="btnBorrar">
+
+        <input class="btn" id="btnBorrar" name="btnBorrar" type="submit" value="Borrar">
+
+
+    </div>
 
 
 
