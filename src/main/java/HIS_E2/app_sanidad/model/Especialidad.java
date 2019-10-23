@@ -1,23 +1,23 @@
 package HIS_E2.app_sanidad.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "especialidad")
+
+@Document(collection = "especialidad")
 public class Especialidad {
-
+	
 	@Id
 	int idEspecialidad;
-	@Column(name = "nombreEspecialidad")
 	String nombreEspecialidad;
-	@Column(name = "duracionCita")
 	int duracionCita;
 	
-	public Especialidad() {
-		
+
+	public Especialidad(int idEspecialidad, String nombreEspecialidad, int duracionCita) {
+		super();
+		this.idEspecialidad = idEspecialidad;
+		this.nombreEspecialidad = nombreEspecialidad;
+		this.duracionCita = duracionCita;
 	}
 
 	public int getIdEspecialidad() {
@@ -42,6 +42,12 @@ public class Especialidad {
 
 	public void setDuracionCita(int duracionCita) {
 		this.duracionCita = duracionCita;
+	}
+
+	@Override
+	public String toString() {
+		return "Especialidad [idEspecialidad=" + idEspecialidad + ", nombreEspecialidad=" + nombreEspecialidad
+				+ ", duracionCita=" + duracionCita + "]";
 	}
 	
 }
