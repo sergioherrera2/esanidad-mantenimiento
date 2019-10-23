@@ -1,17 +1,14 @@
 package HIS_E2.app_sanidad;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
-import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
@@ -21,22 +18,20 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @WebMvcTest
 @RunWith(SpringRunner.class)
 public class StepsdefsSprint2 {
     @Autowired
-    private MockMvc mockMvc;
     WebDriver driver;
 	//private Usuario user;	
 	@Autowired
@@ -58,7 +53,7 @@ public class StepsdefsSprint2 {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://app-sanidad.herokuapp.com/registrar");
+	    driver.get("https://app-sanidad.herokuapp.com/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -70,7 +65,7 @@ public class StepsdefsSprint2 {
 	    }
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    String new_url = driver.getCurrentUrl();
-	    assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/registro")); 
+	    assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/register")); 
 		
 	}
 	@When("^Relleno todos los campos Nombre (.*),Apellidos (.*) DNI (.*) NumeroSS (.*)  Password (.*), Repetir_password (.*)$")
@@ -188,26 +183,22 @@ public class StepsdefsSprint2 {
 
 	@Given("^ClienteHttp$")
 	public void script_en_postman() {
-		OkHttpClient client = new OkHttpClient();
+		 client = new OkHttpClient();
 
 
 	}
 
 	@When("^Envío petición Post con todos los campos$")
 	public void envío_petición_Post_con_todos_los_campos() {
-		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/registro?nombre=antonio&apellidos=Pulido%20Hern%C3%A1ndez&DNI=05928838N&numeroSS=123456789012&password=1111&repetir_password=1111")
-				  .post(null)
-				  .addHeader("User-Agent", "PostmanRuntime/7.18.0")
-				  .addHeader("Accept", "*/*")
-				  .addHeader("Cache-Control", "no-cache")
-				  .addHeader("Postman-Token", "7cc93649-eb79-4eeb-b952-fe5ccd773563,0b89be15-3efb-4678-a305-b85363face50")
-				  .addHeader("Host", "app-sanidad.herokuapp.com")
-				  .addHeader("Accept-Encoding", "gzip, deflate")
-				  .addHeader("Content-Length", "0")
-				  .addHeader("Connection", "keep-alive")
-				  .addHeader("cache-control", "no-cache")
-				  .build();
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"nombre\":\"Antonio\",\"apellidos\": \"Pulido Hernández\",\"contrasenia\":\"1234\",\"numSS\":\"123456789012\"}");
+		Request request = new Request.Builder()
+		  .url("http://app-sanidad.herokuapp.com/register")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "e6222eed-1777-47bf-aa4f-f5432ef45ba2")
+		  .build();
 	}
 
 	@Then("^Recibo una respuesta satisfactoria$")
@@ -217,11 +208,11 @@ public class StepsdefsSprint2 {
 			if(!response.isSuccessful()) {
 				fail("Respuesta fallida");
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail("Error recibiendo la respuesta");
 		}
-	    throw new PendingException();
 	}
 
 }
