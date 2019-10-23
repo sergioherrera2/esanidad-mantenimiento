@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Miguel
  */
 @Controller
-public class CitasController {
+public class RegisterController {
 
 	/**Controlador mapeo de la página de citas.
 	 * @return Devuelve el html de la página de citas.
 	 */
-	@RequestMapping(value = "/citas", method = RequestMethod.GET)
-	public String getCitas() {
-		return "views/citas.html";
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String getRegister() {
+		return "views/register.html";
 	}
 }

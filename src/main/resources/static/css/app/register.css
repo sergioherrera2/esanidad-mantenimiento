@@ -1,3 +1,5 @@
+@charset "ISO-8859-1";
+@import url("https://use.fontawesome.com/releases/v5.0.11/css/all.css");
 html,
 body {
     height: 100%;
@@ -25,8 +27,8 @@ body {
 
 .form-items {
     display: inline-block;
-    width: 100%;
-    max-width: 400px;
+    width: 400px;
+    max-width: 500px;
     padding: 30px;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
@@ -66,11 +68,11 @@ form {
 
 .form-control {
     margin-bottom: 10px;
-    border: 0;
+    border: 0px;
     border-bottom: 1px solid;
     border-radius: 0;
     background-color: transparent;
-    color: #000;
+    color: rgb(0, 0, 0);
     padding: 0;
 }
 
@@ -99,7 +101,6 @@ form {
     color: #fff;
 }
 
-
 @media (max-width:450px) {
     .info h3 {
         font-size: 20px;
@@ -115,4 +116,8 @@ form {
         padding-right: 20px;
         padding-left: 20px;
     }
+}
+
+.input-group-addon {
+    padding-right: 10px;
 }
