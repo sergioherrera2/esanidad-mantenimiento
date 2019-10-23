@@ -12,4 +12,8 @@ function login($scope) {
     $scope.RemoveItem = function(item) {
         $scope.items.splice($scope.items.indexOf(item), 1);
     };
+    
+    
+    
+    
 };
