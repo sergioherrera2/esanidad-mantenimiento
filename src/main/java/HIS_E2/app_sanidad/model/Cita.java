@@ -2,28 +2,28 @@ package HIS_E2.app_sanidad.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "cita")
+
+@Document(collection = "cita")
 public class Cita {
 	
 	@Id
 	int idCita;
-	@Column(name = "fecha")
 	Date fecha;
-	@Column(name = "dniMedico")
 	String dniMedico;
-	@Column(name = "dniPaciente")
 	String dniPaciente;
+
 	
-	public Cita() {
-		
+	public Cita(int idCita, Date fecha, String dniMedico, String dniPaciente) {
+		super();
+		this.idCita = idCita;
+		this.fecha = fecha;
+		this.dniMedico = dniMedico;
+		this.dniPaciente = dniPaciente;
 	}
-	
+
 	public int getIdCita() {
 		return idCita;
 	}
@@ -54,6 +54,12 @@ public class Cita {
 	
 	public void setDniPaciente(String dniPaciente) {
 		this.dniPaciente = dniPaciente;
+	}
+
+	@Override
+	public String toString() {
+		return "Cita [idCita=" + idCita + ", fecha=" + fecha + ", dniMedico=" + dniMedico + ", dniPaciente="
+				+ dniPaciente + "]";
 	}
 	
 }

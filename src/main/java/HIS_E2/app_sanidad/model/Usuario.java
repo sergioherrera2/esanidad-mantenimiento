@@ -1,30 +1,28 @@
 package HIS_E2.app_sanidad.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "usuario")
-@Inheritance( strategy = InheritanceType.JOINED)
+@Document(collection = "usuario")
 public class Usuario {
 	
 	@Id
 	String dni;
-	@Column(name = "nombre")
 	String nombre;
-	@Column(name = "apellidos")
 	String apellidos;
-	@Column(name = "contrasenia")
 	String contrs;
-	@Column(name = "centro_salud")
 	int centroSalud;
 
+	public Usuario(String dni, String nombre, String apellidos, String contrs) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.contrs = contrs;
+	}
+
 	public Usuario() {
-		
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getDni() {
@@ -65,6 +63,12 @@ public class Usuario {
 
 	public void setCentroSalud(int centroSalud) {
 		this.centroSalud = centroSalud;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", contrs=" + contrs
+				+ ", centroSalud=" + centroSalud + "]";
 	}
 	
 }

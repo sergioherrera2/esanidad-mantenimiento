@@ -1,18 +1,16 @@
 package HIS_E2.app_sanidad.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "paciente")
+@Document(collection = "paciente")
 public class Paciente extends Usuario {
 	
-	@Column(name = "numSS")
 	int numeroSS;
 
-	public Paciente() {
-		
+
+	public Paciente(String dni, String nombre, String apellidos, String contrs, int numeroSS) {
+		super(dni, nombre, apellidos, contrs);
+		this.numeroSS = numeroSS;
 	}
 
 	public int getNumeroSS() {
@@ -23,4 +21,9 @@ public class Paciente extends Usuario {
 		this.numeroSS = numeroSS;
 	}
 	
+	@Override
+	public String toString() {
+		return "Paciente [numeroSS=" + numeroSS + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos
+				+ ", contrs=" + contrs + ", centroSalud=" + centroSalud + "]";
+	}
 }
