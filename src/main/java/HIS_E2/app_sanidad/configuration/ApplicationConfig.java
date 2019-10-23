@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 
 @Configuration
 @ComponentScan(basePackages = "com.technicalkeeda")
@@ -18,9 +20,11 @@ public class ApplicationConfig {
  
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
- 
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        return new SimpleMongoDbFactory(mongoClient, "nombreBBD");
+    	MongoClientURI uri = new MongoClientURI(
+    		    "mongodb+srv://Edulaen:<password>@clusteriso-stj6s.mongodb.net/test?retryWrites=true&w=majority");
+    	MongoClient mongoClient = new MongoClient(uri);
+    	//MongoDatabase database = mongoClient.getDatabase("test");
+        return new SimpleMongoDbFactory(mongoClient, "test");
  
     }
  
