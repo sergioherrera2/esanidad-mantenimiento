@@ -192,7 +192,7 @@ public class StepsdefsSprint2 {
 	public void envío_petición_Post_con_todos_los_campos() {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"nombre\":\"Antonio\",\"apellidos\": \"Pulido Hernández\",\"contrasenia\":\"1234\",\"numSS\":\"123456789012\"}");
-		Request request = new Request.Builder()
+		 request = new Request.Builder()
 		  .url("http://app-sanidad.herokuapp.com/register")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")

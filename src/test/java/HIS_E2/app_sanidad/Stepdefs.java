@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class Stepdefs {
     @Autowired
     private MockMvc mockMvc;
-    WebDriver driver;	
+    private WebDriver driver;	
 	@Given("^Abrir Firefox y escribir url de la aplicación$")
 	public void abrir_Firefox_y_escribir_url_de_la_aplicación() {
 	    try {
