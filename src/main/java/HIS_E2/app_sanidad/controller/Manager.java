@@ -1,9 +1,13 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
 import HIS_E2.app_sanidad.model.Usuario;
@@ -54,5 +58,17 @@ public class Manager {
 		}
 		
 		return usuario;
+	}
+
+	public List<Cita> getCitas(String dni, String pass) {
+		Medico med = medicoRepo.findByDni(dni);
+		
+		if(med.getContrs().equals(pass)) {
+			List<Cita> lista = citaRepo.findByDniMedico(dni);
+			return lista;
+		} else {
+			return null;
+		}
+		
 	}
 }

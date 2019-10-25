@@ -1,6 +1,7 @@
 package HIS_E2.app_sanidad.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Usuario;
 
 @RestController
@@ -59,6 +61,25 @@ public class WebController {
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		respuesta.put("resultado", new ObjectMapper().writeValueAsString(usuario));
+		
+		return respuesta;
+	}
+	
+	@PostMapping("/getCitas")
+	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception{
+		String dni = jso.get("dni");
+		String pass = jso.get("pass");
+		List<Cita> list = Manager.get().getCitas(dni, pass);
+		Map<String, Object> respuesta=new HashMap<String, Object>();
+		if(list == null) {
+			respuesta.put("type", "ERROR");
+			respuesta.put("message", "contraseña incorrecta");
+		} else {
+			respuesta.put("type", "OK");
+			for(int i = 0; i<list.size(); i++) {
+				respuesta.put("lista"+i, new ObjectMapper().writeValueAsString(list.get(i)));
+			}
+		}
 		
 		return respuesta;
 	}
