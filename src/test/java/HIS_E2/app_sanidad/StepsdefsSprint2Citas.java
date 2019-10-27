@@ -41,7 +41,7 @@ public class StepsdefsSprint2Citas {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"dni2\":\"05727690A\",\"fecha\": \"29/06/1998\",\"hora\":\"16:30\"}");
 		 request1 = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/citas")
+		  .url("http://app-sanidad.herokuapp.com/getCitas")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -153,7 +153,7 @@ public class StepsdefsSprint2Citas {
 	@When("^envia peticion de visualizar citas$")
 	public void envia_peticion_de_visualizar_citas() {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"contrasenia\":\"1234\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"pass\":\"1234\"}");
 		 request = new Request.Builder()
 		  .url("http://app-sanidad.herokuapp.com/citas")
 		  .post(body)

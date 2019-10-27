@@ -23,7 +23,7 @@ import okhttp3.Response;
 
 public class StepsdefsSprint2Login {
 	//private Usuario user;	
-	//privateUsuario user1
+	//private Usuario user1
 	WebDriver driver;
 	OkHttpClient client;
 	Request request;
@@ -57,9 +57,8 @@ public class StepsdefsSprint2Login {
 			
 	user.setNombre("Antonio");
 		user.setApellidos("Pulido Hernandez")
-		user.setDNI("94898879A");
-		user.setContrasena("1111");
-		user.setNumeroSS(1234);
+		user.setDni("94898879A");
+		user.setContrs("1111");
 		}catch(Exception e) {
 			fail("Imposible crear usuario");
 			
@@ -70,13 +69,13 @@ public class StepsdefsSprint2Login {
 
 	@When("^el usuario se autentica$")
 	public void el_usuario_se_autentica() {
-        // user1=usersRepo.findByUserDNIAndPwd(user.getDNI(), user.getPassword());
+        // user=usersRepo.findByDni(user.getDNI(), user.getPassword());
 	    throw new PendingException();
 	}
 
 	@Then("^el sistema recoje la autenticacion$")
 	public void el_sistema_recoje_la_autenticacion() {
-		//assertNotNull(user1)
+		//assertNotNull(user)
 	}
 
 	@Then("^Recibo un mensaje de autenticacion correcta$")

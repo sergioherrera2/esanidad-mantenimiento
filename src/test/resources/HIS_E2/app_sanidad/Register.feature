@@ -26,13 +26,13 @@ Feature: Registrarse en la página web como usuario
      
      Examples:                      		
 
-|nombre  |apellidos        |DNI            |numeroSS         |password  |repetir_password         |		
+|nombre    |apellidos                  |DNI            |numeroSS         |password  |repetir_password         |		
 
-|User1   |password1        |05726690N		   |12345678910      |1111      |1111                     |
+|Antonio   |Pulido                     |05726690N		   |12345678910      |1111      |1111                     |
 
-|User2   |password2        |05726690N		   |12345678910      |1111      |1111                     |		
+|Miguel    |Millan                     |05726690N		   |12345678910      |1111      |1111                     |		
 
-|User3   |password3        |05726690N		   |12345678910      |1111      |1111                     |
+|Eduardo   |Rodriguez                  |05726690N		   |12345678910      |1111      |1111                     |
       
 
 

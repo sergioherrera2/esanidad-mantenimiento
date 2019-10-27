@@ -33,9 +33,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class StepsdefsSprint2 {
     @Autowired
     WebDriver driver;
-	//private Usuario user;	
+	//private Paciente user;	
 	@Autowired
-//	private UserRepository usersRepo;
+//	private PacienteRepository usersRepo;
 	private OkHttpClient client;
 	private Request request; 
     
@@ -152,8 +152,8 @@ public class StepsdefsSprint2 {
 			
 	user.setNombre("Antonio");
 		user.setApellidos("Pulido Hernandez")
-		user.setDNI("94898879A");
-		user.setContrasena("1111");
+		user.setDni("94898879A");
+		user.setContrs("1111");
 		user.setNumeroSS(1234);
 		}catch(Exception e) {
 			fail("Imposible crear usuario");
@@ -171,7 +171,7 @@ public class StepsdefsSprint2 {
 
 	@Then("^se inserta correctamente en la base de datos$")
 	public void se_inserta_correctamente_en_la_base_de_datos() {
-//		Usuario player=usersRepo.findByUserDNIAndPwd(user.getDNI(), user.getPassword());
+//		Usuario player=usersRepo.findByDni(user.getDNI(), user.getPassword());
 		
 	    throw new PendingException();
 	}
@@ -191,7 +191,7 @@ public class StepsdefsSprint2 {
 	@When("^Envío petición Post con todos los campos$")
 	public void envío_petición_Post_con_todos_los_campos() {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"nombre\":\"Antonio\",\"apellidos\": \"Pulido Hernández\",\"contrasenia\":\"1234\",\"numSS\":\"123456789012\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"nombre\":\"Antonio\",\"apellidos\": \"Pulido Hernández\",\"pass\":\"1234\",\"numSS\":\"123456789012\"}");
 		 request = new Request.Builder()
 		  .url("http://app-sanidad.herokuapp.com/register")
 		  .post(body)

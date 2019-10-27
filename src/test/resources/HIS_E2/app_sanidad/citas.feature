@@ -14,7 +14,6 @@ Feature: Autenticarse en la página web como usuario
   Scenario: Cita correctamente guardada
     Given  Una cita
     And Abrir Firefox y escribir url de la aplicación
-    And 
     When la cita se intenta guardar
      Then la cita ha sido guardada
      
@@ -33,9 +32,9 @@ Feature: Autenticarse en la página web como usuario
      
 
  Examples:
-    | fecha               | hora        |especialidad    |     
-    | 05726690N           | TGIF        |cabezera        |             
-    | 05726690N           | Nope        |cabezera        |
-    | 05726690N           |             |cabezera        |
+    | fecha                | hora             |especialidad    |     
+    | 29/06/2019           | 16:00            |cabezera        |             
+    | 29/06/2019           | 14:00            |cabezera        |
+    | 29/06/2019           | 12:00            |cabezera        |
   
       

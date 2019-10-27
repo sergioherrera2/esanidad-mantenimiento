@@ -25,8 +25,8 @@ Feature: Autenticarse en la página web como usuario
 
  Examples:
     | dni               | contrasenia |
-    | 05726690N         | TGIF        |
-    | 05726690N         | Nope        |
-    | 05726690N         |             |
+    | 05726690N         | 1234        |
+    | 05726691N         | hola        |
+    | 05726692N         |             |
   
       
