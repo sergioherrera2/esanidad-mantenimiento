@@ -4,7 +4,7 @@ function validate() {
 
 
 
-    var recurso = "https://app-sanidad.herokuapp.com/autenticar";
+    var recurso = "http://localhost:8080/autenticar";
    	var data = {
     	type: "autenticar",
   		dni: usuario,
@@ -18,12 +18,11 @@ function validate() {
      data: data,
     headers: {
        'Content-Type': 'application/json'
-    },
-    success : loginOk
-    });
+    }
+    })
+    .done(function(response, textStatus, jqXHR) {
+    	console.log(response.type);
+    	location.href='http://localhost:8080/paciente';
+    	});
 
-}
-
-function loginOk(){
-	location.href='https://app-sanidad.herokuapp.com/paciente';
-}
+	}
