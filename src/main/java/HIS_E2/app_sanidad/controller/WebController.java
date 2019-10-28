@@ -95,6 +95,19 @@ public class WebController {
 		}
 		return respuesta;
 	}
+	
+	@PostMapping("/autenticar")
+	public Map<String, Object> autenticar(@RequestBody Map<String, String> jso) throws Exception {
+		String dni = jso.get("dni");
+		String pass = jso.get("pass");
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		if(Manager.get().autenticar(dni, pass)) {
+			respuesta.put("type", "OK");
+		} else {
+			respuesta.put("type", "ERROR");
+		}
+		return respuesta;
+	}
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();

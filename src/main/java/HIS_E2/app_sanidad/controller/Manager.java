@@ -77,4 +77,13 @@ public class Manager {
 		List<Cita> lista = citaRepo.findByDniPaciente(dni);
 		return lista;
 	}
+
+	public boolean autenticar(String dni, String pass) {
+		Usuario user = userRepo.findByDni(dni);
+		if(user.getContrs().equals(pass)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
