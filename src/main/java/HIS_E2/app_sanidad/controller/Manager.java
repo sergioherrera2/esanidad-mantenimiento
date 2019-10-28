@@ -79,7 +79,7 @@ public class Manager {
 	}
 
 	public boolean autenticar(String dni, String pass) {
-		//Usuario user = userRepo.findByDni(dni);
+		Usuario user = userRepo.findByDni(dni);
 		/*if(user.getContrs().equals(pass)) {
 			return true;
 		} else {
