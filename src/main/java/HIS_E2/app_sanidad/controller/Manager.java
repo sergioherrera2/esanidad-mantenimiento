@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
@@ -17,7 +18,7 @@ import HIS_E2.app_sanidad.repositories.MedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
 
-@Component
+@Service
 public class Manager {
 	
 	//Aqui se declaran los repository con @Autowire
