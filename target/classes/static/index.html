@@ -19,6 +19,7 @@
 
     <script src="js/lib/angular.min.js"></script>
     <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="js/login.js"></script>
 
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app/app.css" />
@@ -41,23 +42,18 @@
 
                     <div class="page-links">
                         <a href="" class="active">Iniciar Sesión</a>
-                        <a href="https://fierce-ridge-44791.herokuapp.com/register">Registrarse</a>
+                        <a href="https://app-sanidad.herokuapp.com/register">Registrarse</a>
                     </div>
                     <form action="">
-                        <input type="text" class="form-control" name="username" placeholder="E-mail Address" required>
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+
+                        <input type="text" class="form-control" id="username" placeholder="Usuario" required>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
                         <div class="form-button">
-                        <input class="btn" id="btnLogin" name="btnLogin" type="submit" value="Login">
+                            <input class="btn" id="btnLogin" name="btnLogin" type="submit" value="Login" onclick="validate()">
 
                         </div>
 
-                        <script type="text/javascript">
-                            document.getElementById("btnLogin").onclick = function() {
 
-                                location.href = 'https://fierce-ridge-44791.herokuapp.com/paciente';
-
-                            };
-                        </script>
 
                     </form>
 

@@ -42,8 +42,8 @@ public class WebController {
 		String nombre = jso.get("nombre");
 		String apellidos = jso.get("apellidos");
 		String contrs = jso.get("pass");
-		int numSS = -1;
-		int idEspecialidad = -1;
+		int numSS = 0;
+		int idEspecialidad = 0;
 		
 		if(jso.get("numSS") == null) {
 			numSS = -1;
@@ -97,16 +97,18 @@ public class WebController {
 	}
 	
 	@PostMapping("/autenticar")
-	public Map<String, Object> autenticar(@RequestBody Map<String, String> jso) throws Exception {
+	public String autenticar(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
-		Map<String, Object> respuesta = new HashMap<String, Object>();
+		JSONObject resultado=new JSONObject();
+
 		if(Manager.get().autenticar(dni, pass)) {
-			respuesta.put("type", "OK");
+			resultado.put("type", "OK");
+			resultado.put("resultado", "login correcto");
 		} else {
-			respuesta.put("type", "ERROR");
+			throw new Exception("Credenciales invalidas");
 		}
-		return respuesta;
+		return resultado.toString();
 	}
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {

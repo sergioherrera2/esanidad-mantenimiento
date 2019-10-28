@@ -50,13 +50,13 @@ public class Manager {
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
 		
-		if(numSS < 0) {
-			Medico medico = new Medico(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), idEspecialidad);
-			medicoRepo.insert(medico);
-		} else if(idEspecialidad < 0) {
+		if(idEspecialidad < 0) {
 			Paciente paciente = new Paciente(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), numSS);
 			pacienteRepo.insert(paciente);
-		}
+		} else if(numSS < 0) {
+			Medico medico = new Medico(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), idEspecialidad);
+			medicoRepo.insert(medico);
+		} 
 		
 		return usuario;
 	}
@@ -79,11 +79,12 @@ public class Manager {
 	}
 
 	public boolean autenticar(String dni, String pass) {
-		Usuario user = userRepo.findByDni(dni);
-		if(user.getContrs().equals(pass)) {
+		//Usuario user = userRepo.findByDni(dni);
+		/*if(user.getContrs().equals(pass)) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return userRepo.existsById(dni);
 	}
 }

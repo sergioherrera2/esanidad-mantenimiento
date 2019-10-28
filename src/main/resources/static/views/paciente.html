@@ -12,7 +12,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-    <script src="js/app/app.js"></script>
+
     <script src="js/jquery-3.3.1.min.js"></script>
 
     <script src="js/lib/angular.min.js"></script>
@@ -37,25 +37,25 @@
             </li>
 
             <li>
-                <a href="https://fierce-ridge-44791.herokuapp.com/pedirCita"><i class="fas fa-plus-circle fa-lg"></i> Pedir Cita </a>
+                <a href="https://app-sanidad.herokuapp.com/pedirCita"><i class="fas fa-plus-circle fa-lg"></i> Pedir Cita </a>
             </li>
 
 
 
             <li>
-                <a href="https://fierce-ridge-44791.herokuapp.com/modificarCita"><i class="fas fa-edit fa-lg"></i> Modificar Cita </a>
+                <a href="https://app-sanidad.herokuapp.com/modificarCita"><i class="fas fa-edit fa-lg"></i> Modificar Cita </a>
             </li>
 
 
 
             <li>
-                <a href="https://fierce-ridge-44791.herokuapp.com/borrarCita"><i class="fas fa-trash-alt fa-lg"></i> Eliminar Cita </a>
+                <a href="https://app-sanidad.herokuapp.com/borrarCita"><i class="fas fa-trash-alt fa-lg"></i> Eliminar Cita </a>
             </li>
 
 
 
             <li>
-                <a href="https://fierce-ridge-44791.herokuapp.com/preguntasFrecuentes">
+                <a href="https://app-sanidad.herokuapp.com/preguntasFrecuentes">
                     <i class="fas fa-question-circle fa-lg"></i> Preguntas Frecuentes
                 </a>
             </li>
@@ -68,33 +68,11 @@
 <div class="tabla">
 
     <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Fecha</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Centro de Salud</th>
-                <th scope="col">Especialista</th>
-            </tr>
+        <thead class="thead-dark" id="tablaCabecera">
+
         </thead>
-        <tbody class="cuerpoT">
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
+        <tbody class="cuerpoT" id="tablaCuerpo">
+
         </tbody>
     </table>
 
@@ -104,3 +82,5 @@
 
 </div>
 </div>
+
+<script src="js/paciente.js"></script>

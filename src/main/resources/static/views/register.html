@@ -1,8 +1,8 @@
 <!doctype html>
-<html ng-app>
+
 
 <head>
-    <!DOCTYPE html>
+
 
     <!------ Include the above in your HEAD tag ---------->
 
@@ -20,11 +20,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
         <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
-        <script src="js/app/app.js"></script>
+
         <script src="js/jquery-3.3.1.min.js"></script>
 
         <script src="js/lib/angular.min.js"></script>
         <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+        <script src="js/register.js"></script>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -67,8 +68,8 @@
                             <!--<label for="email" class="cols-sm-2 control-label">Email</label>-->
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Escribe tu Email" />
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Escribe tus Apellidos" />
                                 </div>
                             </div>
                         </div>
@@ -116,21 +117,15 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-address-card fa-lg"></i></span>
-                                    <input type="list" class="form-control" name="sex" id="sex" placeholder="Introduzca el DNI" />
+                                    <input type="list" class="form-control" name="dni" id="dni" placeholder="Introduzca el DNI" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-button">
-                            <input class="btn" id="btnRegistrar" name="btnRegistrar" type="submit" value="Registrar"></input>
+                            <input class="btn" id="btnRegistrar" name="btnRegistrar" type="submit" value="Registrar" onclick="validate()"></input>
                         </div>
-                        <script type="text/javascript">
-                            document.getElementById("btnRegistrar").onclick = function() {
 
-                                location.href = 'https://fierce-ridge-44791.herokuapp.com/';
-
-                            };
-                        </script>
 
                     </div>
                 </div>
@@ -138,5 +133,3 @@
             </div>
         </div>
     </body>
-
-</html>
