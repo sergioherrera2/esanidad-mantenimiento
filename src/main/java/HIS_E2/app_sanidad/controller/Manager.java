@@ -72,4 +72,9 @@ public class Manager {
 		}
 		
 	}
+
+	public List<Cita> getCitasPaciente(String dni) {
+		List<Cita> lista = citaRepo.findByDniPaciente(dni);
+		return lista;
+	}
 }

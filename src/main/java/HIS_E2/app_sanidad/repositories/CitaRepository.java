@@ -13,5 +13,8 @@ public interface CitaRepository extends MongoRepository<Cita, String> {
 	
 	@Query(value = "{ 'dniMedico' : ?0}")
 	List<Cita> findByDniMedico(String dniMedico);
+	
+	@Query(value = "{ 'dniPaciente' : ?0}")
+	List<Cita> findByDniPaciente(String dniPaciente);
 
 }

@@ -77,13 +77,24 @@ public class WebController {
 		} else {
 			respuesta.put("type", "OK");
 			for(int i = 0; i<list.size(); i++) {
-				respuesta.put("lista"+i, new ObjectMapper().writeValueAsString(list.get(i)));
+				respuesta.put("cita"+i, new ObjectMapper().writeValueAsString(list.get(i)));
 			}
 		}
 		
 		return respuesta;
 	}
 	
+	@PostMapping("/citasPaciente")
+	public Map<String, Object> citasPaciente(@RequestBody Map<String, String> jso) throws Exception {
+		String dni = jso.get("dni");
+		List<Cita> list = Manager.get().getCitasPaciente(dni);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		for(int i = 0; i<list.size(); i++) {
+			respuesta.put("cita"+i, new ObjectMapper().writeValueAsString(list.get(i)));
+		}
+		return respuesta;
+	}
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();

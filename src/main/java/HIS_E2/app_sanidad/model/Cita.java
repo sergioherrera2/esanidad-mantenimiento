@@ -11,12 +11,12 @@ public class Cita {
 	
 	@Id
 	int idCita;
-	Date fecha;
+	String fecha;
 	String dniMedico;
 	String dniPaciente;
 
 	
-	public Cita(int idCita, Date fecha, String dniMedico, String dniPaciente) {
+	public Cita(int idCita, String fecha, String dniMedico, String dniPaciente) {
 		super();
 		this.idCita = idCita;
 		this.fecha = fecha;
@@ -32,11 +32,11 @@ public class Cita {
 		this.idCita = idCita;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	
