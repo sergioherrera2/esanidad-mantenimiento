@@ -14,8 +14,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 
 @Configuration
-@ComponentScan(basePackages = "com.technicalkeeda")
-@EnableMongoRepositories({ "com.technicalkeeda.repositories" })
+@ComponentScan(basePackages = "HIS_E2.app_sanidad")
+@EnableMongoRepositories({ "HIS_E2.app_sanidad.repositories" })
 public class ApplicationConfig {
  
     @Bean
