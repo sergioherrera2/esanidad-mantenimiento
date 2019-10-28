@@ -22,15 +22,15 @@ public class Manager {
 	
 	//Aqui se declaran los repository con @Autowire
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	@Autowired
-	PacienteRepository pacienteRepo;
+	private PacienteRepository pacienteRepo;
 	@Autowired
-	MedicoRepository medicoRepo;
+	private MedicoRepository medicoRepo;
 	@Autowired
-	CitaRepository citaRepo;
+	private CitaRepository citaRepo;
 	@Autowired
-	EspecialidadRepository especialidadRepo;
+	private EspecialidadRepository especialidadRepo;
 	
 	private Manager() {
 		
