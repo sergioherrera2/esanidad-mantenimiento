@@ -90,59 +90,13 @@ public class StepsdefsSprint2 {
 		
 	}
 	}
-	
-	
-	
-	@Given("^Abro un buscador y entro a la página principal$")
-	public void abro_un_buscador_y_entro_a_la_página_principal() {
-	    try {
-	    	
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
-
-		    DesiredCapabilities dc = new DesiredCapabilities();
-		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
-		    driver = new FirefoxDriver();		
-		    driver.manage().window().maximize();
-		    
-	    driver.get("http://app-sanidad.herokuapp.com/registrar");
-	    }catch(Exception e) {
-	    	driver.quit();
-	    	fail("Can't connect to application");
-	    }
-	}
-
-	@Given("^Entro en la ventana de registro$")
-	public void entro_en_la_ventana_de_registro() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-
-	@When("^Relleno todos los campos$")
-	public void relleno_todos_los_campos() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
 	@Then("^Recibo un mensaje de registro correcto$")
 	public void recibo_un_mensaje_de_registro_correcto() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
 	
-	@When("^Relleno algunos datos (.*)$")
-	public void relleno_algunos_datos(String arg1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
 
-
-
-	@Then("^Recibo un mensaje de registro incorrecto$")
-	public void recibo_un_mensaje_de_registro_incorrecto() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
 	
 	
 	@Given("^los datos de una persona$")

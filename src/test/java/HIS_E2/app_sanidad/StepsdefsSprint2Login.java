@@ -78,8 +78,8 @@ public class StepsdefsSprint2Login {
 		//assertNotNull(user)
 	}
 
-	@Then("^Recibo un mensaje de autenticacion correcta$")
-	public void recibo_un_mensaje_de_autenticacion_correcta() {
+	@Then("^Recibo una respuesta satisfactoria  de autentificacion$")
+	public void recibo_una_respuesta_satisfactoria_de_autentificacion() {
 
 		try {
 			Response response = client.newCall(request).execute();
@@ -90,6 +90,7 @@ public class StepsdefsSprint2Login {
 			fail("Error recibiendo la respuesta");
 		}
 	}
+
 
 
 	@Given("^Abro un buscador y entro en la página de login$")
@@ -126,7 +127,10 @@ public class StepsdefsSprint2Login {
 		
 	}
 	}
-	
+	@Then("^Recibo una respuesta satisfactoria  de autentificacion$")
+	public void recibo_un_mensaje_de_autenticacion_correcta() {
+		 throw new PendingException();
+	}
 
 
 
