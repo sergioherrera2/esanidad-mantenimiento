@@ -21,7 +21,7 @@ public class ApplicationConfig {
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
     	MongoClientURI uri = new MongoClientURI(
-    		    "mongodb+srv://Edulaen:<password>@clusteriso-stj6s.mongodb.net/test?retryWrites=true&w=majority");
+    		    "mongodb+srv://Edulaen:<titan2005>@clusteriso-stj6s.mongodb.net/test?retryWrites=true&w=majority");
     	MongoClient mongoClient = new MongoClient(uri);
     	//MongoDatabase database = mongoClient.getDatabase("test");
         return new SimpleMongoDbFactory(mongoClient, "test");
