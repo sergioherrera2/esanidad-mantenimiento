@@ -2,6 +2,7 @@ package HIS_E2.app_sanidad;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**Clase Lanzadora del SpringBoot.
  * @author Miguel
  *
