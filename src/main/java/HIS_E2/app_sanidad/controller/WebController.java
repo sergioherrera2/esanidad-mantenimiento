@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -96,7 +98,8 @@ public class WebController {
 		return respuesta;
 	}
 	
-	@PostMapping("/autenticar")
+	@CrossOrigin(origins = "*", allowCredentials = "true")
+	@PostMapping(value = "/autenticar", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String autenticar(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");

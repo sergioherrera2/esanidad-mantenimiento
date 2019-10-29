@@ -15,7 +15,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="js/app/app.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="js/lib/angular.min.js"></script>
     <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
@@ -41,21 +41,20 @@
                     </div>
 
                     <div class="page-links">
-                        <a href="" class="active">Iniciar Sesión</a>
                         <a href="https://app-sanidad.herokuapp.com/register">Registrarse</a>
                     </div>
-                    <form action="">
+                    
 
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required>
+                        <input type="text" class="form-control" name="usarname" id="username" placeholder="Usuario" required>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                         <div class="form-button">
-                            <input class="btn" id="btnLogin" name="btnLogin" type="submit" value="Login" onclick="validate()">
+                            <input class="btn" id="btnLogin" name="btnLogin" type="submit" value="Login" onclick="validateLogin()">
 
                         </div>
 
 
 
-                    </form>
+                    
 
                 </div>
             </div>
