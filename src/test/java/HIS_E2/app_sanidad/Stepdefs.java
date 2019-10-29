@@ -1,15 +1,19 @@
 package HIS_E2.app_sanidad;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
 import java.util.concurrent.TimeUnit;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -25,14 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class Stepdefs {
     @Autowired
     private MockMvc mockMvc;
-    WebDriver driver;	
+    private WebDriver driver;	
 	@Given("^Abrir Firefox y escribir url de la aplicación$")
 	public void abrir_Firefox_y_escribir_url_de_la_aplicación() {
 	    try {
-	    	
 		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
 
-		    
+		    DesiredCapabilities dc = new DesiredCapabilities();
+		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
@@ -60,7 +64,7 @@ public class Stepdefs {
 	       driver.findElement(By.name("btnLogin")).click();
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       String new_url = driver.getCurrentUrl();
-	       assertEquals(new_url, "http://app-sanidad.herokuapp.com/citas", "URL before login and after login must be different");
+	       assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/citas"));
 	       driver.quit();
 	}
 	
@@ -98,25 +102,18 @@ public class Stepdefs {
 	public void clickeas_boton_login_y_no_se_abre_página_con_las_citas() {
 		try{
 			driver.findElement(By.name("btnLogin")).click();
+			 driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		       String new_url = driver.getCurrentUrl();
+		       assertFalse(new_url.equals("https://app-sanidad.herokuapp.com/citas"));
+		}catch(UnhandledAlertException f) {
+			driver.quit();
+			
 		}catch(Exception e) {
 			driver.quit();
-			fail("No existe el boton de login");
+			fail("No existe el boton");
 		}
 	       
-	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	       String new_url = driver.getCurrentUrl();
-	       assertNotEquals(new_url, "http://app-sanidad.herokuapp.com/citas", "URL cant be app-sanidad.herokuapp.com/citas");
-	}
-
-	@Then("^petición aceptada$")
-	public void petición_aceptada()  {
-	       try {
-			this.mockMvc.perform(get("/citas") .param("username", "a").param("password", "a")).andExpect(status().isOk());
-		} catch (Exception e) {
-			fail("No funciona la petición GET");
-			driver.quit();
-		}
-	       driver.quit();
-	}
+	      
+	}	
 
 }
