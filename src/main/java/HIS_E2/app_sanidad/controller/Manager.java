@@ -80,11 +80,10 @@ public class Manager {
 
 	public boolean autenticar(String dni, String pass) {
 		Usuario user = userRepo.findByDni(dni);
-		/*if(user.getContrs().equals(pass)) {
+		if(user.getContrs().equals(pass)) {
 			return true;
 		} else {
 			return false;
-		}*/
-		return userRepo.existsById(dni);
+		}
 	}
 }
