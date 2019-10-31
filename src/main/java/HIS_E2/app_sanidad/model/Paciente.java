@@ -8,7 +8,7 @@ public class Paciente extends Usuario {
 	int numeroSS;
 
 
-	public Paciente(String dni, String nombre, String apellidos, String contrs, int numeroSS) {
+	public Paciente(String dni, String nombre, String apellidos, String contrs, int numeroSS) throws Exception {
 		super(dni, nombre, apellidos, contrs);
 		this.numeroSS = numeroSS;
 	}

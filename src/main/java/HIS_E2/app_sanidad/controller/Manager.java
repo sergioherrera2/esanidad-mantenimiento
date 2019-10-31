@@ -1,12 +1,15 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
+
 
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
@@ -17,6 +20,7 @@ import HIS_E2.app_sanidad.repositories.EspecialidadRepository;
 import HIS_E2.app_sanidad.repositories.MedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
+import HIS_E2.utilities.BinaryConverter;
 
 @Service
 public class Manager {
@@ -46,22 +50,22 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 	
-	public Usuario register(String dni,	String nombre, String apellidos, String contrs, int numSS, int idEspecialidad) {
+	public Usuario register(String dni,	String nombre, String apellidos, String contrs, int numSS, int idEspecialidad) throws Exception {
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
 		
 		if(idEspecialidad < 0) {
-			Paciente paciente = new Paciente(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), numSS);
+			Paciente paciente = new Paciente(dni, nombre, apellidos, contrs, numSS);
 			pacienteRepo.insert(paciente);
 		} else if(numSS < 0) {
-			Medico medico = new Medico(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), idEspecialidad);
+			Medico medico = new Medico(dni, nombre, apellidos, contrs, idEspecialidad);
 			medicoRepo.insert(medico);
 		} 
 		
 		return usuario;
 	}
 
-	public List<Cita> getCitas(String dni, String pass) {
+	public List<Cita> getCitas(String dni, String pass) throws Exception {
 		Medico med = medicoRepo.findByDni(dni);
 		
 		if(med.getContrs().equals(pass)) {
@@ -78,9 +82,25 @@ public class Manager {
 		return lista;
 	}
 
-	public boolean autenticar(String dni, String pass) {
-		Usuario user = userRepo.findByDni(dni);
-		if(user.getContrs().equals(pass)) {
+	public boolean autenticar(String dni, String pass) throws Exception {
+		String dniABuscar= Usuario.cifrar(dni);
+		String passABuscar=Usuario.cifrar(pass);
+		//System.out.println(dni);
+		//System.out.println(new String(dniABuscar));
+		//BinaryConverter bc= new BinaryConverter();
+		//Binary dniABuscarBinary = bc.convertToBinary(dniABuscar);
+		String pruebaBusca = new String(dniABuscar);
+		String passBusca = new String(passABuscar);
+		//byte[] pruebaBuscaBase64 = Base64.getEncoder().encode(new String(pruebaBusca).getBytes("ASCII"));
+		//System.out.println(new String(pruebaBuscaBase64));
+		//Binary prueba = new Binary(0,new String(pruebaBuscaBase64));
+		System.out.println(pruebaBusca);
+		System.out.println(passBusca);
+		Usuario user = userRepo.findByDni(pruebaBusca);
+		System.out.println(user.getContrs());
+		String probando = Usuario.cifrar(user.getContrs());
+		System.out.println(probando);
+		if(user.getContrs().equals(passBusca)) {
 			return true;
 		} else {
 			return false;
