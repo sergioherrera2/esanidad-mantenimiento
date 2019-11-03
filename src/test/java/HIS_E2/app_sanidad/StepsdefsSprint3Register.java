@@ -20,6 +20,7 @@ import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import HIS_E2.app_sanidad.controller.Manager;
+import HIS_E2.app_sanidad.model.Paciente;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
@@ -40,7 +41,8 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	private UserRepository userRepo;
 	@Autowired
 	private PacienteRepository pacienteRepo;
-	Usuario user2;
+	Paciente user2;
+	Usuario user;
 	
 	
 	@Given("^Abro Firefox y entro en la aplicacion$")
@@ -52,7 +54,6 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			e1.printStackTrace();
 		}
 
-//		System.out.println(user.toString());
 	    try {
 		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
 
@@ -68,14 +69,15 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	    }
 	}
 
-	@When("^Relleno los campos DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\", Repetir_contraseña \"([^\"]*)\"$")
-	public void relleno_los_campos_DNI_Nombre_Apellidos_Contraseña_Repetir_contraseña(String arg1, String arg2, String arg3, String arg4, String arg5) {
+	@When("^Relleno los campos DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\", Repetir_contraseña \"([^\"]*)\", NumeroSS \"([^\"]*)\"$")
+	public void relleno_los_campos_DNI_Nombre_Apellidos_Contraseña_Repetir_contraseña_NumeroSS(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
 		try {
-		       driver.findElement(By.name("dni")).sendKeys(arg1);							
-		       driver.findElement(By.name("name")).sendKeys(arg2);
-		       driver.findElement(By.name("email")).sendKeys(arg3);							
-		       driver.findElement(By.name("password")).sendKeys(arg4);
-		       driver.findElement(By.name("confirm")).sendKeys(arg5);	
+		       driver.findElement(By.name("txt_dni")).sendKeys(arg1);							
+		       driver.findElement(By.name("txt_nombre")).sendKeys(arg2);
+		       driver.findElement(By.name("txt_Apellidos")).sendKeys(arg3);							
+		       driver.findElement(By.name("txt_password")).sendKeys(arg4);
+		       driver.findElement(By.name("txt_confirm-password")).sendKeys(arg5);
+		       driver.findElement(By.name("txt_numeroSS")).sendKeys(arg6);
 		       
 		}catch(Exception e) {
 			fail("No se encuentran los campos");
@@ -128,9 +130,6 @@ public class StepsdefsSprint3Register extends JunitTests2{
 
 	@When("^Envío petición Post con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\"$")
 	public void envío_petición_Post_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña_Result(String arg1, String arg2, String arg3, String arg4) {
-		
-		String media ="{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":"+arg3+",\"pass\":\""+arg4+"\"}";
-		String media2 ="{\"dni\":\"04839940G\",\"nombre\":\"Antonio\",\"apellidos\":\"Rodríguez\",\"pass\":\"Antonio123\"}";
 
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\"}");
@@ -170,6 +169,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 				if(!jsonObject.get("type").equals("error")) {
 					try {
 						userRepo.deleteById(arg2);
+						pacienteRepo.deleteById(arg2);
 					}catch(Exception e) {
 						
 					}
@@ -183,19 +183,21 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			fail("Error recibiendo la respuesta");
 		}
 	}
-	@Given("^Un usuario con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\"$")
-	public void un_usuario_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña(String arg1, String arg2, String arg3, String arg4) {
+	@Given("^Un usuario con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\",NumeroSS \"([^\"]*)\" $")
+	public void un_usuario_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña(String arg1, String arg2, String arg3, String arg4,String arg5) {
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		 user2 = new Usuario();
-		user2.setDni(arg1);
-		user2.setNombre(arg2);
-		user2.setApellidos(arg3);
-		user2.setContrs(arg4);
+		int nSS=0;
+		try {
+			nSS = Integer.parseInt(arg5);
+		}catch(Exception e) {
+			fail("El numero de la seguridad social no es un número");
+		}
+		 user2 = new Paciente(arg1, arg2, arg3, arg4, nSS);
 		
 	}
 
@@ -203,7 +205,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	public void se_registra(String arg1) {
 		try {
 			
-	    Manager.get().register(user2.getDni(), user2.getNombre(), user2.getApellidos(), user2.getContrs(),-1, -1);
+	    Manager.get().register(user2.getDni(), user2.getNombre(), user2.getApellidos(), user2.getContrs(),user2.getNumeroSS(), -1);
 		} catch( Exception e) {
 			if(!arg1.contentEquals("Error")) {
 				fail("Register should work here");
@@ -215,9 +217,10 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	@Then("^Se guarda correctamente el nuevo usuario \"([^\"]*)\" Result \"([^\"]*)\"$")
 	public void se_guarda_correctamente_el_nuevo_usuario_Result(String arg1, String arg2) {
 		if(arg2.equals("OK")) {
-			Usuario user=userRepo.findByDni(arg1);
+	//		Paciente user=pacienteRepo.findByDni(arg1);
+			Usuario user2=userRepo.findByDni(arg1);
 			
-			if(user ==null) {
+			if(user2 ==null) {
 				fail("user is not inserted");
 			}
 		}
