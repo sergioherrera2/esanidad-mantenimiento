@@ -38,7 +38,7 @@ public class Manager {
 	}
 
 	private static class ManagerHolder {
-		static Manager singleton=new Manager();
+		private static Manager singleton=new Manager();
 	}
 	
 	@Bean
@@ -46,7 +46,8 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 	
-	public Usuario register(String dni,	String nombre, String apellidos, String contrs, int numSS, int idEspecialidad) {
+	public Usuario register(String dni,	String nombre, String apellidos, 
+			String contrs, int numSS, int idEspecialidad) {
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
 		
