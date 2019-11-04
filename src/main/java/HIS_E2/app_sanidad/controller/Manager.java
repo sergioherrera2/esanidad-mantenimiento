@@ -46,19 +46,64 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 	
+	private void comprobarPassword(String contrs) throws Exception {
+		int contadorMayus = 0;
+		int contadorMinus = 0;
+		int contadorNum = 0;
+		for(int i = 0; i<contrs.length(); i++) {
+			if(Character.isUpperCase(contrs.charAt(i))) {
+				contadorMayus++;
+			}
+			if(Character.isLowerCase(contrs.charAt(i))) {
+				contadorMinus++;
+			}
+			if(Character.isDigit(contrs.charAt(i))) {
+				contadorNum++;
+			}
+		}
+		if(contadorMayus == 0 || contadorMinus == 0 || contadorNum == 0) {
+			throw new Exception("La contraseña debe contener Mayúscula, Minúscula y Número");
+		}
+	}
+	
+	public char calcularLetraDni(int dniNum) {
+	    String juegoCaracteres="TRWAGMYFPDXBNJZSQVHLCKE";
+	    int modulo= dniNum % 23;
+	    char letra = juegoCaracteres.charAt(modulo);
+	    return letra;
+	}
+	
+	public void comprobarDni(String dni) throws Exception{
+		int dniNum;
+		if(dni.length() > 9) {
+			throw new Exception("El dni es incorrecto");
+		}
+		for(int i = 0; i<dni.length(); i++) {
+			if(i < 8 && !Character.isDigit(dni.charAt(i))) {
+				throw new Exception("El dni es incorrecto");
+			}
+			if( i == 8 && !Character.isLetter(dni.charAt(i))) {
+				throw new Exception("El dni es incorrecto");
+			}
+		}
+		dniNum = Integer.parseInt(dni.substring(0, 7));
+		char letra = calcularLetraDni(dniNum);
+		if(Character.toUpperCase(letra) != Character.toUpperCase(dni.charAt(8))) {
+			throw new Exception("El dni es incorrecto");
+		}
+	}
+	
 	public Usuario register(String dni,	String nombre, String apellidos, 
-			String contrs, int numSS, int idEspecialidad) {
+			String contrs, int numSS, int idEspecialidad) throws Exception {
+		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS < 0) {
+			throw new Exception("No debe haber campos vacios");
+		}
+		comprobarPassword(contrs);
+		comprobarDni(dni);
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
-		//TODO Control atributos no null; Control Contraseña: Mayus, Minus, Numero; Control DNI: 8Numeros 1 letra; Letra valida DNI
-		if(idEspecialidad < 0) {
-			Paciente paciente = new Paciente(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), numSS);
-			pacienteRepo.insert(paciente);
-		} else if(numSS < 0) {
-			Medico medico = new Medico(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), idEspecialidad);
-			medicoRepo.insert(medico);
-		} 
-		
+		Paciente paciente = new Paciente(dni, nombre, apellidos, contrs, numSS);
+		pacienteRepo.insert(paciente);
 		return usuario;
 	}
 
