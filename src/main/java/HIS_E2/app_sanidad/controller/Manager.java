@@ -50,7 +50,7 @@ public class Manager {
 			String contrs, int numSS, int idEspecialidad) {
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
-		
+		//TODO Control atributos no null; Control Contraseña: Mayus, Minus, Numero; Control DNI: 8Numeros 1 letra; Letra valida DNI
 		if(idEspecialidad < 0) {
 			Paciente paciente = new Paciente(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), numSS);
 			pacienteRepo.insert(paciente);
