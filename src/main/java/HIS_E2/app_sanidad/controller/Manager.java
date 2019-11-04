@@ -1,10 +1,7 @@
 package HIS_E2.app_sanidad.controller;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.List;
 
-import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
@@ -20,7 +17,6 @@ import HIS_E2.app_sanidad.repositories.EspecialidadRepository;
 import HIS_E2.app_sanidad.repositories.MedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
-import HIS_E2.utilities.BinaryConverter;
 
 @Service
 public class Manager {
@@ -85,22 +81,12 @@ public class Manager {
 	public boolean autenticar(String dni, String pass) throws Exception {
 		String dniABuscar= Usuario.cifrar(dni);
 		String passABuscar=Usuario.cifrar(pass);
-		//System.out.println(dni);
-		//System.out.println(new String(dniABuscar));
-		//BinaryConverter bc= new BinaryConverter();
-		//Binary dniABuscarBinary = bc.convertToBinary(dniABuscar);
-		String pruebaBusca = new String(dniABuscar);
-		String passBusca = new String(passABuscar);
-		//byte[] pruebaBuscaBase64 = Base64.getEncoder().encode(new String(pruebaBusca).getBytes("ASCII"));
-		//System.out.println(new String(pruebaBuscaBase64));
-		//Binary prueba = new Binary(0,new String(pruebaBuscaBase64));
-		System.out.println(pruebaBusca);
-		System.out.println(passBusca);
-		Usuario user = userRepo.findByDni(pruebaBusca);
-		System.out.println(user.getContrs());
-		String probando = Usuario.cifrar(user.getContrs());
-		System.out.println(probando);
-		if(user.getContrs().equals(passBusca)) {
+		String dniABuscarString = new String(dniABuscar);
+		String passABuscarString = new String(passABuscar);
+
+		Usuario user = userRepo.findByDni(dniABuscarString);
+		
+		if(user.getContrs().equals(passABuscarString)) {
 			return true;
 		} else {
 			return false;
