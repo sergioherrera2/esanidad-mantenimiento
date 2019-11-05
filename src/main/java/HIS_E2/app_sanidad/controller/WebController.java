@@ -44,13 +44,13 @@ public class WebController {
 		String nombre = jso.get("nombre");
 		String apellidos = jso.get("apellidos");
 		String contrs = jso.get("pass");
-		int numSS = 0;
+		double numSS = 0;
 		int idEspecialidad = 0;
 		
 		if(jso.get("numSS") == null) {
 			numSS = -1;
 		} else {
-			numSS = Integer.parseInt(jso.get("numSS"));
+			numSS = Double.parseDouble(jso.get("numSS"));
 		}
 		Usuario usuario = Manager.get().register(dni, nombre, apellidos, contrs, numSS, idEspecialidad);
 		Map<String, Object> respuesta=new HashMap<String, Object>();

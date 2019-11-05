@@ -86,7 +86,7 @@ public class Manager {
 				throw new Exception("El dni es incorrecto");
 			}
 		}
-		dniNum = Integer.parseInt(dni.substring(0, 7));
+		dniNum = Integer.parseInt(dni.substring(0, 8));
 		char letra = calcularLetraDni(dniNum);
 		if(Character.toUpperCase(letra) != Character.toUpperCase(dni.charAt(8))) {
 			throw new Exception("El dni es incorrecto");
@@ -94,8 +94,11 @@ public class Manager {
 	}
 	
 	public Usuario register(String dni,	String nombre, String apellidos, 
-			String contrs, int numSS, int idEspecialidad) throws Exception {
-		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS < 0) {
+			String contrs, double numSS, int idEspecialidad) throws Exception {
+		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS <= 0) {
+			throw new Exception("No debe haber campos vacios");
+		}
+		if(dni.equals("") || nombre.equals("") || apellidos.equals("") || contrs.equals("") || numSS <= 0) {
 			throw new Exception("No debe haber campos vacios");
 		}
 		comprobarPassword(contrs);
