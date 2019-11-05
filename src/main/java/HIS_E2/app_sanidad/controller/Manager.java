@@ -44,7 +44,7 @@ public class Manager {
 	}
 	
 	public Usuario register(String dni,	String nombre, String apellidos, 
-			String contrs, int numSS, int idEspecialidad) {
+			String contrs, double numSS, int idEspecialidad) {
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
 		

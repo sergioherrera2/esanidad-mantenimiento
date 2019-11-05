@@ -44,7 +44,7 @@ public class WebController {
 		String nombre = jso.get("nombre");
 		String apellidos = jso.get("apellidos");
 		String contrs = jso.get("pass");
-		int numSS = 0;
+		double numSS = 0;
 		int idEspecialidad = 0;
 		if(jso.get("numSS") == null) {
 			numSS = -1;
