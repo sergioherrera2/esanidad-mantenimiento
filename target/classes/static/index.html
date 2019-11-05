@@ -41,20 +41,23 @@
                     </div>
 
                     <div class="page-links">
-                        <a href="http://localhost:8080/register">Registrarse</a>
+                        <a href="https://localhost:8080/register">Registrarse</a>
                     </div>
-                    
-
-                        <input type="text" class="form-control" name="usarname" id="username" placeholder="Usuario" required>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
-                        <div class="form-button">
-                            <input class="btn" id="btnLogin" name="btnLogin" type="submit" value="Login" onclick="validateLogin()">
-
-                        </div>
 
 
+                    <input type="text" class="form-control" name="usarname" id="username" pattern="([0-9]{8}[A-ZÑ])" placeholder="Introduzca su DNI" required>
+                    <input type="password" class="form-control" name="password" id="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="Formato:
+-Contener como mínimo una letra mayúscula
+-Contener como mínimo una letra minúscula
+-Contener como mínimo 8 carácteres" placeholder="Introduzca su contraseña" required>
+                    <div class="form-button">
+                        <input class="btn" id="btnLogin" name="btnLogin" type="submit" value="Login" onclick="validateLogin()">
 
-                    
+                    </div>
+
+
+
+
 
                 </div>
             </div>
