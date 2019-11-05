@@ -93,16 +93,28 @@ public class Manager {
 		}
 	}
 	
+	private void comprobarNSS(String numSS) throws Exception{
+		if(numSS.length()!=12) {
+			throw new Exception("El numero de seguridad social no es correcto");
+		}
+		for(int i = 0; i<numSS.length(); i++) {
+			if(!Character.isDigit(numSS.charAt(i))) {
+				throw new Exception("El número de seguridad social no es correcto");
+			}
+		}
+	}
+	
 	public Usuario register(String dni,	String nombre, String apellidos, 
-			String contrs, double numSS, int idEspecialidad) throws Exception {
-		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS <= 0) {
+			String contrs, String numSS, int idEspecialidad) throws Exception {
+		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS == null) {
 			throw new Exception("No debe haber campos vacios");
 		}
-		if(dni.equals("") || nombre.equals("") || apellidos.equals("") || contrs.equals("") || numSS <= 0) {
+		if(dni.equals("") || nombre.equals("") || apellidos.equals("") || contrs.equals("") || numSS.equals("")) {
 			throw new Exception("No debe haber campos vacios");
 		}
 		comprobarPassword(contrs);
 		comprobarDni(dni);
+		comprobarNSS(numSS);
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
 		Paciente paciente = new Paciente(dni, nombre, apellidos, contrs, numSS);
