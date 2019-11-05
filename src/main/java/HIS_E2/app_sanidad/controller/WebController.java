@@ -46,7 +46,6 @@ public class WebController {
 		String contrs = jso.get("pass");
 		int numSS = 0;
 		int idEspecialidad = 0;
-		
 		if(jso.get("numSS") == null) {
 			numSS = -1;
 		} else {
@@ -58,22 +57,21 @@ public class WebController {
 		} else {
 			idEspecialidad = Integer.parseInt(jso.get("idEspecialidad"));
 		}
-		
 		Usuario usuario = Manager.get().register(dni, nombre, apellidos, contrs, numSS, idEspecialidad);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("resultado", new ObjectMapper().writeValueAsString(usuario));
-		
+		respuesta.put("resultado",
+new ObjectMapper().writeValueAsString(usuario));
 		return respuesta;
 	}
 	
 	@PostMapping("/getCitas")
-	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception{
+	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
 		List<Cita> list = Manager.get().getCitas(dni, pass);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
-		if(list == null) {
+		if (list == null) {
 			respuesta.put("type", "ERROR");
 			respuesta.put("message", "contraseña incorrecta");
 		} else {

@@ -1,11 +1,9 @@
 package HIS_E2.app_sanidad.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import HIS_E2.app_sanidad.model.Cita;
@@ -32,13 +30,12 @@ public class Manager {
 	private CitaRepository citaRepo;
 	@Autowired
 	private EspecialidadRepository especialidadRepo;
-	
 	private Manager() {
 		
 	}
 
 	private static class ManagerHolder {
-		private static Manager singleton=new Manager();
+		private static Manager singleton = new Manager();
 	}
 	
 	@Bean
@@ -81,10 +78,6 @@ public class Manager {
 
 	public boolean autenticar(String dni, String pass) {
 		Usuario user = userRepo.findByDni(dni);
-		if(user.getContrs().equals(pass)) {
-			return true;
-		} else {
-			return false;
-		}
+		return user.getContrs().equals(pass);
 	}
 }
