@@ -5,19 +5,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "paciente")
 public class Paciente extends Usuario {
 	
-	int numeroSS;
+	String numeroSS;
 
 
-	public Paciente(String dni, String nombre, String apellidos, String contrs, int numeroSS) {
+	public Paciente(String dni, String nombre, String apellidos, String contrs, String numeroSS) {
 		super(dni, nombre, apellidos, contrs);
 		this.numeroSS = numeroSS;
 	}
 
-	public int getNumeroSS() {
+	public String getNumeroSS() {
 		return numeroSS;
 	}
 
-	public void setNumeroSS(int numeroSS) {
+	public void setNumeroSS(String numeroSS) {
 		this.numeroSS = numeroSS;
 	}
 	

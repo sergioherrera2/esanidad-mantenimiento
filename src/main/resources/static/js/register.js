@@ -19,7 +19,7 @@ function validate() {
         }
 
     }
-
+  
     function controlTipoContraseña(contraseña, contraseña2) {
 
         if (contraseña == contraseña2) {

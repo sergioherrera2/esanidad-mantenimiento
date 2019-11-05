@@ -128,14 +128,15 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		}
 	}
 
-	@When("^Envío petición Post con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\"$")
-	public void envío_petición_Post_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña_Result(String arg1, String arg2, String arg3, String arg4) {
+	@When("^Envío petición Post con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\",NumeroSS \"([^\"]*)\"$")
+	public void envío_petición_Post_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña_NumeroSS(String arg1, String arg2, String arg3, String arg4, String arg5) {
 
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\"}");
+		String r="{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}";
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/register")
+				  .url("http://localhost:8080/register")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
@@ -183,7 +184,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			fail("Error recibiendo la respuesta");
 		}
 	}
-	@Given("^Un usuario con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\",NumeroSS \"([^\"]*)\" $")
+	@Given("^Un usuario con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\",NumeroSS \"([^\"]*)\"$")
 	public void un_usuario_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña(String arg1, String arg2, String arg3, String arg4,String arg5) {
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
@@ -191,12 +192,15 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		int nSS=0;
-		try {
-			nSS = Integer.parseInt(arg5);
-		}catch(Exception e) {
-			fail("El numero de la seguridad social no es un número");
+		double nSS=0;
+		if(!arg5.equals("")){
+			try {
+				nSS = Double.parseDouble(arg5);
+			}catch(Exception e) {
+				fail("El numero de la seguridad social no es un número");
+			}
 		}
+
 		 user2 = new Paciente(arg1, arg2, arg3, arg4, nSS);
 		
 	}
