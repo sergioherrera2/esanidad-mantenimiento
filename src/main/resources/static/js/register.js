@@ -1,6 +1,6 @@
 function validate() {
     var nom = document.getElementById("name").value;
-    var Apellidos = document.getElementById("email").value;
+    var Apellidos = document.getElementById("apellido").value;
     var contraseña = document.getElementById("password").value;
     var contraseña2 = document.getElementById("confirm").value;
     var nss = document.getElementById("nss").value;
