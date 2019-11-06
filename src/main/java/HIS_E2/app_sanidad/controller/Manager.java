@@ -38,7 +38,7 @@ public class Manager {
 	}
 
 	private static class ManagerHolder {
-		static Manager singleton=new Manager();
+		private static Manager singleton=new Manager();
 	}
 	
 	@Bean
@@ -46,18 +46,79 @@ public class Manager {
 		return ManagerHolder.singleton;
 	}
 	
-	public Usuario register(String dni,	String nombre, String apellidos, String contrs, int numSS, int idEspecialidad) {
+	private void comprobarPassword(String contrs) throws Exception {
+		int contadorMayus = 0;
+		int contadorMinus = 0;
+		int contadorNum = 0;
+		for(int i = 0; i<contrs.length(); i++) {
+			if(Character.isUpperCase(contrs.charAt(i))) {
+				contadorMayus++;
+			}
+			if(Character.isLowerCase(contrs.charAt(i))) {
+				contadorMinus++;
+			}
+			if(Character.isDigit(contrs.charAt(i))) {
+				contadorNum++;
+			}
+		}
+		if(contadorMayus == 0 || contadorMinus == 0 || contadorNum == 0) {
+			throw new Exception("La contraseña debe contener Mayúscula, Minúscula y Número");
+		}
+	}
+	
+	public char calcularLetraDni(int dniNum) {
+	    String juegoCaracteres="TRWAGMYFPDXBNJZSQVHLCKE";
+	    int modulo= dniNum % 23;
+	    char letra = juegoCaracteres.charAt(modulo);
+	    return letra;
+	}
+	
+	public void comprobarDni(String dni) throws Exception{
+		int dniNum;
+		if(dni.length() > 9) {
+			throw new Exception("El dni es incorrecto");
+		}
+		for(int i = 0; i<dni.length(); i++) {
+			if(i < 8 && !Character.isDigit(dni.charAt(i))) {
+				throw new Exception("El dni es incorrecto");
+			}
+			if( i == 8 && !Character.isLetter(dni.charAt(i))) {
+				throw new Exception("El dni es incorrecto");
+			}
+		}
+		dniNum = Integer.parseInt(dni.substring(0, 8));
+		char letra = calcularLetraDni(dniNum);
+		if(Character.toUpperCase(letra) != Character.toUpperCase(dni.charAt(8))) {
+			throw new Exception("El dni es incorrecto");
+		}
+	}
+	
+	private void comprobarNSS(String numSS) throws Exception{
+		if(numSS.length()!=12) {
+			throw new Exception("El numero de seguridad social no es correcto");
+		}
+		for(int i = 0; i<numSS.length(); i++) {
+			if(!Character.isDigit(numSS.charAt(i))) {
+				throw new Exception("El número de seguridad social no es correcto");
+			}
+		}
+	}
+	
+	public Usuario register(String dni,	String nombre, String apellidos, 
+			String contrs, String numSS, int idEspecialidad) throws Exception {
+		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS == null) {
+			throw new Exception("No debe haber campos vacios");
+		}
+		if(dni.equals("") || nombre.equals("") || apellidos.equals("") || contrs.equals("") || numSS.equals("")) {
+			throw new Exception("No debe haber campos vacios");
+		}
+		comprobarPassword(contrs);
+		comprobarDni(dni);
+		comprobarNSS(numSS);
 		Usuario usuario = new Usuario(dni, nombre, apellidos, contrs);
 		userRepo.insert(usuario);
-		
-		if(idEspecialidad < 0) {
-			Paciente paciente = new Paciente(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), numSS);
-			pacienteRepo.insert(paciente);
-		} else if(numSS < 0) {
-			Medico medico = new Medico(usuario.getDni(), usuario.getNombre(), usuario.getApellidos(), usuario.getContrs(), idEspecialidad);
-			medicoRepo.insert(medico);
-		} 
-		
+		Paciente paciente = new Paciente(dni, nombre, apellidos, contrs, numSS);
+		pacienteRepo.insert(paciente);
 		return usuario;
 	}
 
@@ -85,6 +146,5 @@ public class Manager {
 		} else {
 			return false;
 		}
-		
 	}
 }

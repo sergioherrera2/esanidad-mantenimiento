@@ -1,4 +1,32 @@
-var datos = [{
+var DNI = JSON.parse(localStorage.getItem("data"));
+var recurso = "http://localhost:8080/citasPaciente";
+var data = {
+        dni: DNI,
+       
+    };
+    data = JSON.stringify(data);
+    setTimeout($.ajax({
+            url: recurso,
+            type: "POST",
+            data: data,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .done(function(data, textStatus, jqXHR) {
+            
+            if (data.type == "OK") {
+            	console.log("FUNCIONA");
+
+            } 
+
+        }), 10000);
+
+
+/*var datos = [{
         "fecha": "12/05/19",
         "hora": "15:01",
         "centroDeSalud": "LA SOLANA",
@@ -24,6 +52,8 @@ var datos = [{
     }
 ];
 
+
+
 var cuerpo = "";
 var cabecera = '<tr>' +
     '<th>FECHA</th>' +
@@ -41,4 +71,4 @@ for (var i = 0; i < datos.length; i++) {
         '</tr>';
 }
 $("#tablaCabecera").append(cabecera);
-$("#tablaCuerpo").append(cuerpo);
+$("#tablaCuerpo").append(cuerpo);*/
