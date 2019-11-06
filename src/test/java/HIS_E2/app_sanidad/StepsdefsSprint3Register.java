@@ -62,7 +62,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("http://localhost:8080/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -72,12 +72,12 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	@When("^Relleno los campos DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\", Repetir_contraseña \"([^\"]*)\", NumeroSS \"([^\"]*)\"$")
 	public void relleno_los_campos_DNI_Nombre_Apellidos_Contraseña_Repetir_contraseña_NumeroSS(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
 		try {
-		       driver.findElement(By.name("txt_dni")).sendKeys(arg1);							
-		       driver.findElement(By.name("txt_nombre")).sendKeys(arg2);
-		       driver.findElement(By.name("txt_Apellidos")).sendKeys(arg3);							
-		       driver.findElement(By.name("txt_password")).sendKeys(arg4);
-		       driver.findElement(By.name("txt_confirm-password")).sendKeys(arg5);
-		       driver.findElement(By.name("txt_numeroSS")).sendKeys(arg6);
+		       driver.findElement(By.name("dni")).sendKeys(arg1);							
+		       driver.findElement(By.name("name")).sendKeys(arg2);
+		       driver.findElement(By.name("apellido")).sendKeys(arg3);							
+		       driver.findElement(By.name("password")).sendKeys(arg4);
+		       driver.findElement(By.name("confirm")).sendKeys(arg5);
+		       driver.findElement(By.name("nss")).sendKeys(arg6);
 		       
 		}catch(Exception e) {
 			fail("No se encuentran los campos");
@@ -201,7 +201,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			}
 		}
 
-		 user2 = new Paciente(arg1, arg2, arg3, arg4, nSS);
+		 user2 = new Paciente(arg1, arg2, arg3, arg4, "");
 		
 	}
 
