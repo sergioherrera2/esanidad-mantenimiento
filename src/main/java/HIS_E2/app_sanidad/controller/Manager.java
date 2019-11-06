@@ -182,4 +182,12 @@ public class Manager {
 		}
 		return fechas;
 	}
+	
+	public void eliminarCitas(String dniPaciente, String fecha, String especialidad) throws ParseException {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
+		citaRepo.delete(cita);
+	}
 }
