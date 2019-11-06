@@ -2,8 +2,10 @@ package HIS_E2.app_sanidad.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,7 +132,7 @@ public class Manager {
 		return usuario;
 	}
 
-	public List<Cita> getCitas(String dni, String pass) {
+	public List<Cita> getCitasMedico(String dni, String pass) {
 		Medico med = medicoRepo.findByDni(dni);
 		
 		if(med.getContrs().equals(pass)) {
@@ -167,5 +169,17 @@ public class Manager {
 		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
 		cita = citaRepo.insert(cita);
 		return cita;
+	}
+
+	public List<Date> getCitas(String dniPaciente, String especialidad) {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		List <Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
+		citas.addAll(citaRepo.findByDniMedico(dniMedico));
+		List <Date> fechas = new ArrayList<Date>();
+		for(int i = 0; i<citas.size(); i++) {
+			fechas.add(citas.get(i).getFecha());
+		}
+		return fechas;
 	}
 }
