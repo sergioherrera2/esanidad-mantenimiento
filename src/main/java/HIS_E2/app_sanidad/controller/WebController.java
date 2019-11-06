@@ -100,6 +100,19 @@ public class WebController {
 		}
 		return resultado.toString();
 	}
+	
+	@PostMapping(value = "/pedirCita")
+	public Map<String, Object> pedirCita(@RequestBody Map<String, String> jso) throws Exception{
+		String dniPaciente = jso.get("dniPaciente");
+		String fecha = jso.get("fecha");
+		String especialidad = jso.get("especialidad");
+		Cita cita = Manager.get().pedirCita(dniPaciente, fecha, especialidad);
+		Map<String, Object> respuesta=new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(cita));
+		return respuesta;
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();

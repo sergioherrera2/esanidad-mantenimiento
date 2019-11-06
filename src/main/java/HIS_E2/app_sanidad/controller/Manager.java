@@ -1,5 +1,8 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,10 +14,12 @@ import org.springframework.stereotype.Service;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
+import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.CitaRepository;
 import HIS_E2.app_sanidad.repositories.EspecialidadRepository;
 import HIS_E2.app_sanidad.repositories.MedicoRepository;
+import HIS_E2.app_sanidad.repositories.PacienteMedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
 
@@ -32,6 +37,9 @@ public class Manager {
 	private CitaRepository citaRepo;
 	@Autowired
 	private EspecialidadRepository especialidadRepo;
+	@Autowired
+	private PacienteMedicoRepository pacienteMedicoRepo;
+	
 	
 	private Manager() {
 		
@@ -146,5 +154,18 @@ public class Manager {
 		} else {
 			return false;
 		}
+	}
+	
+	public Cita pedirCita(String dniPaciente, String fecha, String especialidad) throws Exception {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Date sysdate = new Date(System.currentTimeMillis());
+		if(fechaCita.compareTo(sysdate) < 0) {
+	          throw new Exception("La fecha de la cita no puede ser pasada");
+		}
+		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
+		cita = citaRepo.insert(cita);
+		return cita;
 	}
 }
