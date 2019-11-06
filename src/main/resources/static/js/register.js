@@ -5,11 +5,11 @@ function validate() {
     var contraseña2 = document.getElementById("confirm").value;
     var nss = document.getElementById("nss").value;
     var Dni = document.getElementById("dni").value;
-    var hola = document.getElementById("dni");
+   
 
     controlTipoContraseña(contraseña, contraseña2);
     controlTipodni(Dni);
-    controlEspacioVacio(nom, Apellidos, contraseña, fecha, Dni);
+    controlEspacioVacio(nom, Apellidos, contraseña, contraseña2, nss, Dni);
     controlNumeroSS(nss);
 
     function controlNumeroSS(nss) {
@@ -73,21 +73,21 @@ function validate() {
 
     }
 
-    function controlEspacioVacio(nom, Apellidos, contraseña, fecha, Dni) {
+    function controlEspacioVacio(nom, Apellidos, contraseña, contraseña2, nss, Dni) {
 
-        if (nom == "" || Apellidos == "" || contraseña == "" || fecha == "" || Dni == "") {
+        if (nom == "" || Apellidos == "" || contraseña == "" || contraseña2 == "" || nss == "" || Dni == "") {
 
             alert("¡Debe introducir todos los campos para registrarse!");
         } else {
-            enviarContenido(nom, Apellidos, contraseña, fecha, Dni);
+            enviarContenido(nom, Apellidos, contraseña, contraseña2, nss, Dni);
         }
 
 
     }
 
-    function enviarContenido(nom, Apellidos, contraseña, fecha, Dni) {
+    function enviarContenido(nom, Apellidos, contraseña, contraseña2, nss, Dni) {
 
-        var recurso = "https://hola1233.herokuapp.com/register";
+        var recurso = "http://localhost:8080/register";
         var data = {
             type: "register",
             nombre: nom,
@@ -105,7 +105,7 @@ function validate() {
                 'Content-Type': 'application/json'
             },
             success: function(response) {
-                window.location.href = "https://localhost:8080/";
+                window.location.href = "http://localhost:8080/";
             },
             error: function(error) {
                 alert("no funciona");
