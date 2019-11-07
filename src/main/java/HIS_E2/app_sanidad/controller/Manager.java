@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import org.springframework.stereotype.Service;
 
-
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
@@ -79,14 +79,12 @@ public class Manager {
 	}
 
 	public boolean autenticar(String dni, String pass) throws Exception {
-		String dniABuscar= Usuario.cifrar(dni);
-		String passABuscar=Usuario.cifrar(pass);
-		String dniABuscarString = new String(dniABuscar);
-		String passABuscarString = new String(passABuscar);
+		String dniABuscar= Cifrador.cifrar(dni);
+		String passABuscar=Cifrador.cifrarHash(pass);
 
-		Usuario user = userRepo.findByDni(dniABuscarString);
+		Usuario user = userRepo.findByDni(dniABuscar);
 		
-		if(user.getContrs().equals(passABuscarString)) {
+		if(user.getContrs().equals(passABuscar)) {
 			return true;
 		} else {
 			return false;

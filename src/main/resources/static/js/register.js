@@ -10,7 +10,7 @@ function validate() {
 
 
 
-  var recurso = "https://app-sanidad.herokuapp.com/register";
+  var recurso = "http://localhost:8080/register";
    var data = {
       type: "register",
   nombre: nom,
@@ -29,7 +29,7 @@ function validate() {
        'Content-Type': 'application/json'
     },
     success : function(response){
-                       window.location.href = "https://app-sanidad.herokuapp.com/";
+                       window.location.href = "http://localhost:8080/";
                 },
                 error: function(error){
                       alert("no funciona");
