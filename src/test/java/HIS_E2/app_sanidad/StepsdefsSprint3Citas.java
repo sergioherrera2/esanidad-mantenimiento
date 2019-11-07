@@ -33,6 +33,18 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	Request request;
 	@Autowired CitaRepository citasRepo;
 	Cita cita;
+	private String cita_modificacionEspecialidad;
+	private String cita_modificacionDniUser;
+	private String cita_modificacionFechaAntigua;
+	private String cita_modificacionFechaNueva;
+
+	
+	
+	
+	
+	
+	
+	
 	@Given("^Abro Firefox y entro en la aplicacion citas$")
 	public void abro_Firefox_y_entro_en_la_aplicacion_citas() {
 		try {
@@ -218,6 +230,125 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	}
 	**/
 	}
+	
+	@When("^Modifico una cita dni-user \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\",nueva fecha \"([^\"]*)\",$")
+	public void modifico_una_cita_dni_user_especialidad_fecha_nueva_fecha(String arg1, String arg2, String arg3, String arg4) {
+		try {
+			 driver.findElement(By.name("btnModificarCita")).click();
+		}catch(Exception e) {
+			fail("No se encuentra el boton de pedir cita");
+		
+	}
+		
+		try {
+		       driver.findElement(By.name("especialidad")).sendKeys(arg1);							
+		       driver.findElement(By.name("fecha")).sendKeys(arg2);
+		}catch(Exception e) {
+			driver.quit();
+			fail("No se encuentran los campos");
+		}
+		try {
+			 driver.findElement(By.name("btnModificarCita")).click();
+		}catch(Exception e) {
+			fail("No se encuentra el boton de pedir cita");
+		
+	}
+		
+	}
+
+	@Then("^Recibo una respuesta de modificación cita \"([^\"]*)\"$")
+	public void recibo_una_respuesta_de_modificación_cita(String arg1) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+
+	
+	@Given("^Una modificaciónde cita con todos los campos dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\", nueva fecha \"([^\"]*)\"$")
+	public void una_modificaciónde_cita_con_todos_los_campos_dni_user_especialidad_fecha_nueva_fecha(String arg1, String arg2, String arg3, String arg4) {
+		cita_modificacionEspecialidad=arg2;
+		cita_modificacionDniUser=arg1;
+		cita_modificacionFechaAntigua=arg3;
+		cita_modificacionFechaNueva=arg4;
+	}
+
+
+	
+
+@When("^modifico la cita \"([^\"]*)\"$")
+public void modifico_la_cita(String arg1) {
+	try {
+		
+		   // Manager.get().modificarCita(cita_modificacionDniUser,cita_modificacionEspecialidad,cita_modificacionFechaAntigua,cita_modificacionFechaNueva); Hay que definir este metodo y sus entradas
+			} catch( Exception e) {
+				if(!arg1.contentEquals("Error")) {
+					fail("Register should work here");
+				}
+			
+			}
+}
+
+@Then("^Se modifica  correctamente la cita dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
+public void se_modifica_correctamente_la_cita_dni_user_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+
+
+@When("^Envío petición Post con todos los campos de modificar cita dni-user \"([^\"]*)\", especialidad \"([^\"]*)\" , fecha \"([^\"]*)\", fecha nueva \"([^\"]*)\"$")
+public void envío_petición_Post_con_todos_los_campos_de_modificar_cita_dni_user_especialidad_fecha_fecha_nueva(String arg1, String arg2, String arg3, String arg4) {
+	MediaType mediaType = MediaType.parse("application/json");
+	RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha antigua\": \""+arg3+"\",\"fecha nueva\":\""+arg4+"\"}");
+	 
+	 request = new Request.Builder()
+			  .url("https://app-sanidad.herokuapp.com/pedirCita")
+			  .post(body)
+			  .addHeader("Content-Type", "application/json")
+			  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
+			  .addHeader("Accept", "*/*")
+			  .addHeader("Cache-Control", "no-cache")
+			  .addHeader("Postman-Token", "026c8d66-5ccb-453f-b1b4-c6f351f126ee,ca3db196-6148-4d81-a889-94d79002afe4")
+			  .addHeader("Host", "app-sanidad.herokuapp.com")
+			  .addHeader("Accept-Encoding", "gzip, deflate")
+			  .addHeader("Content-Length", "84")
+			  .addHeader("Connection", "keep-alive")
+			  .addHeader("cache-control", "no-cache")
+			  .build();
+}
+@When("^Elimino una cita dni-user \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"$")
+public void elimino_una_cita_dni_user_especialidad_fecha(String arg1, String arg2, String arg3) {
+	try {
+	       driver.findElement(By.name("txt-especialidad")).sendKeys(arg1);							
+	       driver.findElement(By.name("txt-fecha")).sendKeys(arg2);
+	}catch(Exception e) {
+		driver.quit();
+		fail("No se encuentran los campos");
+	}
+	try {
+		 driver.findElement(By.name("btnPedirCita")).click();
+	}catch(Exception e) {
+		fail("No se encuentra el boton de pedir cita");
+	
+}
+}
+
+@Then("^Recibo una respuesta de cita eliminada \"([^\"]*)\"$")
+public void recibo_una_respuesta_de_cita_eliminada(String arg1) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@Then("^Inserto la cita si ha sido borrada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"$")
+public void inserto_la_cita_si_ha_sido_borrada_con_exito_especialidad_fecha(String arg1, String arg2, String arg3) {
+	/**
+	 * La cita debe ser borrada si se inserta proporcionando dni-user, especialidad y fecha
+	 */
+   // Cita cita_añadir=new Cita(0, arg3, arg3, arg3);
+}
+
+
+
 
 
 }
