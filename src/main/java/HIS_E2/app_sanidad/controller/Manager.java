@@ -83,7 +83,6 @@ public class Manager {
 		String passABuscar=Cifrador.cifrarHash(pass);
 
 		Usuario user = userRepo.findByDni(dniABuscar);
-		
 		if(user.getContrs().equals(passABuscar)) {
 			return true;
 		} else {

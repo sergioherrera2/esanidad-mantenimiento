@@ -43,7 +43,7 @@ public static String cifrar(String a) throws Exception {
 	
 	public static Cipher createCipher() throws NoSuchAlgorithmException, NoSuchPaddingException, IOException {  
 	    key = "VE9SRkVLRVJLUExITFNSSVRQU0dJTkdOVFRIUEtST1I=";
-	    key = leerArchivo(key);
+	    key = decodeBase64(key);
 	    key = decryptCaesar(key);
 	    
         aesKey = new SecretKeySpec(key.getBytes(), "AES");
@@ -59,20 +59,21 @@ public static String cifrar(String a) throws Exception {
 		return new String(thedigest);
 	}
 	
-	public static String leerArchivo(String texto) throws UnsupportedEncodingException {
+	public static String decodeBase64(String texto) throws UnsupportedEncodingException {
 	    byte[] archivo = Base64.getDecoder().decode(texto);
 	    return new String(archivo);
 	}
 	
-	public static String decryptCaesar(String text) 
+	public static String decryptCaesar(String text) throws UnsupportedEncodingException 
     { 
 		String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		int shiftKey=14;
+		String shiftKey="MTQ=";
+		int shiftKeyInt=Integer.parseInt(decodeBase64(shiftKey));
 		String plainText="";
 		for (int i = 0; i < text.length(); i++)
         {
             int charPosition = ALPHABET.indexOf(text.charAt(i));
-            int keyVal = (charPosition - shiftKey) % 62;
+            int keyVal = (charPosition - shiftKeyInt) % 62;
             if (keyVal < 0)
             {
                 keyVal = ALPHABET.length() + keyVal;
