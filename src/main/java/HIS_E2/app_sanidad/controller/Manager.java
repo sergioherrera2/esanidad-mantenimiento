@@ -187,8 +187,7 @@ public class Manager {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
 		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
-		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
-		citaRepo.delete(cita);
+		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
 	}
 	
 	public void crearMedicoPaciente(String dniMedico, String nombre, String apellidos, String contrs, String especialidad, String dniPaciente)throws Exception{
