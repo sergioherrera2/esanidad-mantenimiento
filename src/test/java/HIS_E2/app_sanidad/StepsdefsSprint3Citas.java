@@ -104,8 +104,8 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	    throw new PendingException();
 	}
 
-	@Then("^Borro la cita si ha sido insertada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"  Result \"([^\"]*)\"$")
-	public void borro_la_cita_si_ha_sido_insertada_con_exito_especialidad_fecha(String arg1, String arg2, String arg3, String arg4) {
+	@Then("^Borro la cita si ha sido insertada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
+	public void borro_la_cita_si_ha_sido_insertada_con_exito_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
 		if( arg4.equals("OK")) {
 			try {
 				Manager.get().eliminarCitas(arg1, arg3, arg2);
@@ -122,6 +122,12 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	
 	@Given("^ClienteHttpPedirCita$")
 	public void clientehttppedircita() {
+		try {
+			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		client = new OkHttpClient();
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
@@ -202,6 +208,12 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	@When("^pido la cita \"([^\"]*)\"$")
 	public void pido_la_cita(String arg1) {
 		try {
+			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabezera", "05726690N");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+		try {
+			
 			
 		     cita =Manager.get().pedirCita(pedirCita_dnipaciente,pedirCita_fecha,pedirCita_especialidad); 
 			} catch( Exception e) {
@@ -214,7 +226,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 
 	@Then("^Se guarda correctamente la cita dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
 	public void se_guarda_correctamente_la_cita_dni_user_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
-		if(arg2.equals("OK")) {
+		if(arg4.equals("OK")) {
 			
 			assertNotNull(cita);
 			
