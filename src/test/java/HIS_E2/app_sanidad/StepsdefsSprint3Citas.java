@@ -1,6 +1,9 @@
 package HIS_E2.app_sanidad;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import java.text.ParseException;
 
 import org.json.JSONObject;
 import org.openqa.selenium.By;
@@ -31,8 +34,12 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
+	private String pedirCita_dnipaciente;
+	private String pedirCita_fecha;
+	private String pedirCita_especialidad;
+	private  Cita cita;
 	@Autowired CitaRepository citasRepo;
-	Cita cita;
+
 	@Given("^Abro Firefox y entro en la aplicacion citas$")
 	public void abro_Firefox_y_entro_en_la_aplicacion_citas() {
 		try {
@@ -97,12 +104,17 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	    throw new PendingException();
 	}
 
-	@Then("^Borro la cita si ha sido insertada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"$")
-	public void borro_la_cita_si_ha_sido_insertada_con_exito_especialidad_fecha(String arg1, String arg2, String arg3) {
-		/**
-		 * La cita debe ser borrada si se inserta proporcionando dni-user, especialidad y fecha
-		 */
-	   // Cita cita_borrar=new Cita(0, arg3, arg3, arg3);
+	@Then("^Borro la cita si ha sido insertada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"  Result \"([^\"]*)\"$")
+	public void borro_la_cita_si_ha_sido_insertada_con_exito_especialidad_fecha(String arg1, String arg2, String arg3, String arg4) {
+		if( arg4.equals("OK")) {
+			try {
+				Manager.get().eliminarCitas(arg1, arg3, arg2);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
 	
 	
@@ -157,10 +169,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 			}else if(arg1.equals("Error")){
 				if(!jsonObject.get("type").equals("error")) {
 					try {
-					/**
-					 * Necesaria implementación del metodo
-						citasRepo.deleteByDniPacienteAndEspecialidadAndFecha(arg1);
-						 */
+					Manager.get().eliminarCitas(arg2, arg4, arg3);
 					}catch(Exception e) {
 						
 					}
@@ -184,7 +193,9 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		 //cita =new Cita(, arg1, arg2, arg3); Crear constructor
+		 pedirCita_dnipaciente = arg1;
+		 pedirCita_fecha = arg3;
+		 pedirCita_especialidad = arg2;
 		
 	}
 
@@ -192,7 +203,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	public void pido_la_cita(String arg1) {
 		try {
 			
-		   // Manager.get().pedirCita(cita.getDniPaciente(),cita.getFecha(),cita.getEspecialidad); Hay que definir este metodo y sus entradas
+		     cita =Manager.get().pedirCita(pedirCita_dnipaciente,pedirCita_fecha,pedirCita_especialidad); 
 			} catch( Exception e) {
 				if(!arg1.contentEquals("Error")) {
 					fail("Register should work here");
@@ -203,20 +214,14 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 
 	@Then("^Se guarda correctamente la cita dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
 	public void se_guarda_correctamente_la_cita_dni_user_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
-		throw new PendingException();
-	/**
 		if(arg2.equals("OK")) {
 			
-			Cita cita1=citasRepo.findByDniPacienteAndEspecialidadAndFecha(arg1,arg2,arg3); //
+			assertNotNull(cita);
 			
-			if(cita1 ==null) {
-				fail("user is not inserted");
-			}
 		}
 		
 			
-	}
-	**/
+	
 	}
 
 

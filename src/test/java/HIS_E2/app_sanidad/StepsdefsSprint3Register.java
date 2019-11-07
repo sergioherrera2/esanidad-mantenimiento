@@ -192,16 +192,8 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		double nSS=0;
-		if(!arg5.equals("")){
-			try {
-				nSS = Double.parseDouble(arg5);
-			}catch(Exception e) {
-				fail("El numero de la seguridad social no es un número");
-			}
-		}
 
-		 user2 = new Paciente(arg1, arg2, arg3, arg4, nSS);
+		 user2 = new Paciente(arg1, arg2, arg3, arg4, arg5);
 		
 	}
 
