@@ -9,6 +9,13 @@ public class PacienteMedico {
 	String dniMedico;
 	String especialidad;
 	
+	public PacienteMedico(String dniPaciente, String dniMedico, String especialidad) {
+		super();
+		this.dniPaciente = dniPaciente;
+		this.dniMedico = dniMedico;
+		this.especialidad = especialidad;
+	}
+	
 	public String getDniPaciente() {
 		return dniPaciente;
 	}

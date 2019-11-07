@@ -190,4 +190,11 @@ public class Manager {
 		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
 		citaRepo.delete(cita);
 	}
+	
+	public void crearMedicoPaciente(String dniMedico, String nombre, String apellidos, String contrs, String especialidad, String dniPaciente) {
+		Medico medico = new Medico(dniMedico, nombre, apellidos, contrs, especialidad);
+		PacienteMedico pacienteMed = new PacienteMedico(dniPaciente, dniMedico, especialidad);
+		medicoRepo.insert(medico);
+		pacienteMedicoRepo.insert(pacienteMed);
+	}
 }
