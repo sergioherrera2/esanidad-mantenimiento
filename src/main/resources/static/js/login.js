@@ -22,7 +22,7 @@ function validateLogin() {
         .done(function(data, textStatus, jqXHR) {
             console.log(data.type + "HOLA");
             if (data.type == "OK") {
-            	localStorage.setItem("data", JSON.stringify(Dni));
+            	sessionStorage.setItem("data", JSON.stringify(Dni));
                 setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
 
             } else {
