@@ -1,5 +1,7 @@
 package HIS_E2.app_sanidad.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,34 +9,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "cita")
 public class Cita {
 	
-	@Id
-	int idCita;
-	String fecha;
+	Date fecha;
 	String dniMedico;
 	String dniPaciente;
 
 	
-	public Cita(int idCita, String fecha, String dniMedico, String dniPaciente) {
+	public Cita(Date fecha, String dniMedico, String dniPaciente) {
 		super();
-		this.idCita = idCita;
 		this.fecha = fecha;
 		this.dniMedico = dniMedico;
 		this.dniPaciente = dniPaciente;
 	}
-
-	public int getIdCita() {
-		return idCita;
-	}
 	
-	public void setIdCita(int idCita) {
-		this.idCita = idCita;
-	}
-	
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	
@@ -56,7 +47,7 @@ public class Cita {
 
 	@Override
 	public String toString() {
-		return "Cita [idCita=" + idCita + ", fecha=" + fecha + ", dniMedico=" + dniMedico + ", dniPaciente="
+		return "Cita [Fecha=" + fecha + ", dniMedico=" + dniMedico + ", dniPaciente="
 				+ dniPaciente + "]";
 	}
 	

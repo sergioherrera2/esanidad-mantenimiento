@@ -1,5 +1,6 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,24 +44,12 @@ public class WebController {
 		String nombre = jso.get("nombre");
 		String apellidos = jso.get("apellidos");
 		String contrs = jso.get("pass");
-		double numSS = 0;
+		String numSS = jso.get("numSS");
 		int idEspecialidad = 0;
-		if(jso.get("numSS") == null) {
-			numSS = -1;
-		} else {
-			numSS = Integer.parseInt(jso.get("numSS"));
-		}
-		
-		if(jso.get("idEspecialidad") == null) {
-			idEspecialidad = -1;
-		} else {
-			idEspecialidad = Integer.parseInt(jso.get("idEspecialidad"));
-		}
 		Usuario usuario = Manager.get().register(dni, nombre, apellidos, contrs, numSS, idEspecialidad);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("resultado",
-new ObjectMapper().writeValueAsString(usuario));
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(usuario));
 		return respuesta;
 	}
 	
@@ -68,7 +57,7 @@ new ObjectMapper().writeValueAsString(usuario));
 	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
-		List<Cita> list = Manager.get().getCitas(dni, pass);
+		List<Cita> list = Manager.get().getCitasMedico(dni, pass);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		if (list == null) {
 			respuesta.put("type", "ERROR");
@@ -110,6 +99,32 @@ new ObjectMapper().writeValueAsString(usuario));
 		}
 		return resultado.toString();
 	}
+	
+	@PostMapping(value = "/pedirCita")
+	public Map<String, Object> pedirCita(@RequestBody Map<String, String> jso) throws Exception{
+		String dniPaciente = jso.get("dniPaciente");
+		String fecha = jso.get("fecha");
+		String especialidad = jso.get("especialidad");
+		Cita cita = Manager.get().pedirCita(dniPaciente, fecha, especialidad);
+		Map<String, Object> respuesta=new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(cita));
+		return respuesta;
+	}
+	
+	@PostMapping(value = "/citasDisponibles")
+	public Map<String, Object> citasDisponibles(@RequestBody Map<String, String> jso) throws Exception {
+		String dniPaciente = jso.get("dniPaciente");
+		String especialidad = jso.get("especialidad");
+		List<Date> fechas = Manager.get().getCitas(dniPaciente, especialidad);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		for(int i = 0; i<fechas.size(); i++) {
+			respuesta.put("fecha"+i, new ObjectMapper().writeValueAsString(fechas.get(i)));
+		}
+		return respuesta;
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();

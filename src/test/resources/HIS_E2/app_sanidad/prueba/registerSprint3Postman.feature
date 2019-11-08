@@ -20,10 +20,8 @@
 #      |15726773V  |Juan    | Prueba Prueba     | hola          |Error   |123456789012 |
 #      |15726773V  |Juan    | Prueba Prueba     | holaaaaaaa    |Error   |123456789012 |
 #      |15726773V  |Antonio | Pulido Hernández  | antonio123    |Error   |123456789012 |
-#      |00572676E  | Juan   | Prueba Prueba     | Jaimemanuel123|Error   |123456789012 |
-#      |05726690N  |Antonio | Rodríguez         | Antonio123    |Error   |123456789012 |
 #      |05726690S  |Antonio | Rodríguez         | Antonio123    |Error   |123456789012 |
 #      |00572676E  |Antonio | Rodríguez         | ANTONIO123    |Error   |123456789012 |
 #      | 04839982T |Antonio | Pulido Hernández  |Antonio123     |Error   |             |
-#      | 04839982T |Antonio | Pulido Hernández  |Antonio123     |Error   |123456789012 |
 #      | 04839982T |Antonio | Pulido Hernández  |Antonio123     |Error   |143          |
+#      | 10572676J |        | Pulido Hernández  |Jaimemanuel123 |Error   |-123456789012 | 

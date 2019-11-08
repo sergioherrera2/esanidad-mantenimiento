@@ -62,7 +62,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("http://localhost:8080/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -72,12 +72,12 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	@When("^Relleno los campos DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\", Repetir_contraseña \"([^\"]*)\", NumeroSS \"([^\"]*)\"$")
 	public void relleno_los_campos_DNI_Nombre_Apellidos_Contraseña_Repetir_contraseña_NumeroSS(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
 		try {
-		       driver.findElement(By.name("txt_dni")).sendKeys(arg1);							
-		       driver.findElement(By.name("txt_nombre")).sendKeys(arg2);
-		       driver.findElement(By.name("txt_Apellidos")).sendKeys(arg3);							
-		       driver.findElement(By.name("txt_password")).sendKeys(arg4);
-		       driver.findElement(By.name("txt_confirm-password")).sendKeys(arg5);
-		       driver.findElement(By.name("txt_numeroSS")).sendKeys(arg6);
+		       driver.findElement(By.name("dni")).sendKeys(arg1);							
+		       driver.findElement(By.name("name")).sendKeys(arg2);
+		       driver.findElement(By.name("apellido")).sendKeys(arg3);							
+		       driver.findElement(By.name("password")).sendKeys(arg4);
+		       driver.findElement(By.name("confirm")).sendKeys(arg5);
+		       driver.findElement(By.name("nss")).sendKeys(arg6);
 		       
 		}catch(Exception e) {
 			fail("No se encuentran los campos");
@@ -129,13 +129,14 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	}
 
 	@When("^Envío petición Post con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\",NumeroSS \"([^\"]*)\"$")
-	public void envío_petición_Post_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña_Result(String arg1, String arg2, String arg3, String arg4,String arg5) {
+	public void envío_petición_Post_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña_NumeroSS(String arg1, String arg2, String arg3, String arg4, String arg5) {
 
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\"}");
+		String r="{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}";
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/register")
+				  .url("http://localhost:8080/register")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
@@ -191,16 +192,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		double nSS=0;
-		if(arg5.equals("")) {
-			
-		}
-		try {
-			nSS = Double.parseDouble(arg5);
-		}catch(Exception e) {
-			fail("El numero de la seguridad social no es un número");
-		}
-		 user2 = new Paciente(arg1, arg2, arg3, arg4, nSS);
+		 user2 = new Paciente(arg1, arg2, arg3, arg4, arg5);
 		
 	}
 
