@@ -39,7 +39,6 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	private String pedirCita_especialidad;
 	private  Cita cita;
 	@Autowired CitaRepository citasRepo;
-	Cita cita;
 	private String cita_modificacionEspecialidad;
 	private String cita_modificacionDniUser;
 	private String cita_modificacionFechaAntigua;
