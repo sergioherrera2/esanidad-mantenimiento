@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HIS_E2.app_sanidad.model.Cita;
@@ -51,17 +50,16 @@ public class WebController {
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		respuesta.put("resultado", new ObjectMapper().writeValueAsString(usuario));
-		
 		return respuesta;
 	}
 	
 	@PostMapping("/getCitas")
-	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception{
+	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
 		List<Cita> list = Manager.get().getCitasMedico(dni, pass);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
-		if(list == null) {
+		if (list == null) {
 			respuesta.put("type", "ERROR");
 			respuesta.put("message", "contraseña incorrecta");
 		} else {

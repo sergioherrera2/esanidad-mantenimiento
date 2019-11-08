@@ -1,5 +1,5 @@
 #@tag
-#Feature: Registro
+#Feature: Registro Manager
 #
 #  @tag1
 #  Scenario Outline: Como usuario quiero que el servidor me registre

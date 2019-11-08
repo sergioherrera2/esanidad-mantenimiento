@@ -10,9 +10,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
@@ -41,14 +39,12 @@ public class Manager {
 	private EspecialidadRepository especialidadRepo;
 	@Autowired
 	private PacienteMedicoRepository pacienteMedicoRepo;
-	
-	
 	private Manager() {
 		
 	}
 
 	private static class ManagerHolder {
-		private static Manager singleton=new Manager();
+		private static Manager singleton = new Manager();
 	}
 	
 	@Bean
@@ -114,8 +110,7 @@ public class Manager {
 		}
 	}
 	
-	public Usuario register(String dni,	String nombre, String apellidos, 
-			String contrs, String numSS, int idEspecialidad) throws Exception {
+	public Usuario register(String dni,	String nombre, String apellidos, String contrs, String numSS, int idEspecialidad) throws Exception {
 		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS == null) {
 			throw new Exception("No debe haber campos vacios");
 		}
@@ -151,11 +146,7 @@ public class Manager {
 
 	public boolean autenticar(String dni, String pass) {
 		Usuario user = userRepo.findByDni(dni);
-		if(user.getContrs().equals(pass)) {
-			return true;
-		} else {
-			return false;
-		}
+		return user.getContrs().equals(pass);
 	}
 	
 	public Cita pedirCita(String dniPaciente, String fecha, String especialidad) throws Exception {
