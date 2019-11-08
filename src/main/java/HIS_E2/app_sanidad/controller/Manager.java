@@ -1,6 +1,11 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +16,12 @@ import org.springframework.stereotype.Service;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
+import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.CitaRepository;
 import HIS_E2.app_sanidad.repositories.EspecialidadRepository;
 import HIS_E2.app_sanidad.repositories.MedicoRepository;
+import HIS_E2.app_sanidad.repositories.PacienteMedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
 
@@ -32,6 +39,9 @@ public class Manager {
 	private CitaRepository citaRepo;
 	@Autowired
 	private EspecialidadRepository especialidadRepo;
+	@Autowired
+	private PacienteMedicoRepository pacienteMedicoRepo;
+	
 	
 	private Manager() {
 		
@@ -122,7 +132,7 @@ public class Manager {
 		return usuario;
 	}
 
-	public List<Cita> getCitas(String dni, String pass) {
+	public List<Cita> getCitasMedico(String dni, String pass) {
 		Medico med = medicoRepo.findByDni(dni);
 		
 		if(med.getContrs().equals(pass)) {
@@ -146,5 +156,44 @@ public class Manager {
 		} else {
 			return false;
 		}
+	}
+	
+	public Cita pedirCita(String dniPaciente, String fecha, String especialidad) throws Exception {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Date sysdate = new Date(System.currentTimeMillis());
+		if(fechaCita.compareTo(sysdate) < 0) {
+	          throw new Exception("La fecha de la cita no puede ser pasada");
+		}
+		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
+		cita = citaRepo.insert(cita);
+		return cita;
+	}
+
+	public List<Date> getCitas(String dniPaciente, String especialidad) {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		List <Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
+		citas.addAll(citaRepo.findByDniMedico(dniMedico));
+		List <Date> fechas = new ArrayList<Date>();
+		for(int i = 0; i<citas.size(); i++) {
+			fechas.add(citas.get(i).getFecha());
+		}
+		return fechas;
+	}
+	
+	public void eliminarCitas(String dniPaciente, String fecha, String especialidad) throws ParseException {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
+	}
+	
+	public void crearMedicoPaciente(String dniMedico, String nombre, String apellidos, String contrs, String especialidad, String dniPaciente)throws Exception{
+		Medico medico = new Medico(dniMedico, nombre, apellidos, contrs, especialidad);
+		PacienteMedico pacienteMed = new PacienteMedico(dniPaciente, dniMedico, especialidad);
+		medicoRepo.insert(medico);
+		pacienteMedicoRepo.insert(pacienteMed);
 	}
 }
