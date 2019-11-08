@@ -64,8 +64,7 @@ function validate() {
             var cadena = "TRWAGMYFPDXBNJZSQVHLCKET";
             var posicion = numeroDNI % 23;
             var letra = cadena.substring(posicion, posicion + 1);
-            var dniComparar = numeroDNI + letra;
-            if (Dni != dniComparar) {
+            if (letraDNI != letra) {
                 alert("¡Has introducido mal la letra de su DNI!");
             }
         }
