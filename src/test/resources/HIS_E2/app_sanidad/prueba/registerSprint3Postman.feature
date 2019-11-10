@@ -1,11 +1,10 @@
 #
 #@tag
-#Feature: Title of your feature
-#  I want to use this template for my feature file
+#Feature: Registro Postman
 #
 #    @tag2
 #     Scenario Outline: Quiero poder enviar peticiones web al servidor para registrarme
-#     Given ClienteHttpRegistro
+#    Given ClienteHttpRegistro
 #     When Envío petición Post con todos los campos de registro DNI "<DNI>", Nombre "<Nombre>", Apellidos "<Apellidos>", Contraseña "<Contraseña>",NumeroSS "<NumeroSS>"
 #     Then Recibo una respuesta Result "<Result>" DNI <"DNI">  de registro 
 #         And Borro usuario "<DNI>" Result "<Result>"

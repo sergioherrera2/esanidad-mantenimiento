@@ -6,7 +6,7 @@
 #     Given ClienteHttpPedirCita
 #     When Envío petición Post con todos los campos de pedir cita dni-user "<dni-user>", especialidad "<especialidad>" , fecha "<fecha>"
 #     Then Recibo una respuesta de cita Result "<Result>" dni-user "<dni-user>", especialidad "<especialidad>" , fecha "<fecha>"
-#     And Borro la cita si ha sido insertada con exito "<dni-user>", especialidad "<especialidad>", fecha "<fecha>"#ç
+#     And Borro la cita si ha sido insertada con exito "<dni-user>", especialidad "<especialidad>", fecha "<fecha>"
 #
 #    Examples: 
 #      | dni-user   | especialidad   |  fecha              |  Response  |
