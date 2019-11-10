@@ -38,6 +38,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	private String pedirCita_fecha;
 	private String pedirCita_especialidad;
 	private  Cita cita;
+	private Cita cita_modificada;
 	@Autowired CitaRepository citasRepo;
 	private String cita_modificacionEspecialidad;
 	private String cita_modificacionDniUser;
@@ -114,7 +115,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 			try {
 				Manager.get().eliminarCitas(arg1, arg3, arg2);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				fail("Deberia poder borrarse la cita insertada correctamente");
 				e.printStackTrace();
 			}
 		}
@@ -212,7 +213,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	@When("^pido la cita \"([^\"]*)\"$")
 	public void pido_la_cita(String arg1) {
 		try {
-			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabezera", "05726690N");
+			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 		}
@@ -288,7 +289,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 public void modifico_la_cita(String arg1) {
 	try {
 		
-		   // Manager.get().modificarCita(cita_modificacionDniUser,cita_modificacionEspecialidad,cita_modificacionFechaAntigua,cita_modificacionFechaNueva); Hay que definir este metodo y sus entradas
+		//cita_modificada=Manager.get().modificarCita(cita_modificacionDniUser,cita_modificacionEspecialidad,cita_modificacionFechaAntigua,cita_modificacionFechaNueva); 
 			} catch( Exception e) {
 				if(!arg1.contentEquals("Error")) {
 					fail("Register should work here");
@@ -299,8 +300,11 @@ public void modifico_la_cita(String arg1) {
 
 @Then("^Se modifica  correctamente la cita dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
 public void se_modifica_correctamente_la_cita_dni_user_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+	if(arg4.equals("OK")) {
+		
+		assertNotNull(cita_modificada);
+		
+	}
 }
 
 
@@ -311,7 +315,7 @@ public void envío_petición_Post_con_todos_los_campos_de_modificar_cita_dni_use
 	RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha antigua\": \""+arg3+"\",\"fecha nueva\":\""+arg4+"\"}");
 	 
 	 request = new Request.Builder()
-			  .url("https://app-sanidad.herokuapp.com/pedirCita")
+			  .url("https://app-sanidad.herokuapp.com/modificarCita")
 			  .post(body)
 			  .addHeader("Content-Type", "application/json")
 			  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
@@ -348,13 +352,58 @@ public void recibo_una_respuesta_de_cita_eliminada(String arg1) {
     throw new PendingException();
 }
 
-@Then("^Inserto la cita si ha sido borrada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"$")
-public void inserto_la_cita_si_ha_sido_borrada_con_exito_especialidad_fecha(String arg1, String arg2, String arg3) {
-	/**
-	 * La cita debe ser borrada si se inserta proporcionando dni-user, especialidad y fecha
-	 */
-   // Cita cita_añadir=new Cita(0, arg3, arg3, arg3);
+@When("^elimino la cita \"([^\"]*)\"$")
+public void elimino_la_cita(String arg1) {
+	try {
+		
+		
+	    // cita =Manager.get().elminarCita(pedirCita_dnipaciente,pedirCita_fecha,pedirCita_especialidad); 
+		} catch( Exception e) {
+			if(!arg1.contentEquals("Error")) {
+				fail("Debería poder ser eliminada está cita");
+			}
+		
+		}
 }
+
+@Then("^Se elmina correctamente la cita dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
+public void se_elmina_correctamente_la_cita_dni_user_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
+	if(arg4.equals("OK")) {
+		try {
+			//Manager.get().getCita();
+			//fail("Esta cita debería haber sido eliminada");
+			
+		}catch(Exception e) {
+			
+		}
+		
+		
+		assertNotNull(cita);
+		
+	}
+}
+
+	@When("^Envío petición Post con todos los campos de eliminar cita dni-user \"([^\"]*)\", especialidad \"([^\"]*)\" , fecha \"([^\"]*)\"$")
+	public void envío_petición_Post_con_todos_los_campos_de_eliminar_cita_dni_user_especialidad_fecha(String arg1, String arg2, String arg3) {
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni-user\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha\":\""+arg3+"\"}");
+		 
+		 request = new Request.Builder()
+				  .url("https://app-sanidad.herokuapp.com/modificarCita")
+				  .post(body)
+				  .addHeader("Content-Type", "application/json")
+				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
+				  .addHeader("Accept", "*/*")
+				  .addHeader("Cache-Control", "no-cache")
+				  .addHeader("Postman-Token", "026c8d66-5ccb-453f-b1b4-c6f351f126ee,ca3db196-6148-4d81-a889-94d79002afe4")
+				  .addHeader("Host", "app-sanidad.herokuapp.com")
+				  .addHeader("Accept-Encoding", "gzip, deflate")
+				  .addHeader("Content-Length", "84")
+				  .addHeader("Connection", "keep-alive")
+				  .addHeader("cache-control", "no-cache")
+				  .build();
+	}
+	
 
 
 
