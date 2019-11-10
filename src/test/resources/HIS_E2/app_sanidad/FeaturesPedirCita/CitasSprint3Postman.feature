@@ -10,13 +10,17 @@
 #
 #    Examples: 
 #      | dni-user   | especialidad   |  fecha              |  Response  |
-#      |05726690N   | Cabezera       |  10/12/2019 16:30   |   OK       |
-#      |05726690    | Cabezera       |  10/12/2019 16:30   | Error      |
+#      |05726690N   | Cabecera       |  10/12/2019 16:30   |   OK       |
+#      |05726690    | Cabecera       |  10/12/2019 16:30   | Error      |
 #      |05726690N   |                |  10/12/2019 17:30   | Error      |
 #      |05726690N   | Hola           |  10/12/2019 18:30   | Error      |
 #      |05726690N   | Oncología      |  10/12/2019 24:00   | Error      |
-#      |05726690N   | Cabezera       |                     | Error      |
+#      |05726690N   | Cabecera       |                     | Error      |
 #      |05726690N   | Oncología      |  10/12/2017 18:30   | Error      |
 #      |0572669N    | Oncología      | 10/12/2019 18:30    | Error      |
-#      |            | Cabezera       | 10/12/2019 16:30    | Error      |
-#      |05726690S   | Cabezera       | 10/12/2019 16:30    | Error      | 
+#      |            | Cabecera       | 10/12/2019 16:30    | Error      |
+#      |05726690S   | Cabecera       | 10/12/2019 16:30    | Error      | 
+#      |05726690N   | Cabecera       |  10/12/2019 16:30   |   OK       |
+#      |05726691J   | Cabecera       |  10/12/2019 18:35   | Error      |
+#      |05726690N   | Oncologia      |  10/12/2019 18:35   | Error      |
+#      |05726692Z   | Cabecera       |  10/12/2019 18:35   |    OK      |
