@@ -138,6 +138,18 @@ public class WebController {
 		return respuesta;
 	}
 	
+	@PostMapping(value = "/anularCita")
+	public Map<String, Object> anularCita(@RequestBody Map<String, String> jso) throws Exception{
+		String dniPaciente = jso.get("dniPaciente");
+		String especialidad = jso.get("especialidad");
+		String fecha = jso.get("fecha");
+		Manager.get().eliminarCitas(dniPaciente, fecha, especialidad);;
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", "cita anulada correctamente");
+		return respuesta;
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();
