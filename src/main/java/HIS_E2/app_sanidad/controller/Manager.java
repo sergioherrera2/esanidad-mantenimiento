@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import HIS_E2.app_sanidad.model.Cita;
+import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
 import HIS_E2.app_sanidad.model.PacienteMedico;
@@ -25,6 +26,8 @@ import HIS_E2.app_sanidad.repositories.UserRepository;
 
 @Service
 public class Manager {
+	
+	static final long ONE_MINUTE_IN_MILLIS=60000;
 	
 	//Aqui se declaran los repository con @Autowire
 	@Autowired
@@ -110,6 +113,32 @@ public class Manager {
 		}
 	}
 	
+	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
+		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
+		Medico medico = medicoRepo.findByDni(dniMedico);
+		Especialidad especialidad = especialidadRepo.findByEspecialidad(medico.getIdEspecialidad());
+		int duracion = especialidad.getDuracionCita();
+		Date fechaCitaPlusDuracion = new Date(fechaCita.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
+		for(int i = 0; i<citas.size(); i++) {
+			Date fechaSolapada = citas.get(i).getFecha();
+			Date fechaSolapadaPlusDuracion = new Date(fechaSolapada.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
+			if((fechaCita.after(fechaSolapada) && fechaCita.before(fechaSolapadaPlusDuracion)) ||
+					(fechaCita.before(fechaSolapada) && fechaCitaPlusDuracion.after(fechaSolapada))) {
+				throw new Exception("Las fechas se solapan, cita incorrecta");
+			}
+		}
+		citas = citaRepo.findByDniMedico(dniMedico);
+		for(int i = 0; i<citas.size(); i++) {
+			Date fechaSolapada = citas.get(i).getFecha();
+			Date fechaSolapadaPlusDuracion = new Date(fechaSolapada.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
+			if((fechaCita.after(fechaSolapada) && fechaCita.before(fechaSolapadaPlusDuracion)) ||
+					(fechaCita.before(fechaSolapada) && fechaCitaPlusDuracion.after(fechaSolapada))) {
+				throw new Exception("Las fechas se solapan, cita incorrecta");
+			}
+		}
+		
+	}
+	
 	public Usuario register(String dni,	String nombre, String apellidos, String contrs, String numSS, int idEspecialidad) throws Exception {
 		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS == null) {
 			throw new Exception("No debe haber campos vacios");
@@ -157,6 +186,7 @@ public class Manager {
 		if(fechaCita.compareTo(sysdate) < 0) {
 	          throw new Exception("La fecha de la cita no puede ser pasada");
 		}
+		controlarSolapamiento(dniPaciente, dniMedico, fechaCita);
 		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
 		cita = citaRepo.insert(cita);
 		return cita;
@@ -187,4 +217,23 @@ public class Manager {
 		medicoRepo.insert(medico);
 		pacienteMedicoRepo.insert(pacienteMed);
 	}
+	
+	public boolean existeCita(String dniPaciente, String especialidad, String fecha) throws ParseException {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		return citaRepo.existCustomCita(dniPaciente, dniMedico, fechaCita);
+	}
+	
+	public Cita modificarCita(String dniPaciente, String especialidad, String fechaActual, String fechaModificar) throws ParseException {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fechaActual);
+		Date fechaNueva = new SimpleDateFormat("dd/MM/yyyy").parse(fechaModificar);
+		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
+		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente);
+		citaRepo.insert(cita);
+		return cita;
+	}
+	
 }
