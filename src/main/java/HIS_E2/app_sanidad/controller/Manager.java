@@ -181,7 +181,7 @@ public class Manager {
 	public Cita pedirCita(String dniPaciente, String fecha, String especialidad) throws Exception {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
-		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Date fechaCita = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(fecha);
 		Date sysdate = new Date(System.currentTimeMillis());
 		if(fechaCita.compareTo(sysdate) < 0) {
 	          throw new Exception("La fecha de la cita no puede ser pasada");
@@ -207,7 +207,7 @@ public class Manager {
 	public void eliminarCitas(String dniPaciente, String fecha, String especialidad) throws ParseException {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
-		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Date fechaCita = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(fecha);
 		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
 	}
 	
@@ -221,15 +221,15 @@ public class Manager {
 	public boolean existeCita(String dniPaciente, String especialidad, String fecha) throws ParseException {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
-		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Date fechaCita = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(fecha);
 		return citaRepo.existCustomCita(dniPaciente, dniMedico, fechaCita);
 	}
 	
 	public Cita modificarCita(String dniPaciente, String especialidad, String fechaActual, String fechaModificar) throws ParseException {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
-		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fechaActual);
-		Date fechaNueva = new SimpleDateFormat("dd/MM/yyyy").parse(fechaModificar);
+		Date fechaCita = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(fechaActual);
+		Date fechaNueva = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(fechaModificar);
 		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
 		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente);
 		citaRepo.insert(cita);
