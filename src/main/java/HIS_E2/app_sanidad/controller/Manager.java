@@ -187,4 +187,22 @@ public class Manager {
 		medicoRepo.insert(medico);
 		pacienteMedicoRepo.insert(pacienteMed);
 	}
+	
+	public boolean existeCita(String dniPaciente, String especialidad, String fecha) throws ParseException {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		return citaRepo.existCustomCita(dniPaciente, dniMedico, fechaCita);
+	}
+	
+	public Cita modificarCita(String dniPaciente, String especialidad, String fechaActual, String fechaModificar) throws ParseException {
+		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		String dniMedico = pacienteMed.getDniMedico();
+		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy").parse(fechaActual);
+		Date fechaNueva = new SimpleDateFormat("dd/MM/yyyy").parse(fechaModificar);
+		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
+		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente);
+		citaRepo.insert(cita);
+		return cita;
+	}
 }
