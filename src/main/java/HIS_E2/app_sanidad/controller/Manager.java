@@ -236,4 +236,9 @@ public class Manager {
 		return cita;
 	}
 	
+	public void crearEspecialidad(String nombrEspecialidad, int tiempoCita) {
+		Especialidad especialidad = new Especialidad(nombrEspecialidad, tiempoCita);
+		especialidadRepo.insert(especialidad);
+	}
+	
 }

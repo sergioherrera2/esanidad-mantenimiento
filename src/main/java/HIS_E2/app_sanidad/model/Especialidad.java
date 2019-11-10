@@ -7,15 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "especialidad")
 public class Especialidad {
 	
-	@Id
-	int idEspecialidad;
 	String nombreEspecialidad;
 	int duracionCita;
 	
 
-	public Especialidad(int idEspecialidad, String nombreEspecialidad, int duracionCita) {
+	public Especialidad(String nombreEspecialidad, int duracionCita) {
 		super();
-		this.idEspecialidad = idEspecialidad;
 		this.nombreEspecialidad = nombreEspecialidad;
 		this.duracionCita = duracionCita;
 	}
