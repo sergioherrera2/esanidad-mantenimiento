@@ -201,12 +201,33 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 		 pedirCita_dnipaciente = arg1;
 		 pedirCita_fecha = arg3;
 		 pedirCita_especialidad = arg2;
+		 
+		 /**
+		  * Precondiciones del tests de inserción sin solapamiento
+		  * 
+		  */
+			try {
+				Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726691J");
+			} catch (Exception e1) {
+			}
+			try {
+				Manager.get().crearMedicoPaciente("03879902D", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726692Z");
+			} catch (Exception e1) {
+			}
+			try {
+				
+				
+			     cita =Manager.get().pedirCita("05726690N","10/12/2019 18:30","Cabecera"); 
+				} catch( Exception e) {
+					if(!arg1.contentEquals("Error")) {
+						fail("Register should work here");
+					}
+				
+				}
 		
 	}
 
@@ -220,7 +241,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		try {
 			
 			
-		     cita =Manager.get().pedirCita(pedirCita_dnipaciente,pedirCita_fecha,pedirCita_especialidad); 
+		     cita = Manager.get().pedirCita(pedirCita_dnipaciente,pedirCita_fecha,pedirCita_especialidad); 
 			} catch( Exception e) {
 				if(!arg1.contentEquals("Error")) {
 					fail("Register should work here");
