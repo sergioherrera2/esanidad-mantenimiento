@@ -186,7 +186,7 @@ public class Manager {
 		if(fechaCita.compareTo(sysdate) < 0) {
 	          throw new Exception("La fecha de la cita no puede ser pasada");
 		}
-		//controlarSolapamiento(dniPaciente, dniMedico, fechaCita);
+		controlarSolapamiento(dniPaciente, dniMedico, fechaCita);
 		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
 		cita = citaRepo.insert(cita);
 		return cita;

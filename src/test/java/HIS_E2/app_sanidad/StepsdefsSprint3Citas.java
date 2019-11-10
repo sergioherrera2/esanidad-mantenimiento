@@ -213,10 +213,24 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	@When("^pido la cita \"([^\"]*)\"$")
 	public void pido_la_cita(String arg1) {
 		try {
-			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
+			Manager.get().crearEspecialidad("Oncología", 15);
+			Manager.get().crearEspecialidad("Podología", 15);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 		}
+		try {
+			Manager.get().crearMedicoPaciente("287678890L", "nombre", "apellidos", "Antonio1234", "Oncología", "05726690N");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+		try {
+			Manager.get().crearMedicoPaciente("287678891C", "nombre", "apellidos", "Antonio1234", "Podología", "05726690N");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+		
+
+		
 		try {
 			
 			
