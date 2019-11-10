@@ -99,7 +99,7 @@ public class WebController {
 		}
 		return resultado.toString();
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/pedirCita")
 	public Map<String, Object> pedirCita(@RequestBody Map<String, String> jso) throws Exception{
 		String dniPaciente = jso.get("dniPaciente");
@@ -111,7 +111,7 @@ public class WebController {
 		respuesta.put("resultado", new ObjectMapper().writeValueAsString(cita));
 		return respuesta;
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/citasDisponibles")
 	public Map<String, Object> citasDisponibles(@RequestBody Map<String, String> jso) throws Exception {
 		String dniPaciente = jso.get("dniPaciente");
@@ -124,7 +124,7 @@ public class WebController {
 		}
 		return respuesta;
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/modificarCita")
 	public Map<String, Object> modificarCita(@RequestBody Map<String, String> jso) throws Exception{
 		String dniPaciente = jso.get("dniPaciente");
@@ -137,7 +137,7 @@ public class WebController {
 		respuesta.put("cita", new ObjectMapper().writeValueAsString(cita));
 		return respuesta;
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/anularCita")
 	public Map<String, Object> anularCita(@RequestBody Map<String, String> jso) throws Exception{
 		String dniPaciente = jso.get("dniPaciente");
