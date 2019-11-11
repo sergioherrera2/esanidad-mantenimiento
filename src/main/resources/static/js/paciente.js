@@ -26,8 +26,8 @@ setTimeout($.ajax({
 		for (var i = 0; i < (data.numero); i++) {
 
 			datosDNIP[i] = data['dniPaciente' + i];
-			datosES[i] = data['especialidad' +i];
-			datosF[i] = data['fecha'+i];
+			datosES[i] = data['especialidad' + i];
+			datosF[i] = data['fecha'+ i];
 		}
 		mostrarContenido(datosDNIP,datosES,datosF);
 	}
@@ -45,14 +45,38 @@ setTimeout($.ajax({
 
 function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
+	var recurso = "http://localhost:8080/anularCita";
+
 	var cabecera = '<tr>' + '<th>FECHA</th>' + '<th>DNI PACIENTE</th>'
 			+ '<th>ESPECIALIDAD</th>' + '</tr>';
 
 	for (var i = 0; i < datosDNIP.length; i++) {
-	
+		var data = {
+			dniPaciente : datosDNIP[i],
+			especialidad : datosES[i],
+			fecha :  datosF[i]
+		};
+		data = JSON.stringify(data);
+
+		setTimeout($.ajax({
+			url : recurso,
+			type : "POST",
+			data : data,
+			xhrFields : {
+				withCredentials : true
+			},
+			headers : {
+				'Content-Type' : 'application/json'
+			},
+		}).done(function(data, textStatus, jqXHR) {
+			if (data.type == "OK") {
+				console.log("FUNCIONA");
+			}
+		}), 10000);
+
 		cuerpo += '<tr>' + '<td>' + datosF[i] + '</td>' + '<td>'
 				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
-				+ '</td>' + '</tr>';
+				+ '</td>' + '<td><a href="/anularCita">' + 'Eliminar' + '</a></td>' + '</tr>';
 	}
 	$("#tablaCabecera").append(cabecera);
 	$("#tablaCuerpo").append(cuerpo);
