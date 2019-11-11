@@ -1,5 +1,6 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,8 +65,9 @@ public class WebController {
 			respuesta.put("message", "contraseña incorrecta");
 		} else {
 			respuesta.put("type", "OK");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			for(int i = 0; i<list.size(); i++) {
-				respuesta.put("fecha"+i, list.get(i).getFecha().toString());
+				respuesta.put("fecha"+i, formatter.format(list.get(i).getFecha()));
 				respuesta.put("dniPaciente"+i, list.get(i).getDniPaciente());
 				respuesta.put("especialidad"+i,list.get(i).getEspecialidad());
 			}
@@ -81,8 +83,9 @@ public class WebController {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		respuesta.put("numero", list.size());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		for(int i = 0; i<list.size(); i++) {
-			respuesta.put("fecha"+i, list.get(i).getFecha().toString());
+			respuesta.put("fecha"+i, formatter.format(list.get(i).getFecha()));
 			respuesta.put("dniPaciente"+i, list.get(i).getDniPaciente());
 			respuesta.put("especialidad"+i,list.get(i).getEspecialidad());
 		}
@@ -113,7 +116,8 @@ public class WebController {
 		Cita cita = Manager.get().pedirCita(dniPaciente, fecha, especialidad);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("fecha", cita.getFecha().toString());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		respuesta.put("fecha", formatter.format(cita.getFecha()));
 		respuesta.put("dniPaciente", cita.getDniPaciente());
 		respuesta.put("especialidad",cita.getEspecialidad());
 		return respuesta;
@@ -143,7 +147,8 @@ public class WebController {
 		Cita cita = Manager.get().modificarCita(dniPaciente, especialidad, fechaActual, fechaModificar);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("fecha", cita.getFecha().toString());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		respuesta.put("fecha", formatter.format(cita.getFecha()));
 		respuesta.put("dniPaciente", cita.getDniPaciente());
 		respuesta.put("especialidad",cita.getEspecialidad());
 		return respuesta;

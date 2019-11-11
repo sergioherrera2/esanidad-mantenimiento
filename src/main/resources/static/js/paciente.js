@@ -20,12 +20,16 @@ setTimeout($.ajax({
 	if (data.type == "OK") {
 		console.log("FUNCIONA");
 
-		var datos = [];
+		var datosDNIP = [];
+		var datosES = [];
+		var datosF = [];
 		for (var i = 0; i < (data.numero); i++) {
 
-			datos[i] = data['cita' + i].fecha;
+			datosDNIP[i] = data['dniPaciente' + i];
+			datosES[i] = data['especialidad' +i];
+			datosF[i] = data['fecha'+i];
 		}
-		mostrarContenido(datos);
+		mostrarContenido(datosDNIP,datosES,datosF);
 	}
 
 }), 10000);
@@ -39,17 +43,23 @@ setTimeout($.ajax({
  * "centroDeSalud": "CIUDAD REAL", "especialidad": " ONCOLOGÍA", } ];
  */
 
-function mostrarContenido(datos) {
+function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
 	var cabecera = '<tr>' + '<th>FECHA</th>' + '<th>DNI PACIENTE</th>'
 			+ '<th>ESPECIALIDAD</th>' + '</tr>';
 
-	for (var i = 0; i < datos.length; i++) {
-		var contenido = (datos[i])['fecha'];
-		cuerpo += '<tr>' + '<td>' + datos[i] + '</td>' + '<td>'
-				+ datos[i].dniPaciente + '</td>' + '<td>' + datos[i].dniMedico
+	for (var i = 0; i < datosDNIP.length; i++) {
+	
+		cuerpo += '<tr>' + '<td>' + datosF[i] + '</td>' + '<td>'
+				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
 				+ '</td>' + '</tr>';
 	}
 	$("#tablaCabecera").append(cabecera);
 	$("#tablaCuerpo").append(cuerpo);
+}
+function cerrarSesion (){
+	
+	sessionStorage.removeItem("data");
+	setTimeout(location.href = 'http://localhost:8080/', 10000);
+	
 }

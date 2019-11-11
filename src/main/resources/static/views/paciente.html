@@ -3,85 +3,85 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AngularJS, Login</title>
-    <!-- AngularJS File -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AngularJS, Login</title>
+<!-- AngularJS File -->
 
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
 
-    <script src="js/lib/angular.min.js"></script>
-    <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
 
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/app/paciente.css" />
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/paciente.css" />
 
 </head>
 
 <div class="nav-side-menu">
 
-    <a><img src="logos_sescam.png" class='imgRedonda' />
+	<a><img src="logos_sescam.png" class='imgRedonda' /> </a>
 
+	<div class="menu-list">
 
-    </a>
+		<ul id="menu-content" name="menu-content"
+			class="menu-content collapse out">
+			<li data-toggle="collapse" class="collapsed active"><i
+				class="fas fa-tachometer-alt fa-lg"></i> Mis Citas</li>
 
-    <div class="menu-list">
-
-        <ul id="menu-content" name="menu-content" class="menu-content collapse out">
-            <li data-toggle="collapse" class="collapsed active"> <i class="fas fa-tachometer-alt fa-lg"></i> Mis Citas
-            </li>
-
-            <li>
-                <a href="http://localhost:8080/pedirCita"><i class="fas fa-plus-circle fa-lg"></i> Pedir Cita </a>
-            </li>
+			<li><a href="http://localhost:8080/pedirCita"><i
+					class="fas fa-plus-circle fa-lg"></i> Pedir Cita </a></li>
 
 
 
-            <li>
-                <a href="http://localhost:8080/modificarCita"><i class="fas fa-edit fa-lg"></i> Modificar Cita </a>
-            </li>
+			<li><a href="http://localhost:8080/modificarCita"><i
+					class="fas fa-edit fa-lg"></i> Modificar Cita </a></li>
 
 
 
-            <li>
-                <a href="http://localhost:8080/borrarCita"><i class="fas fa-trash-alt fa-lg"></i> Eliminar Cita </a>
-            </li>
+			<li><a href="http://localhost:8080/borrarCita"><i
+					class="fas fa-trash-alt fa-lg"></i> Eliminar Cita </a></li>
 
 
 
-            <li>
-                <a href="http://localhost:8080/preguntasFrecuentes">
-                    <i class="fas fa-question-circle fa-lg"></i> Preguntas Frecuentes
-                </a>
-            </li>
+			<li><a href="http://localhost:8080/preguntasFrecuentes"> <i
+					class="fas fa-question-circle fa-lg"></i> Preguntas Frecuentes
+			</a></li>
+			
 
 
-        </ul>
-    </div>
-    <div class="contenido"></div>
+		</ul>
+	</div>
+	<a><img src="salir.png" class='imgRedondaSalir' onclick="cerrarSesion()" /> </a>
+	<div class="contenido"></div>
 </div>
 <div class="tabla">
 
-    <table class="table">
-        <thead class="thead-dark" id="tablaCabecera">
+	<table class="table">
+		<thead class="thead-dark" id="tablaCabecera">
 
-        </thead>
-        <tbody class="cuerpoT" id="tablaCuerpo">
+		</thead>
+		<tbody class="cuerpoT" id="tablaCuerpo">
 
-        </tbody>
-    </table>
-
-
+		</tbody>
+	</table>
 
 
 
-<script src="js/login.js"></script>
-<script src="js/paciente.js"></script>
+
+
+	<script src="js/login.js"></script>
+	<script src="js/paciente.js"></script>
 
 </div>
 </div>
