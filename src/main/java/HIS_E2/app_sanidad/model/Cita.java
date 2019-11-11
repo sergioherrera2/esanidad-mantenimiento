@@ -5,10 +5,13 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 
 @Document(collection = "cita")
 public class Cita {
 	
+	@JsonDeserialize(using = DateHandler.class)
 	Date fecha;
 	String dniMedico;
 	String dniPaciente;
