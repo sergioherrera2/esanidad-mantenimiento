@@ -31,9 +31,7 @@ function validateLogin() {
 
             } else {
             	
-                if (usuario == "medico") {
-                    setTimeout(location.href = 'http://localhost:8080/indexD', 10000);
-                }
+                
                 if (data.type == "error"){
                 	alert("¡Las contraseña o el DNI introducido son incorrectos!");
                 }

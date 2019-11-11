@@ -80,7 +80,9 @@ public class WebController {
 		respuesta.put("type", "OK");
 		respuesta.put("numero", list.size());
 		for(int i = 0; i<list.size(); i++) {
-			respuesta.put("cita"+i, new ObjectMapper().writeValueAsString(list.get(i)));
+			ObjectMapper objectmapper = new ObjectMapper();
+			objectmapper.configure(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS , false);
+			respuesta.put("cita"+i, objectmapper.writeValueAsString(list.get(i)));
 		}
 		return respuesta;
 	}
