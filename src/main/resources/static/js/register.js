@@ -128,7 +128,7 @@ function validate() {
 
             } else {
                 if (data.type="error") {
-                    alert("Se han mandado mal los datos del servidor");
+                    alert("¡Registro incorrecto o usuario ya existente!");
                 }
                 
 
