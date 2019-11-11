@@ -185,7 +185,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		}
 	}
 	@Given("^Un usuario con todos los campos de registro DNI \"([^\"]*)\", Nombre \"([^\"]*)\", Apellidos \"([^\"]*)\", Contraseña \"([^\"]*)\",NumeroSS \"([^\"]*)\"$")
-	public void un_usuario_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña(String arg1, String arg2, String arg3, String arg4,String arg5) {
+	public void un_usuario_con_todos_los_campos_de_registro_DNI_Nombre_Apellidos_Contraseña(String arg1, String arg2, String arg3, String arg4,String arg5) throws Exception {
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
 		} catch (Exception e1) {
