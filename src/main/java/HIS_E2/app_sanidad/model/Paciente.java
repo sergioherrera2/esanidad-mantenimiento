@@ -4,7 +4,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "paciente")
 public class Paciente extends Usuario {
-	
 	String numeroSS;
 
 
@@ -20,7 +19,7 @@ public class Paciente extends Usuario {
 	public void setNumeroSS(String numeroSS) {
 		this.numeroSS = numeroSS;
 	}
-	
+  
 	@Override
 	public String toString() {
 		return "Paciente [numeroSS=" + numeroSS + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos

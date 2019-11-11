@@ -1,5 +1,6 @@
 package HIS_E2.app_sanidad.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HIS_E2.app_sanidad.model.Cita;
@@ -50,17 +50,16 @@ public class WebController {
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		respuesta.put("resultado", new ObjectMapper().writeValueAsString(usuario));
-		
 		return respuesta;
 	}
 	
 	@PostMapping("/getCitas")
-	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception{
+	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
-		List<Cita> list = Manager.get().getCitas(dni, pass);
+		List<Cita> list = Manager.get().getCitasMedico(dni, pass);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
-		if(list == null) {
+		if (list == null) {
 			respuesta.put("type", "ERROR");
 			respuesta.put("message", "contraseña incorrecta");
 		} else {
@@ -100,6 +99,57 @@ public class WebController {
 		}
 		return resultado.toString();
 	}
+	@CrossOrigin(origins = "*", allowCredentials = "true")
+	@PostMapping(value = "/pedirCita")
+	public Map<String, Object> pedirCita(@RequestBody Map<String, String> jso) throws Exception{
+		String dniPaciente = jso.get("dniPaciente");
+		String fecha = jso.get("fecha");
+		String especialidad = jso.get("especialidad");
+		Cita cita = Manager.get().pedirCita(dniPaciente, fecha, especialidad);
+		Map<String, Object> respuesta=new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(cita));
+		return respuesta;
+	}
+	@CrossOrigin(origins = "*", allowCredentials = "true")
+	@PostMapping(value = "/citasDisponibles")
+	public Map<String, Object> citasDisponibles(@RequestBody Map<String, String> jso) throws Exception {
+		String dniPaciente = jso.get("dniPaciente");
+		String especialidad = jso.get("especialidad");
+		List<Date> fechas = Manager.get().getCitas(dniPaciente, especialidad);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		for(int i = 0; i<fechas.size(); i++) {
+			respuesta.put("fecha"+i, new ObjectMapper().writeValueAsString(fechas.get(i)));
+		}
+		return respuesta;
+	}
+	@CrossOrigin(origins = "*", allowCredentials = "true")
+	@PostMapping(value = "/modificarCita")
+	public Map<String, Object> modificarCita(@RequestBody Map<String, String> jso) throws Exception{
+		String dniPaciente = jso.get("dniPaciente");
+		String especialidad = jso.get("especialidad");
+		String fechaActual = jso.get("fechaActual");
+		String fechaModificar = jso.get("fechaModificar");
+		Cita cita = Manager.get().modificarCita(dniPaciente, especialidad, fechaActual, fechaModificar);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("cita", new ObjectMapper().writeValueAsString(cita));
+		return respuesta;
+	}
+	@CrossOrigin(origins = "*", allowCredentials = "true")
+	@PostMapping(value = "/anularCita")
+	public Map<String, Object> anularCita(@RequestBody Map<String, String> jso) throws Exception{
+		String dniPaciente = jso.get("dniPaciente");
+		String especialidad = jso.get("especialidad");
+		String fecha = jso.get("fecha");
+		Manager.get().eliminarCitas(dniPaciente, fecha, especialidad);;
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", "cita anulada correctamente");
+		return respuesta;
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();
