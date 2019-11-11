@@ -12,13 +12,15 @@ public class Cita {
 	Date fecha;
 	String dniMedico;
 	String dniPaciente;
+	String especialidad;
 
 	
-	public Cita(Date fecha, String dniMedico, String dniPaciente) {
+	public Cita(Date fecha, String dniMedico, String dniPaciente, String especialidad) {
 		super();
 		this.fecha = fecha;
 		this.dniMedico = dniMedico;
 		this.dniPaciente = dniPaciente;
+		this.especialidad = especialidad;
 	}
 	
 	public Date getFecha() {
@@ -47,8 +49,8 @@ public class Cita {
 
 	@Override
 	public String toString() {
-		return "Cita [Fecha=" + fecha + ", dniMedico=" + dniMedico + ", dniPaciente="
-				+ dniPaciente + "]";
+		return "Cita [Fecha=" + fecha.toString() + ", dniMedico=" + dniMedico + ", dniPaciente="
+				+ dniPaciente + ", especialidad ="+ especialidad+"]";
 	}
 	
 }

@@ -193,7 +193,7 @@ public class Manager {
 	          throw new Exception("La fecha de la cita no puede ser pasada");
 		}
 		controlarSolapamiento(dniPaciente, dniMedico, fechaCita);
-		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
+		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente, especialidad);
 		cita = citaRepo.insert(cita);
 		return cita;
 	}
@@ -237,7 +237,7 @@ public class Manager {
 		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fechaActual);
 		Date fechaNueva = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fechaModificar);
 		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
-		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente);
+		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente, especialidad);
 		citaRepo.insert(cita);
 		return cita;
 	}
