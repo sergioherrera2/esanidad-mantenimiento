@@ -6,11 +6,11 @@ Feature: Pedir cita
     Given Una cita con todos los campos dni-user "<dni-user>" , especialidad "<especialidad>", fecha "<fecha>"
     When pido la cita "<Response>"
     Then Se guarda correctamente la cita dni-user "<dni-user>" , especialidad "<especialidad>", fecha "<fecha>" Result "<Response>"
-    And Borro la cita si ha sido insertada con exito "<dni-user>", especialidad "<especialidad>", fecha "<fecha>" Result "<Response>"
+   # And Borro la cita si ha sido insertada con exito "<dni-user>", especialidad "<especialidad>", fecha "<fecha>" Result "<Response>"
 
     Examples: 
       | dni-user   | especialidad   |  fecha              |  Response  |
-      |05726690N   | Cabecera       |20/12/2019 16:30:00  |   OK       |
+      |05726690N   | Oncología      |20/12/2019 16:35:00  |   OK       |
       |05726690    | Cabecera       |10/12/2019 16:30:00  | Error      |
       |05726690N   |                |10/12/2019 16:30:00  | Error      |
       |05726690N   | Hola           |10/12/2019 16:30:00  | Error      |

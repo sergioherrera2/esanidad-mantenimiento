@@ -116,8 +116,8 @@ public class Manager {
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
 		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
 		Medico medico = medicoRepo.findByDni(dniMedico);
-		Especialidad especialidad = especialidadRepo.findByEspecialidad(medico.getIdEspecialidad());
-		int duracion = especialidad.getDuracionCita();
+		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
+		int duracion = especialidad.get(0).getDuracionCita();
 		Date fechaCitaPlusDuracion = new Date(fechaCita.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
 		for(int i = 0; i<citas.size(); i++) {
 			Date fechaSolapada = citas.get(i).getFecha();
@@ -125,6 +125,9 @@ public class Manager {
 			if((fechaCita.after(fechaSolapada) && fechaCita.before(fechaSolapadaPlusDuracion)) ||
 					(fechaCita.before(fechaSolapada) && fechaCitaPlusDuracion.after(fechaSolapada))) {
 				throw new Exception("Las fechas se solapan, cita incorrecta");
+			}
+			if(fechaCita.equals(fechaSolapada) || fechaCita.equals(fechaSolapadaPlusDuracion)) {
+				throw new Exception("Las fechas no pueden ser iguales");
 			}
 		}
 		citas = citaRepo.findByDniMedico(dniMedico);
@@ -134,6 +137,9 @@ public class Manager {
 			if((fechaCita.after(fechaSolapada) && fechaCita.before(fechaSolapadaPlusDuracion)) ||
 					(fechaCita.before(fechaSolapada) && fechaCitaPlusDuracion.after(fechaSolapada))) {
 				throw new Exception("Las fechas se solapan, cita incorrecta");
+			}
+			if(fechaCita.equals(fechaSolapada) || fechaCita.equals(fechaSolapadaPlusDuracion)) {
+				throw new Exception("Las fechas no pueden ser iguales");
 			}
 		}
 		
@@ -187,7 +193,7 @@ public class Manager {
 	          throw new Exception("La fecha de la cita no puede ser pasada");
 		}
 		controlarSolapamiento(dniPaciente, dniMedico, fechaCita);
-		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente);
+		Cita cita = new Cita(fechaCita, dniMedico, dniPaciente, especialidad);
 		cita = citaRepo.insert(cita);
 		return cita;
 	}
@@ -231,7 +237,7 @@ public class Manager {
 		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fechaActual);
 		Date fechaNueva = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fechaModificar);
 		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
-		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente);
+		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente, especialidad);
 		citaRepo.insert(cita);
 		return cita;
 	}
