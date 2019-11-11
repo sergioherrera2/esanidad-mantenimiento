@@ -214,7 +214,8 @@ public class Manager {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
 		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fecha);
-		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
+		List<Cita> lista = citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
+		citaRepo.delete(lista.get(0));
 	}
 	
 	public void crearMedicoPaciente(String dniMedico, String nombre, String apellidos, String contrs, String especialidad, String dniPaciente)throws Exception{
@@ -236,8 +237,9 @@ public class Manager {
 		String dniMedico = pacienteMed.getDniMedico();
 		Date fechaCita = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fechaActual);
 		Date fechaNueva = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(fechaModificar);
-		citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
+		List<Cita> list = citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
 		Cita cita = new Cita(fechaNueva, dniMedico, dniPaciente, especialidad);
+		citaRepo.delete(list.get(0));
 		citaRepo.insert(cita);
 		return cita;
 	}

@@ -2,6 +2,7 @@ package HIS_E2.app_sanidad.model;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @Document(collection = "cita")
 public class Cita {
 	
+	ObjectId _id;
 	@JsonDeserialize(using = DateHandler.class)
 	Date fecha;
 	String dniMedico;
