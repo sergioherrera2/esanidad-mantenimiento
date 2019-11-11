@@ -212,6 +212,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 
 	@When("^pido la cita \"([^\"]*)\"$")
 	public void pido_la_cita(String arg1) {
+		/**
 		try {
 			Manager.get().crearEspecialidad("Oncología", 15);
 			Manager.get().crearEspecialidad("Podología", 15);
@@ -229,7 +230,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 			// TODO Auto-generated catch block
 		}
 		
-
+**/
 		
 		try {
 			

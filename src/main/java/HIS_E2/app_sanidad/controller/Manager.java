@@ -116,8 +116,8 @@ public class Manager {
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
 		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
 		Medico medico = medicoRepo.findByDni(dniMedico);
-		Especialidad especialidad = especialidadRepo.findByEspecialidad(medico.getIdEspecialidad());
-		int duracion = especialidad.getDuracionCita();
+		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
+		int duracion = especialidad.get(0).getDuracionCita();
 		Date fechaCitaPlusDuracion = new Date(fechaCita.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
 		for(int i = 0; i<citas.size(); i++) {
 			Date fechaSolapada = citas.get(i).getFecha();
