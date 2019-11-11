@@ -20,13 +20,15 @@ var data = {
             
             if (data.type == "OK") {
             	console.log("FUNCIONA");
-
+            	for (var i=0;i<data.cita.length;i++){
+            		var datos = [{data.cita[i]}];
+            	}
             } 
 
         }), 10000);
 
 
-/*var datos = [{
+/*var datos = [cita1 :{
         "fecha": "12/05/19",
         "hora": "15:01",
         "centroDeSalud": "LA SOLANA",

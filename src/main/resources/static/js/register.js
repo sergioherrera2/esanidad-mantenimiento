@@ -6,21 +6,25 @@ function validate() {
     var nss = document.getElementById("nss").value;
     var Dni = document.getElementById("dni").value;
    
+    controlNumeroSS(nom, Apellidos, contraseña, contraseña2, nss, Dni);
+    /*controlTipoContraseña(nom, Apellidos, contraseña, contraseña2, nss, Dni);
+    controlTipodni(nom, Apellidos, contraseña, contraseña2, nss, Dni);
+    controlEspacioVacio(nom, Apellidos, contraseña, contraseña2, nss, Dni);*/
+    
 
-    controlTipoContraseña(contraseña, contraseña2);
-    controlTipodni(Dni);
-    controlEspacioVacio(nom, Apellidos, contraseña, contraseña2, nss, Dni);
-    controlNumeroSS(nss);
+    function controlNumeroSS(nom, Apellidos, contraseña, contraseña2, nss, Dni) {
 
-    function controlNumeroSS(nss) {
-
-        if (nss.length != 12) {
-            alert("¡Debe introducir correctamente su nº de Seguridad Social!");
-        }
+    	if(nss.length == 12){
+    		controlTipoContraseña(nom, Apellidos, contraseña, contraseña2, nss, Dni);
+    	}else{
+    		if (nss.length != 12) {
+    			alert("¡Debe introducir correctamente su nº de Seguridad Social!");
+    		}
+    	}
 
     }
 
-    function controlTipoContraseña(contraseña, contraseña2) {
+    function controlTipoContraseña(nom, Apellidos, contraseña, contraseña2, nss, Dni) {
 
         if (contraseña == contraseña2) {
 
@@ -29,8 +33,7 @@ function validate() {
             var contadorMinuscula = 0;
             var contadorNumerico = 0;
             for (i = 0; i <= contraseña.length - 1; i++) {
-                //var letra = contraseña.charAt(i);
-                // var letra2 = contraseña.charAt(i).toUpperCase();
+              
                 if (contraseña.charAt(i) == contraseña.charAt(i).toUpperCase() && (isNaN(contraseña.charAt(i)) == true)) {
                     contadorMayuscula++;
                 }
@@ -43,30 +46,37 @@ function validate() {
 
 
             }
-            if (contadorMayuscula < 1 || contadorMinuscula < 1 || contadorNumerico < 1)
+            if (contadorMayuscula < 1 || contadorMinuscula < 1 || contadorNumerico < 1){
                 alert("¡Has introducido las contraseñas incorrectamente!")
-
+            }else{
+            	controlTipodni(nom, Apellidos, contraseña, contraseña2, nss, Dni);
+            }
         } else {
             alert("¡Deben de coincidir las dos contraseñas!")
         }
     }
 
-    function controlTipodni(Dni) {
+    function controlTipodni(nom, Apellidos, contraseña, contraseña2, nss, Dni) {
 
         var letraDNI = Dni.charAt(Dni.length - 1);
+        
         var numeroDNI = parseInt(Dni.substr(0, Dni.length - 1));
         var numeroDNIString = Dni.substr(0, Dni.length - 1);
-        // var estado1 = Number.isInteger(numeroDNI);
-        // var estado2 = isNaN(letraDNI);
+       
         if (((Number.isInteger(numeroDNI) == false) && (isNaN(letraDNI) == false)) || (numeroDNIString.length != 8)) {
             alert("¡Has introducido el DNI incorrectamente!");
         } else {
             var cadena = "TRWAGMYFPDXBNJZSQVHLCKET";
             var posicion = numeroDNI % 23;
             var letra = cadena.substring(posicion, posicion + 1);
-            var dniComparar = numeroDNI + letra;
-            if (Dni != dniComparar) {
+            var dniComparar2 = numeroDNI + letra;
+            var dniComparar = numeroDNI + letraDNI;
+            if (dniComparar != dniComparar2) {
                 alert("¡Has introducido mal la letra de su DNI!");
+            }else{
+            	if(dniComparar == dniComparar2){
+            		controlEspacioVacio(nom, Apellidos, contraseña, contraseña2, nss, Dni);
+            	}
             }
         }
 
@@ -97,20 +107,32 @@ function validate() {
             dni: Dni
         };
         data = JSON.stringify(data);
-        $.ajax({
-            url: recurso,
-            type: "POST",
-            data: data,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            success: function(response) {
-                window.location.href = "http://localhost:8080/";
-            },
-            error: function(error) {
-                alert("no funciona");
+        setTimeout($.ajax({
+                url: recurso,
+                type: "POST",
+                data: data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+        .done(function(data, textStatus, jqXHR) {
+            console.log(data.type);
+            if (data.type == "OK") {
+            	
+                setTimeout(location.href = 'http://localhost:8080/', 10000);
+
+            } else {
+                if (data.type="error") {
+                    alert("Se han mandado mal los datos del servidor");
+                }
+                
             }
-        });
+
+        }), 10000);
+        
     }
 
 
