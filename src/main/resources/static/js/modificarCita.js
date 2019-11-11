@@ -36,13 +36,20 @@ function modificarCita (){
 				if (data.type == "OK") {
 				  
 					setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
+					sessionStorage.removeItem("fecha");
+					sessionStorage.removeItem("especialidad");
+					sessionStorage.removeItem("dni");
 	
 				} else {
 					if (data.type="error") {
 						alert("Error al crear cita, contacte con el servicio de soporte.");
+						sessionStorage.removeItem("fecha");
+						sessionStorage.removeItem("especialidad");
+						sessionStorage.removeItem("dni");
 					}
-					
-	
+					sessionStorage.removeItem("fecha");
+					sessionStorage.removeItem("especialidad");
+					sessionStorage.removeItem("dni");
 				}
 	
 			}), 10000);
