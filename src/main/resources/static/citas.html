@@ -52,59 +52,6 @@
                     <ul class="nav navbar-nav notika-top-nav">
                         <li class="nav-item dropdown">
                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a>
-                            <div role="menu" class="dropdown-menu search-dd animated fadeIn">
-                                <div class="search-input">
-                                    <i class="notika-icon notika-left-arrow"></i>
-                                    <input type="text" />
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-mail"></i></span></a>
-                            <div role="menu" class="dropdown-menu message-dd animated fadeIn">
-                                <div class="hd-mg-tt">
-                                    <h2>Messages</h2>
-                                </div>
-                                <div class="hd-message-info">
-                                    <a href="#">
-                                        <div class="hd-message-sn">
-                                            <div class="hd-message-img">
-                                                <img src="img/post/1.jpg" alt="" />
-                                            </div>
-                                            <div class="hd-mg-ctn">
-                                                <h3>David Belle</h3>
-                                                <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="hd-mg-va">
-                                    <a href="#">View All</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item nc-al"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-alarm"></i></span><div class="spinner4 spinner-4"></div><div class="ntd-ctn"><span>3</span></div></a>
-                            <div role="menu" class="dropdown-menu message-dd notification-dd animated fadeIn">
-                                <div class="hd-mg-tt">
-                                    <h2>Notificaciones</h2>
-                                </div>
-                                <div class="hd-message-info">
-                                    <a href="#">
-                                        <div class="hd-message-sn">
-                                            <div class="hd-message-img">
-                                                <img src="img/post/1.jpg" alt="" />
-                                            </div>
-                                            <div class="hd-mg-ctn">
-                                                <h3>Eduardo</h3>
-                                                <p>Nueva cita recibida.</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="hd-mg-va">
-                                    <a href="#">View All</a>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </div>
@@ -147,12 +94,6 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-example-int">
-                                <div class="form-group">
-                                    <label>DNI</label>
-                                    <div class="nk-int-st">
-                                        <input type="text" name="dniPaciente" id="dniPaciente" class="form-control input-sm" placeholder="Introduce tu DNI">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -161,9 +102,8 @@
                                     <label>Especialidad</label>
                                     <div class="bootstrap-select fm-cmp-mg">
                                         <select class="selectpicker" name="especialidad" id="especialidad">
+                                            <option>Oncología</option>
                                             <option>Podología</option>
-                                            <option>Oftalmólogía</option>
-                                            <option>Neurología</option>
                                         </select>
                                     </div>
                                 </div>
@@ -174,11 +114,7 @@
                                 <div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
                                     <label>Fecha</label>
                                     <div class="bootstrap-select fm-cmp-mg">
-                                        <select class="selectpicker" name="fecha" id="fecha">
-                                            <option>03/19/2018</option>
-                                            <option>03/19/2018</option>
-                                            <option>03/19/2018</option>
-                                        </select>
+                                        <input type="text" name="fecha" id="fecha" class="form-control input-sm" placeholder="formato fecha: dd/MM/yyyy HH:mm:ss">
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +122,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-example-int">
-                                <button class="btn btn-success notika-btn-success">Pedir</button>
+                                <button id="btnPedirCita" class="btn btn-success notika-btn-success" onclick="pedirCita()">Pedir</button>
                             </div>
                         </div>
                     </div>
@@ -244,5 +180,6 @@
 <script src="js/bootstrap-select/bootstrap-select.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
+<script src="js/citas.js"></script>
 </body>
 </html>
