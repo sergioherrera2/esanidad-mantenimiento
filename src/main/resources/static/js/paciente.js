@@ -42,6 +42,24 @@ setTimeout($.ajax({
  * "especialidad": " ONCOLOGÍA", }, { "fecha": "12/05/29", "hora": "12:01",
  * "centroDeSalud": "CIUDAD REAL", "especialidad": " ONCOLOGÍA", } ];
  */
+function eliminarCita(data) {
+	setTimeout($.ajax({
+		url : recurso,
+		type : "POST",
+		data : data,
+		xhrFields : {
+			withCredentials : true
+		},
+		headers : {
+			'Content-Type' : 'application/json'
+		},
+	}).done(function(data) {
+		if (data.type == "OK") {
+			console.log("eliminar");
+			console.log(data);
+		}
+	}), 10000);
+}
 
 function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
@@ -57,26 +75,9 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 			fecha :  datosF[i]
 		};
 		data = JSON.stringify(data);
-
-		setTimeout($.ajax({
-			url : recurso,
-			type : "POST",
-			data : data,
-			xhrFields : {
-				withCredentials : true
-			},
-			headers : {
-				'Content-Type' : 'application/json'
-			},
-		}).done(function(data, textStatus, jqXHR) {
-			if (data.type == "OK") {
-				console.log("FUNCIONA");
-			}
-		}), 10000);
-
 		cuerpo += '<tr>' + '<td>' + datosF[i] + '</td>' + '<td>'
 				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
-				+ '</td>' + '<td><a href="/anularCita">' + 'Eliminar' + '</a></td>' + '</tr>';
+				+ '</td>' + '<td><a href="javascript:void(0);" onclick="eliminarCita(data);">' + 'Eliminar' + '</a></td>' + '</tr>';
 	}
 	$("#tablaCabecera").append(cabecera);
 	$("#tablaCuerpo").append(cuerpo);
