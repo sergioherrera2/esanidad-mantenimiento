@@ -5,20 +5,25 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 
 @Document(collection = "cita")
 public class Cita {
 	
+	@JsonDeserialize(using = DateHandler.class)
 	Date fecha;
 	String dniMedico;
 	String dniPaciente;
+	String especialidad;
 
 	
-	public Cita(Date fecha, String dniMedico, String dniPaciente) {
+	public Cita(Date fecha, String dniMedico, String dniPaciente, String especialidad) {
 		super();
 		this.fecha = fecha;
 		this.dniMedico = dniMedico;
 		this.dniPaciente = dniPaciente;
+		this.especialidad = especialidad;
 	}
 	
 	public Date getFecha() {
@@ -44,11 +49,15 @@ public class Cita {
 	public void setDniPaciente(String dniPaciente) {
 		this.dniPaciente = dniPaciente;
 	}
+	
+	public String getEspecialidad() {
+		return especialidad;
+	}
 
 	@Override
 	public String toString() {
-		return "Cita [Fecha=" + fecha + ", dniMedico=" + dniMedico + ", dniPaciente="
-				+ dniPaciente + "]";
+		return "Cita [Fecha=" + fecha.toString() + ", dniMedico=" + dniMedico + ", dniPaciente="
+				+ dniPaciente + ", especialidad ="+ especialidad+"]";
 	}
-	
+
 }

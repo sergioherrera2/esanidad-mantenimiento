@@ -1,8 +1,12 @@
 function validateLogin() {
     var Dni = document.getElementById("username").value;
     var contraseña = document.getElementById("password").value;
-
-    var recurso = "https://localhost:8080/autenticar";
+    
+    
+    controlLogin(Dni,contraseña);
+    
+    
+    var recurso = "http://localhost:8080/autenticar";
     var data = {
         dni: Dni,
         pass: contraseña,
@@ -22,17 +26,30 @@ function validateLogin() {
         .done(function(data, textStatus, jqXHR) {
             console.log(data.type + "HOLA");
             if (data.type == "OK") {
-                setTimeout(location.href = 'https://localhost:8080/paciente', 10000);
+            	sessionStorage.setItem("data", JSON.stringify(Dni));
+                setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
 
             } else {
-                if (usuario == "medico") {
-                    setTimeout(location.href = 'https://localhost:8080/indexD', 10000);
+            	
+                
+                if (data.type == "error"){
+                	alert("¡Las contraseña o el DNI introducido son incorrectos!");
                 }
-                window.alert(data.message)
-                console.log(data.message)
+                window.alert(data.message);
+                console.log(data.message);
             }
 
         }), 10000);
-
-
+    
+    	
+    
+    	function controlLogin(Dni,contraseña){
+    		
+    		if(Dni == '' || contraseña == ''){
+    			alert("¡Debes de rellenar el campo DNI y el campo contraseña!");
+    		}
+    		
+    		
+    	}
+    
 }

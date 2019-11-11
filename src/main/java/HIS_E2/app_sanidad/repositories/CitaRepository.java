@@ -19,7 +19,7 @@ public interface CitaRepository extends MongoRepository<Cita, String> {
 	List<Cita> findByDniPaciente(String dniPaciente);
 
 	@Query(value = "{ 'dniPaciente' : ?0, 'dniMedico' : ?1, 'fecha' : ?2}")
-	Cita deleteCustomCita(String dniPaciente, String dniMedico, Date fecha);
+	List<Cita> deleteCustomCita(String dniPaciente, String dniMedico, Date fecha);
 	
 	@Query(value = "{ 'dniPaciente' : ?0, 'dniMedico' : ?1, 'fecha' : ?2}")
 	boolean existCustomCita(String dniPaciente, String dniMedico, Date fecha);

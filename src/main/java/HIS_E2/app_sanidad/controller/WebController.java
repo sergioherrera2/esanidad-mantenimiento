@@ -65,7 +65,9 @@ public class WebController {
 		} else {
 			respuesta.put("type", "OK");
 			for(int i = 0; i<list.size(); i++) {
-				respuesta.put("cita"+i, new ObjectMapper().writeValueAsString(list.get(i)));
+				respuesta.put("fecha"+i, list.get(i).getFecha().toString());
+				respuesta.put("dniPaciente"+i, list.get(i).getDniPaciente());
+				respuesta.put("especialidad"+i,list.get(i).getEspecialidad());
 			}
 		}
 		
@@ -78,8 +80,11 @@ public class WebController {
 		List<Cita> list = Manager.get().getCitasPaciente(dni);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
+		respuesta.put("numero", list.size());
 		for(int i = 0; i<list.size(); i++) {
-			respuesta.put("cita"+i, new ObjectMapper().writeValueAsString(list.get(i)));
+			respuesta.put("fecha"+i, list.get(i).getFecha().toString());
+			respuesta.put("dniPaciente"+i, list.get(i).getDniPaciente());
+			respuesta.put("especialidad"+i,list.get(i).getEspecialidad());
 		}
 		return respuesta;
 	}
@@ -99,7 +104,7 @@ public class WebController {
 		}
 		return resultado.toString();
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/pedirCita")
 	public Map<String, Object> pedirCita(@RequestBody Map<String, String> jso) throws Exception{
 		String dniPaciente = jso.get("dniPaciente");
@@ -108,10 +113,12 @@ public class WebController {
 		Cita cita = Manager.get().pedirCita(dniPaciente, fecha, especialidad);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("resultado", new ObjectMapper().writeValueAsString(cita));
+		respuesta.put("fecha", cita.getFecha().toString());
+		respuesta.put("dniPaciente", cita.getDniPaciente());
+		respuesta.put("especialidad",cita.getEspecialidad());
 		return respuesta;
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/citasDisponibles")
 	public Map<String, Object> citasDisponibles(@RequestBody Map<String, String> jso) throws Exception {
 		String dniPaciente = jso.get("dniPaciente");
@@ -120,11 +127,13 @@ public class WebController {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		for(int i = 0; i<fechas.size(); i++) {
-			respuesta.put("fecha"+i, new ObjectMapper().writeValueAsString(fechas.get(i)));
+			ObjectMapper objectmapper = new ObjectMapper();
+			objectmapper.configure(com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS , false);
+			respuesta.put("fecha"+i, objectmapper.writeValueAsString(fechas.get(i)));
 		}
 		return respuesta;
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/modificarCita")
 	public Map<String, Object> modificarCita(@RequestBody Map<String, String> jso) throws Exception{
 		String dniPaciente = jso.get("dniPaciente");
@@ -134,10 +143,12 @@ public class WebController {
 		Cita cita = Manager.get().modificarCita(dniPaciente, especialidad, fechaActual, fechaModificar);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("cita", new ObjectMapper().writeValueAsString(cita));
+		respuesta.put("fecha", cita.getFecha().toString());
+		respuesta.put("dniPaciente", cita.getDniPaciente());
+		respuesta.put("especialidad",cita.getEspecialidad());
 		return respuesta;
 	}
-	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/anularCita")
 	public Map<String, Object> anularCita(@RequestBody Map<String, String> jso) throws Exception{
 		String dniPaciente = jso.get("dniPaciente");

@@ -7,26 +7,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "especialidad")
 public class Especialidad {
 	
-	@Id
-	int idEspecialidad;
 	String nombreEspecialidad;
 	int duracionCita;
 	
 
-	public Especialidad(int idEspecialidad, String nombreEspecialidad, int duracionCita) {
+	public Especialidad(String nombreEspecialidad, int duracionCita) {
 		super();
-		this.idEspecialidad = idEspecialidad;
 		this.nombreEspecialidad = nombreEspecialidad;
 		this.duracionCita = duracionCita;
 	}
 
-	public int getIdEspecialidad() {
-		return idEspecialidad;
-	}
 
-	public void setIdEspecialidad(int idEspecialidad) {
-		this.idEspecialidad = idEspecialidad;
-	}
+
+
 
 	public String getNombreEspecialidad() {
 		return nombreEspecialidad;
@@ -46,7 +39,7 @@ public class Especialidad {
 
 	@Override
 	public String toString() {
-		return "Especialidad [idEspecialidad=" + idEspecialidad + ", nombreEspecialidad=" + nombreEspecialidad
+		return "Especialidad [nombreEspecialidad=" + nombreEspecialidad
 				+ ", duracionCita=" + duracionCita + "]";
 	}
 	
