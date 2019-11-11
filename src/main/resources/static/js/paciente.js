@@ -68,6 +68,13 @@ function eliminarCita(id) {
 	}), 10000);
 }
 
+function modificarCita(id){
+	sessionStorage.setItem("fecha", JSON.stringify(datosF[id]));
+	sessionStorage.setItem("dni", JSON.stringify(datosDNIP[id]));
+	sessionStorage.setItem("especialidad", JSON.stringify(datosES[id]));
+	location.href = 'http://localhost:8080/modificarCita'
+}
+
 function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
 	var recurso = "http://localhost:8080/anularCita";
@@ -84,7 +91,7 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 		data = JSON.stringify(data);
 		cuerpo += '<tr>' + '<td>' + datosF[i] + '</td>' + '<td>'
 				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
-				+ '</td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarCita(id);">' + 'Eliminar' + '</a></td>' + '</tr>';
+				+ '</td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarCita(id);">' + 'Eliminar' + '</a></td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="modificarCita(id);">' + 'Modificar' + '</a></td>' + '</tr>';
 	}
 	$("#tablaCabecera").append(cabecera);
 	$("#tablaCuerpo").append(cuerpo);

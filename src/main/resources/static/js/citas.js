@@ -3,6 +3,10 @@ function pedirCita() {
     var especialidad = document.getElementById("especialidad").value;
     var DNI = JSON.parse(sessionStorage.getItem("data"));
 
+  fecha =fecha.substring(8,10)+fecha.substring(4,8)+fecha.substring(0,4)+fecha.substring(10,fecha.length)+":00";
+  fecha=fecha.replace("T"," ");
+  fecha=fecha.replace("-","/");
+  fecha=fecha.replace("-","/");
     var recurso = "http://localhost:8080/pedirCita";
         var data = {
             type: "cita",
@@ -26,7 +30,7 @@ function pedirCita() {
         .done(function(data, textStatus, jqXHR) {
             console.log(data.type);
             if (data.type == "OK") {
-            	
+              
                 setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
 
             } else {
