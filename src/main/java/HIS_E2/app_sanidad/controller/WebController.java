@@ -78,6 +78,7 @@ public class WebController {
 		List<Cita> list = Manager.get().getCitasPaciente(dni);
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
+		respuesta.put("numero", list.size());
 		for(int i = 0; i<list.size(); i++) {
 			respuesta.put("cita"+i, new ObjectMapper().writeValueAsString(list.get(i)));
 		}

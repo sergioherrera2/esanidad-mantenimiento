@@ -1,5 +1,6 @@
 var DNI = JSON.parse(sessionStorage.getItem("data"));
 var recurso = "http://localhost:8080/citasPaciente";
+var datos =[];
 var data = {
         dni: DNI,
        
@@ -20,8 +21,11 @@ var data = {
             
             if (data.type == "OK") {
             	console.log("FUNCIONA");
-            	for (var i=0;i<data.cita.length;i++){
-            		var datos = [{data.cita[i]}];
+            	
+            	
+            	for (var i=0;i<(data.numero);i++){
+            		
+            		datos[i]= data['cita'+i];
             	}
             } 
 
@@ -52,25 +56,23 @@ var data = {
         "centroDeSalud": "CIUDAD REAL",
         "especialidad": " ONCOLOGÍA",
     }
-];
+];*/
 
 
 
 var cuerpo = "";
 var cabecera = '<tr>' +
     '<th>FECHA</th>' +
-    '<th>HORA</th>' +
-    '<th>CENTRO DE SALUD</th>' +
+    '<th>DNI PACIENTE</th>' +
     '<th>ESPECIALIDAD</th>' +
     '</tr>';
 
 for (var i = 0; i < datos.length; i++) {
     cuerpo += '<tr>' +
         '<td>' + datos[i].fecha + '</td>' +
-        '<td>' + datos[i].hora + '</td>' +
-        '<td>' + datos[i].centroDeSalud + '</td>' +
-        '<td>' + datos[i].especialidad + '</td>' +
+        '<td>' + datos[i].dniPaciente + '</td>' +
+        '<td>' + datos[i].dniMedico + '</td>' +
         '</tr>';
 }
 $("#tablaCabecera").append(cabecera);
-$("#tablaCuerpo").append(cuerpo);*/
+$("#tablaCuerpo").append(cuerpo);

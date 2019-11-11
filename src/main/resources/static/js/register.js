@@ -69,14 +69,10 @@ function validate() {
             var cadena = "TRWAGMYFPDXBNJZSQVHLCKET";
             var posicion = numeroDNI % 23;
             var letra = cadena.substring(posicion, posicion + 1);
-<<<<<<< HEAD
-            var dniComparar2 = numeroDNI + letra;
-            var dniComparar = numeroDNI + letraDNI;
-            if (dniComparar != dniComparar2) {
-=======
+           
             var dniComparar = numeroDNI + letra;
+            var dniComparar2 = numeroDNI + letra;
             if(letraDNI != letra) {
->>>>>>> branch 'vista-correcta' of https://github.com/Edulaen/app-sanidad
                 alert("¡Has introducido mal la letra de su DNI!");
             }else{
             	if(dniComparar == dniComparar2){
@@ -112,7 +108,7 @@ function validate() {
             dni: Dni
         };
         data = JSON.stringify(data);
-<<<<<<< HEAD
+
         setTimeout($.ajax({
                 url: recurso,
                 type: "POST",
@@ -135,21 +131,7 @@ function validate() {
                     alert("Se han mandado mal los datos del servidor");
                 }
                 
-=======
-        $.ajax({
-            url: recurso,
-            type: "POST",
-            data: data,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            success: function(response) {
-            console.log(response)
-                window.location.href = "http://localhost:8080/";
-            },
-            error: function(error) {
-                alert("no funciona");
->>>>>>> branch 'vista-correcta' of https://github.com/Edulaen/app-sanidad
+
             }
 
         }), 10000);

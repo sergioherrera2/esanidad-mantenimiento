@@ -47,7 +47,7 @@ public class Cita {
 
 	@Override
 	public String toString() {
-		return "Cita [Fecha=" + fecha + ", dniMedico=" + dniMedico + ", dniPaciente="
+		return "Cita [Fecha=" + fecha.toString() + ", dniMedico=" + dniMedico + ", dniPaciente="
 				+ dniPaciente + "]";
 	}
 	
