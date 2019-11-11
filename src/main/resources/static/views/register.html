@@ -116,8 +116,8 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-address-card fa-lg"></i></span>
                                     <input type="list" class="form-control" name="dni" id="dni" title="Formato:
-                                    -8 caracteres numéricos
-                                    -Una letra mayúscula" placeholder="Introduzca su DNI" pattern="([0-9]{8}[A-ZÑ])" required/>
+-8 caracteres numéricos
+-Una letra mayúscula" placeholder="Introduzca su DNI" pattern="([0-9]{8}[A-ZÑ])" required/>
 
                                 </div>
                             </div>
@@ -128,14 +128,16 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-address-card fa-lg"></i></span>
+
                                     <input type="text" class="form-control" name="nss" id="nss" pattern="([0-9]{12})" title="Formato:
+
 - Debe contener 12 carácteres numéricos." placeholder="Introduzca su nº de la Seguridad Social" required />
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-button">
-                            <input class="btn" id="btnRegistrar" name="btnRegistrar" type="submit" value="Registrar" onclick="validate()"></input>
+                            <input class="btn" id="btnRegistrar" name="btnRegistrar" type="submit" value="Registrar"  onkeydown="validate()" onclick="validate()"></input>
                         </div>
 
 

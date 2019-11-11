@@ -111,7 +111,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 
 	@Then("^Borro la cita si ha sido insertada con exito \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\" Result \"([^\"]*)\"$")
 	public void borro_la_cita_si_ha_sido_insertada_con_exito_especialidad_fecha_Result(String arg1, String arg2, String arg3, String arg4) {
-		if( arg4.equals("OK")) {
+		if( arg4.equals("OK1")) {
 			try {
 				Manager.get().eliminarCitas(arg1, arg3, arg2);
 			} catch (ParseException e) {
@@ -128,18 +128,18 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	@Given("^ClienteHttpPedirCita$")
 	public void clientehttppedircita() {
 		try {
-			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		client = new OkHttpClient();
-		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
+		} catch (Exception e1) {
+		}
+		client = new OkHttpClient();
+
+
 	}
 
 	@When("^Envío petición Post con todos los campos de pedir cita dni-user \"([^\"]*)\", especialidad \"([^\"]*)\" , fecha \"([^\"]*)\"$")
@@ -233,11 +233,26 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 
 	@When("^pido la cita \"([^\"]*)\"$")
 	public void pido_la_cita(String arg1) {
+		/**
 		try {
-			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
+			Manager.get().crearEspecialidad("Oncología", 15);
+			Manager.get().crearEspecialidad("Podología", 15);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 		}
+		try {
+			Manager.get().crearMedicoPaciente("287678890L", "nombre", "apellidos", "Antonio1234", "Oncología", "05726690N");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+		try {
+			Manager.get().crearMedicoPaciente("287678891C", "nombre", "apellidos", "Antonio1234", "Podología", "05726690N");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+		
+**/
+		
 		try {
 			
 			
@@ -297,10 +312,19 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 	
 	@Given("^Una modificaciónde cita con todos los campos dni-user \"([^\"]*)\" , especialidad \"([^\"]*)\", fecha \"([^\"]*)\", nueva fecha \"([^\"]*)\"$")
 	public void una_modificaciónde_cita_con_todos_los_campos_dni_user_especialidad_fecha_nueva_fecha(String arg1, String arg2, String arg3, String arg4) {
+		try {
+			new TestContextManager(getClass()).prepareTestInstance(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		cita_modificacionEspecialidad=arg2;
 		cita_modificacionDniUser=arg1;
 		cita_modificacionFechaAntigua=arg3;
 		cita_modificacionFechaNueva=arg4;
+        pedirCita_dnipaciente = arg1;
+        pedirCita_fecha = arg3;
+        pedirCita_especialidad =arg2;
 	}
 
 
@@ -310,7 +334,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 public void modifico_la_cita(String arg1) {
 	try {
 		
-		//cita_modificada=Manager.get().modificarCita(cita_modificacionDniUser,cita_modificacionEspecialidad,cita_modificacionFechaAntigua,cita_modificacionFechaNueva); 
+		cita_modificada = Manager.get().modificarCita(cita_modificacionDniUser,cita_modificacionEspecialidad,cita_modificacionFechaAntigua,cita_modificacionFechaNueva); 
 			} catch( Exception e) {
 				if(!arg1.contentEquals("Error")) {
 					fail("Register should work here");
@@ -333,10 +357,10 @@ public void se_modifica_correctamente_la_cita_dni_user_especialidad_fecha_Result
 @When("^Envío petición Post con todos los campos de modificar cita dni-user \"([^\"]*)\", especialidad \"([^\"]*)\" , fecha \"([^\"]*)\", fecha nueva \"([^\"]*)\"$")
 public void envío_petición_Post_con_todos_los_campos_de_modificar_cita_dni_user_especialidad_fecha_fecha_nueva(String arg1, String arg2, String arg3, String arg4) {
 	MediaType mediaType = MediaType.parse("application/json");
-	RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha antigua\": \""+arg3+"\",\"fecha nueva\":\""+arg4+"\"}");
+	RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fechaActual\": \""+arg3+"\",\"fechaModificar\":\""+arg4+"\"}");
 	 
 	 request = new Request.Builder()
-			  .url("https://app-sanidad.herokuapp.com/modificarCita")
+			  .url("http://localhost:8080/modificarCita")
 			  .post(body)
 			  .addHeader("Content-Type", "application/json")
 			  .addHeader("User-Agent", "PostmanRuntime/7.19.0")

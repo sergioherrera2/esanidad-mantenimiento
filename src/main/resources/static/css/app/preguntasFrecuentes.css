@@ -179,3 +179,10 @@ body {
 .menu-list {
     margin-top: 60px;
 }
+.imgRedondaSalir{
+	margin-top: 60px;
+    margin-left: 55px;
+    width: 100px;
+    height: 100px;
+    border-radius: 45px;
+}

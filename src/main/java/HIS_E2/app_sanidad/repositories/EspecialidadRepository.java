@@ -12,5 +12,5 @@ import HIS_E2.app_sanidad.model.Especialidad;
 public interface EspecialidadRepository extends MongoRepository<Especialidad, String> {
 
 	@Query(value = "{ 'nombreEspecialidad' : ?0}")
-	Especialidad findByEspecialidad(String nombreEspecialidad);
+	List<Especialidad> findCustomEspecialidad(String nombreEspecialidad);
 }
