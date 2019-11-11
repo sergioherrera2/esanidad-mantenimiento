@@ -9,6 +9,6 @@ var pro = idprovincia.options[idprovincia.selectedIndex].value;
 function cerrarSesion (){
 	
 	sessionStorage.removeItem("data");
-	setTimeout(location.href = 'http://localhost:8080/', 10000);
+	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
 	
 }

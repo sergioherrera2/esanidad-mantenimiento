@@ -7,7 +7,7 @@ function pedirCita() {
   fecha=fecha.replace("T"," ");
   fecha=fecha.replace("-","/");
   fecha=fecha.replace("-","/");
-    var recurso = "http://localhost:8080/pedirCita";
+    var recurso = "https://app-sanidad.herokuapp.com/pedirCita";
         var data = {
             type: "cita",
             dniPaciente: DNI,
@@ -31,7 +31,7 @@ function pedirCita() {
             console.log(data.type);
             if (data.type == "OK") {
               
-                setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
+                setTimeout(location.href = 'https://app-sanidad.herokuapp.com/paciente', 10000);
 
             } else {
                 if (data.type="error") {

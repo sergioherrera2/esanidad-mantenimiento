@@ -5,7 +5,7 @@ function validateLogin() {
 	controlLogin(Dni, contraseña);
 
 	function mandarDatos(Dni, contraseña) {
-		var recurso = "http://localhost:8080/autenticar";
+		var recurso = "https://app-sanidad.herokuapp.com/autenticar";
 		var data = {
 			dni : Dni,
 			pass : contraseña,
@@ -31,7 +31,7 @@ function validateLogin() {
 										sessionStorage.setItem("data", JSON
 												.stringify(Dni));
 										setTimeout(
-												location.href = 'http://localhost:8080/paciente',
+												location.href = 'https://app-sanidad.herokuapp.com/paciente',
 												10000);
 
 									} else {
