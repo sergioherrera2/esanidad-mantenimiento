@@ -57,3 +57,9 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 	$("#tablaCabecera").append(cabecera);
 	$("#tablaCuerpo").append(cuerpo);
 }
+function cerrarSesion (){
+	
+	sessionStorage.removeItem("data");
+	setTimeout(location.href = 'http://localhost:8080/', 10000);
+	
+}

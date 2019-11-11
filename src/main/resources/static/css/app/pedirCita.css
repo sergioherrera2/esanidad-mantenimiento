@@ -214,3 +214,10 @@ body {
     border-radius: 0;
     color: #fff;
 }
+.imgRedondaSalir{
+	margin-top: 60px;
+    margin-left: 55px;
+    width: 100px;
+    height: 100px;
+    border-radius: 45px;
+}
