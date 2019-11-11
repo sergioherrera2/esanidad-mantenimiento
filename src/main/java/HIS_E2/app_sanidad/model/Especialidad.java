@@ -1,6 +1,5 @@
 package HIS_E2.app_sanidad.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -10,16 +9,11 @@ public class Especialidad {
 	String nombreEspecialidad;
 	int duracionCita;
 	
-
 	public Especialidad(String nombreEspecialidad, int duracionCita) {
 		super();
 		this.nombreEspecialidad = nombreEspecialidad;
 		this.duracionCita = duracionCita;
 	}
-
-
-
-
 
 	public String getNombreEspecialidad() {
 		return nombreEspecialidad;

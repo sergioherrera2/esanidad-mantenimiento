@@ -4,15 +4,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "medico")
 public class Medico extends Usuario{
-
 	String idEspecialidad;
 	
 	
-	public Medico(String dni, String nombre, String apellidos, String contrs, String idEspecialidad) {
+	public Medico(String dni, String nombre, String apellidos, String contrs, String idEspecialidad) throws Exception {
 		super(dni, nombre, apellidos, contrs);
 		this.idEspecialidad = idEspecialidad;
 	}
-
 	public String getIdEspecialidad() {
 		return idEspecialidad;
 	}

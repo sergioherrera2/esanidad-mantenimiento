@@ -5,12 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Medico;
@@ -179,9 +178,16 @@ public class Manager {
 		return lista;
 	}
 
-	public boolean autenticar(String dni, String pass) {
-		Usuario user = userRepo.findByDni(dni);
-		return user.getContrs().equals(pass);
+	public boolean autenticar(String dni, String pass) throws Exception {
+		String dniABuscar= Cifrador.cifrar(dni);
+		String passABuscar=Cifrador.cifrarHash(pass);
+
+		Usuario user = userRepo.findByDni(dniABuscar);
+		if(user.getContrs().equals(passABuscar)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public Cita pedirCita(String dniPaciente, String fecha, String especialidad) throws Exception {
