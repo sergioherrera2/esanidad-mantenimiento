@@ -113,8 +113,8 @@ public class Manager {
 	}
 	
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
-		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
-		Medico medico = medicoRepo.findByDni(dniMedico);
+		List<Cita> citas = citaRepo.findByDniPaciente(Cifrador.cifrar(dniPaciente));
+		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
 		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
 		int duracion = especialidad.get(0).getDuracionCita();
 		Date fechaCitaPlusDuracion = new Date(fechaCita.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
@@ -129,7 +129,7 @@ public class Manager {
 				throw new Exception("Las fechas no pueden ser iguales");
 			}
 		}
-		citas = citaRepo.findByDniMedico(dniMedico);
+		citas = citaRepo.findByDniMedico(Cifrador.cifrar(dniMedico));
 		for(int i = 0; i<citas.size(); i++) {
 			Date fechaSolapada = citas.get(i).getFecha();
 			Date fechaSolapadaPlusDuracion = new Date(fechaSolapada.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
@@ -161,11 +161,11 @@ public class Manager {
 		return usuario;
 	}
 
-	public List<Cita> getCitasMedico(String dni, String pass) {
-		Medico med = medicoRepo.findByDni(dni);
+	public List<Cita> getCitasMedico(String dni, String pass) throws Exception {
+		Medico med = medicoRepo.findByDni(Cifrador.cifrar(dni));
 		
 		if(med.getContrs().equals(pass)) {
-			List<Cita> lista = citaRepo.findByDniMedico(dni);
+			List<Cita> lista = citaRepo.findByDniMedico(Cifrador.cifrar(dni));
 			return lista;
 		} else {
 			return null;
@@ -173,8 +173,8 @@ public class Manager {
 		
 	}
 
-	public List<Cita> getCitasPaciente(String dni) {
-		List<Cita> lista = citaRepo.findByDniPaciente(dni);
+	public List<Cita> getCitasPaciente(String dni) throws Exception {
+		List<Cita> lista = citaRepo.findByDniPaciente(Cifrador.cifrar(dni));
 		return lista;
 	}
 
@@ -182,7 +182,7 @@ public class Manager {
 		String dniABuscar= Cifrador.cifrar(dni);
 		String passABuscar=Cifrador.cifrarHash(pass);
 
-		Usuario user = userRepo.findByDni(dniABuscar);
+		Usuario user = userRepo.findByDni(Cifrador.cifrar(dniABuscar));
 		if(user.getContrs().equals(passABuscar)) {
 			return true;
 		} else {
@@ -204,11 +204,11 @@ public class Manager {
 		return cita;
 	}
 
-	public List<Date> getCitas(String dniPaciente, String especialidad) {
+	public List<Date> getCitas(String dniPaciente, String especialidad) throws Exception {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
-		List <Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
-		citas.addAll(citaRepo.findByDniMedico(dniMedico));
+		List <Cita> citas = citaRepo.findByDniPaciente(Cifrador.cifrar(dniPaciente));
+		citas.addAll(citaRepo.findByDniMedico(Cifrador.cifrar(dniMedico)));
 		List <Date> fechas = new ArrayList<Date>();
 		for(int i = 0; i<citas.size(); i++) {
 			fechas.add(citas.get(i).getFecha());
