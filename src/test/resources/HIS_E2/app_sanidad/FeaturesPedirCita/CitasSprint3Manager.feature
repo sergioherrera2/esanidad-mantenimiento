@@ -10,17 +10,17 @@ Feature: Pedir cita
 
     Examples: 
       | dni-user   | especialidad   |  fecha              |  Response  |
-      |05726690N   | Cabecera       |20-Dec-2019 16:30:00 |   OK       |
-      |05726690    | Cabecera       |10-Dec-2019 16:30:00 | Error      |
-      |05726690N   |                |10-Dec-2019 16:30:00 | Error      |
-      |05726690N   | Hola           |10-Dec-2019 16:30:00 | Error      |
+      |05726690N   | Cabecera       |20/12/2019 16:30:00  |   OK       |
+      |05726690    | Cabecera       |10/12/2019 16:30:00  | Error      |
+      |05726690N   |                |10/12/2019 16:30:00  | Error      |
+      |05726690N   | Hola           |10/12/2019 16:30:00  | Error      |
       |05726690N   | Cabecera       |                     | Error      |
-      |05726690N   | Oncología      |10-Dec-2019 16:30:00 | Error      |
-      |0572669N    | Oncología      |10-Dec-2019 16:30:00 | Error      |
-      |            | Cabecera       |10-Dec-2019 16:30:00 | Error      |
-      |05726690N   | Oncología      |10-Dec-2019 16:30:00 | Error      |  
-      |05726691J   | Oncología      |20-Dec-2019 16:30:00 | OK         |
-      |05726690N   | Podología      |20-Dec-2019 18:35:00 | Error      |
-      |05726692Z   | Oncología      |20-Dec-2019 18:35:00 | Error      |
+      |05726690N   | Oncología      |10/12/2019 16:30:00  | Error      |
+      |0572669N    | Oncología      |10/12/2019 16:30:00  | Error      |
+      |            | Cabecera       |10/12/2019 16:30:00  | Error      |
+      |05726690N   | Oncología      |10/12/2019 16:30:00  | Error      |  
+      |05726691J   | Oncología      |20/12/2019 16:30:00  | OK         |
+      |05726690N   | Podología      |20/12/2019 18:35:00  | Error      |
+      |05726692Z   | Oncología      |20/12/2019 18:35:00  | Error      |
 
  
