@@ -31,7 +31,7 @@ function pedirCita() {
 
             } else {
                 if (data.type="error") {
-                    alert("Error cita ya existente, contacte con el servicio de soporte.");
+                    alert("Error al crear cita, contacte con el servicio de soporte.");
                 }
                 
 
