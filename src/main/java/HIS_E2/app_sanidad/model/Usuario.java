@@ -5,13 +5,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "usuario")
 public class Usuario {
+
 	@Indexed(unique=true)
 	String dni;
 	String nombre;
 	String apellidos;
 	String contrs;
 	int centroSalud;
-	
+
 	public Usuario(String dni, String nombre, String apellidos, String contrs) throws Exception {
 		super();
 		this.dni = Cifrador.cifrar(dni);

@@ -25,7 +25,6 @@
 
         <script src="js/lib/angular.min.js"></script>
         <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
-        <script src="js/register.js"></script>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -59,7 +58,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Escribe tu Nombre" />
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Introduzca su Nombre" required />
                                 </div>
                             </div>
                         </div>
@@ -69,17 +68,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Escribe tus Apellidos" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <!--<label for="username" class="cols-sm-2 control-label">Usuario</label>-->
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="username" id="username" placeholder="Escribe tu Usuario" />
+                                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Introduzca sus Apellidos" required />
                                 </div>
                             </div>
                         </div>
@@ -89,7 +78,10 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Escribe tu contraseña" />
+                                    <input type="password" class="form-control" name="password" id="password" title="Formato:
+-Contener como mínimo una letra mayúscula
+-Contener como mínimo una letra minúscula
+-Contener como mínimo 8 carácteres" placeholder="Introduzca su contraseña" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required />
                                 </div>
                             </div>
                         </div>
@@ -99,31 +91,50 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Confirma tu contraseña" />
+                                    <input type="password" class="form-control" name="confirm" id="confirm" title="Formato:
+-Contener como mínimo una letra mayúscula
+-Contener como mínimo una letra minúscula
+-Contener como mínimo 8 carácteres" placeholder="Confirme su contraseña" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required />
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <!--<label for="BornDate" class="cols-sm-2 control-label">Fecha de Nacimiento</label>-->
-                            <div class="cols-sm-10">
+                        <!--<div class="form-group">-->
+                        <!--<label for="BornDate" class="cols-sm-2 control-label">Fecha de Nacimiento</label>-->
+                        <!--<div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></span>
-                                    <input type="date" class="form-control" name="BornDate" id="BornDate" placeholder="Introduce tu Fecha de Nacimiento" />
+                                    <input type="date" class="form-control" name="BornDate" id="BornDate" placeholder="Introduce tu Fecha de Nacimiento" required/>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <!--	<label for="Sex" class="cols-sm-2 control-label">Genero</label> -->
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fas fa-address-card fa-lg"></i></span>
-                                    <input type="list" class="form-control" name="dni" id="dni" placeholder="Introduzca el DNI" />
+                                    <input type="list" class="form-control" name="dni" id="dni" title="Formato:
+-8 caracteres numéricos
+-Una letra mayúscula" placeholder="Introduzca su DNI" pattern="([0-9]{8}[A-ZÑ])" required/>
+
+                                </div>
+                            </div>
+                            <!-- <p>&nbsp;&nbsp;Ejemplo:&nbsp;00000001Ñ</p>-->
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="name" class="cols-sm-2 control-label">Nombre</label>-->
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fas fa-address-card fa-lg"></i></span>
+
+                                    <input type="text" class="form-control" name="nss" id="nss" pattern="([0-9]{12})" title="Formato:
+
+- Debe contener 12 carácteres numéricos." placeholder="Introduzca su nº de la Seguridad Social" required />
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-button">
-                            <input class="btn" id="btnRegistrar" name="btnRegistrar" type="submit" value="Registrar" onclick="validate()"></input>
+                            <input class="btn" id="btnRegistrar" name="btnRegistrar" type="submit" value="Registrar"  onkeydown="validate()" onclick="validate()"></input>
                         </div>
 
 
@@ -133,3 +144,5 @@
             </div>
         </div>
     </body>
+
+    <script src="js/register.js"></script>

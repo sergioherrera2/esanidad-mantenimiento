@@ -9,6 +9,6 @@ import HIS_E2.app_sanidad.model.Usuario;
 @Repository
 public interface UserRepository extends MongoRepository <Usuario, String>{
 	
-	@Query( value = "{'dni' : ?0}")
-	Usuario findByDni(String string);
+	@Query("{ 'dni' : ?0 }")
+	Usuario findByDni(String dni);
 }
