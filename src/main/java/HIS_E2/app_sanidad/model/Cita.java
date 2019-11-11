@@ -46,11 +46,15 @@ public class Cita {
 	public void setDniPaciente(String dniPaciente) {
 		this.dniPaciente = dniPaciente;
 	}
+	
+	public String getEspecialidad() {
+		return especialidad;
+	}
 
 	@Override
 	public String toString() {
 		return "Cita [Fecha=" + fecha.toString() + ", dniMedico=" + dniMedico + ", dniPaciente="
 				+ dniPaciente + ", especialidad ="+ especialidad+"]";
 	}
-	
+
 }
