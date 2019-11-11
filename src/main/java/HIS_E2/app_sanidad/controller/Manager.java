@@ -126,6 +126,9 @@ public class Manager {
 					(fechaCita.before(fechaSolapada) && fechaCitaPlusDuracion.after(fechaSolapada))) {
 				throw new Exception("Las fechas se solapan, cita incorrecta");
 			}
+			if(fechaCita.equals(fechaSolapada) || fechaCita.equals(fechaSolapadaPlusDuracion)) {
+				throw new Exception("Las fechas no pueden ser iguales");
+			}
 		}
 		citas = citaRepo.findByDniMedico(dniMedico);
 		for(int i = 0; i<citas.size(); i++) {
@@ -134,6 +137,9 @@ public class Manager {
 			if((fechaCita.after(fechaSolapada) && fechaCita.before(fechaSolapadaPlusDuracion)) ||
 					(fechaCita.before(fechaSolapada) && fechaCitaPlusDuracion.after(fechaSolapada))) {
 				throw new Exception("Las fechas se solapan, cita incorrecta");
+			}
+			if(fechaCita.equals(fechaSolapada) || fechaCita.equals(fechaSolapadaPlusDuracion)) {
+				throw new Exception("Las fechas no pueden ser iguales");
 			}
 		}
 		
