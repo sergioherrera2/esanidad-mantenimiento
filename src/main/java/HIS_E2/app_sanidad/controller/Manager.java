@@ -182,7 +182,7 @@ public class Manager {
 		String dniABuscar= Cifrador.cifrar(dni);
 		String passABuscar=Cifrador.cifrarHash(pass);
 
-		Usuario user = userRepo.findByDni(Cifrador.cifrar(dniABuscar));
+		Usuario user = userRepo.findByDni(dniABuscar);
 		if(user.getContrs().equals(passABuscar)) {
 			return true;
 		} else {
