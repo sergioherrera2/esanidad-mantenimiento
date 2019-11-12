@@ -15,6 +15,6 @@ public class PedirCitaController {
 	 */
 	@RequestMapping(value = "/pedirCita", method = RequestMethod.GET)
 	public String getPedirCita() {
-		return "views/pedirCita.html";
+		return "views/citas.html";
 	}
 }

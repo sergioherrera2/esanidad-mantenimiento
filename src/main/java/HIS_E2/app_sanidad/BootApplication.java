@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class BootApplication {
-
 	/**Main de la clase lanzadora de SpringBoot.
 	 * @param args del main.
 	 */
