@@ -113,7 +113,7 @@ public class Manager {
 	}
 	
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
-		List<Cita> citas = citaRepo.findByDniPaciente(Cifrador.cifrar(dniPaciente));
+		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
 		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
 		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
 		int duracion = especialidad.get(0).getDuracionCita();
@@ -129,7 +129,7 @@ public class Manager {
 				throw new Exception("Las fechas no pueden ser iguales");
 			}
 		}
-		citas = citaRepo.findByDniMedico(Cifrador.cifrar(dniMedico));
+		citas = citaRepo.findByDniMedico(dniMedico);
 		for(int i = 0; i<citas.size(); i++) {
 			Date fechaSolapada = citas.get(i).getFecha();
 			Date fechaSolapadaPlusDuracion = new Date(fechaSolapada.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
@@ -165,7 +165,7 @@ public class Manager {
 		Medico med = medicoRepo.findByDni(Cifrador.cifrar(dni));
 		
 		if(med.getContrs().equals(pass)) {
-			List<Cita> lista = citaRepo.findByDniMedico(Cifrador.cifrar(dni));
+			List<Cita> lista = citaRepo.findByDniMedico(dni);
 			return lista;
 		} else {
 			return null;
@@ -174,7 +174,7 @@ public class Manager {
 	}
 
 	public List<Cita> getCitasPaciente(String dni) throws Exception {
-		List<Cita> lista = citaRepo.findByDniPaciente(Cifrador.cifrar(dni));
+		List<Cita> lista = citaRepo.findByDniPaciente(dni);
 		return lista;
 	}
 
@@ -207,8 +207,8 @@ public class Manager {
 	public List<Date> getCitas(String dniPaciente, String especialidad) throws Exception {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
-		List <Cita> citas = citaRepo.findByDniPaciente(Cifrador.cifrar(dniPaciente));
-		citas.addAll(citaRepo.findByDniMedico(Cifrador.cifrar(dniMedico)));
+		List <Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
+		citas.addAll(citaRepo.findByDniMedico(dniMedico));
 		List <Date> fechas = new ArrayList<Date>();
 		for(int i = 0; i<citas.size(); i++) {
 			fechas.add(citas.get(i).getFecha());
