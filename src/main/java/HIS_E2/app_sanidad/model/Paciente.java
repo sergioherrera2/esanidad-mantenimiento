@@ -9,7 +9,7 @@ public class Paciente extends Usuario {
 
 	public Paciente(String dni, String nombre, String apellidos, String contrs, String numeroSS) throws Exception {
 		super(dni, nombre, apellidos, contrs);
-		this.numeroSS = numeroSS;
+		this.numeroSS = Cifrador.cifrar(numeroSS);
 	}
 
 	public String getNumeroSS() {
