@@ -39,6 +39,12 @@ public class WebController {
 		return "views/citas.html";
 	}
 	
+	/**
+	 * Recibe peticiones POST de registro.
+	 * @param jso el cuerpo de la petición.
+	 * @return el usuario creado.
+	 * @throws Exception si los datos son incorrectos.
+	 */
 	@PostMapping("/register")
 	public Map<String, Object> register(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
@@ -54,6 +60,12 @@ public class WebController {
 		return respuesta;
 	}
 	
+	/**
+	 * Recibe peticiones POST en /getCitas.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la lista de citas del medico dado.
+	 * @throws Exception si los datos son incorrectos.
+	 */
 	@PostMapping("/getCitas")
 	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
@@ -76,6 +88,12 @@ public class WebController {
 		return respuesta;
 	}
 	
+	/**
+	 * Recibe peticiones POST en /citasPaciente.
+	 * @param jso el cuerpo de la petición.
+	 * @return la lista de citas del paciente dado.
+	 * @throws Exception si los datos son incorrectos.
+	 */
 	@PostMapping("/citasPaciente")
 	public Map<String, Object> citasPaciente(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
@@ -92,6 +110,12 @@ public class WebController {
 		return respuesta;
 	}
 	
+	/**
+	 * Recibe peticiones POST de autenticar.
+	 * @param jso el cuerpo del mensaje.
+	 * @return el usuario autenticado o error si no es correcto.
+	 * @throws Exception si los datos dados no son correctos.
+	 */
 	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/autenticar", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String autenticar(@RequestBody Map<String, String> jso) throws Exception {
@@ -107,6 +131,13 @@ public class WebController {
 		}
 		return resultado.toString();
 	}
+	
+	/**
+	 * Recibe peticiones POST de petición de citas.
+	 * @param jso el cuerpo de la petición.
+	 * @return la cita creada.
+	 * @throws Exception si los datos son incorrectos.
+	 */
 	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/pedirCita")
 	public Map<String, Object> pedirCita(@RequestBody Map<String, String> jso) throws Exception{
@@ -122,6 +153,13 @@ public class WebController {
 		respuesta.put("especialidad",cita.getEspecialidad());
 		return respuesta;
 	}
+	
+	/**
+	 * Recibe peticiones POST de consulta de las horas en las que un paciente tiene citas.
+	 * @param jso el cuerpo de la petición.
+	 * @return las fechas en las que tiene citas el paciente.
+	 * @throws Exception si los datos no son correctos.
+	 */
 	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/citasDisponibles")
 	public Map<String, Object> citasDisponibles(@RequestBody Map<String, String> jso) throws Exception {
@@ -137,6 +175,13 @@ public class WebController {
 		}
 		return respuesta;
 	}
+	
+	/**
+	 * Recibe peticiones POST de modificación de citas.
+	 * @param jso el cuerpo de la petición.
+	 * @return la cita modificada.
+	 * @throws Exception si los datos no son correctos.
+	 */
 	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/modificarCita")
 	public Map<String, Object> modificarCita(@RequestBody Map<String, String> jso) throws Exception{
@@ -153,6 +198,13 @@ public class WebController {
 		respuesta.put("especialidad",cita.getEspecialidad());
 		return respuesta;
 	}
+	
+	/**
+	 * Recibe peticiones POST de anulación de citas.
+	 * @param jso el cuerpo de la petición.
+	 * @return la confirmación de cita anulada.
+	 * @throws Exception si los datos no son correctos.
+	 */
 	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/anularCita")
 	public Map<String, Object> anularCita(@RequestBody Map<String, String> jso) throws Exception{
@@ -166,6 +218,11 @@ public class WebController {
 		return respuesta;
 	}
 	
+	/**
+	 * Recoge las excepciones generadas por la aplicación.
+	 * @param ex la excepción generada.
+	 * @return el mensaje type=error generado.
+	 */
 	@ExceptionHandler(Exception.class)
 	public Map<String, String> handleException(Exception ex) {
 		Map<String, String> resultado = new HashMap<String, String>();
