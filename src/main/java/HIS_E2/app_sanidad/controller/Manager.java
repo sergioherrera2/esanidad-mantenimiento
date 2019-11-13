@@ -23,37 +23,75 @@ import HIS_E2.app_sanidad.repositories.PacienteMedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
 import HIS_E2.app_sanidad.repositories.UserRepository;
 
+/**
+ * Clase Manager de la aplicación.
+ * @author Miguel.
+ */
 @Service
 public class Manager {
 	
 	static final long ONE_MINUTE_IN_MILLIS=60000;
 	
-	//Aqui se declaran los repository con @Autowire
+	/**
+	 * repositorio de usuarios.
+	 */
 	@Autowired
 	private UserRepository userRepo;
+	/**
+	 * repositorio de pacientes.
+	 */
 	@Autowired
 	private PacienteRepository pacienteRepo;
+	/**
+	 * repositorio de medicos.
+	 */
 	@Autowired
 	private MedicoRepository medicoRepo;
+	/**
+	 * repositorio de citas.
+	 */
 	@Autowired
 	private CitaRepository citaRepo;
+	/**
+	 * repositorio de especialidades.
+	 */
 	@Autowired
 	private EspecialidadRepository especialidadRepo;
+	/**
+	 * repositorio de PacientesMedicos.
+	 */
 	@Autowired
 	private PacienteMedicoRepository pacienteMedicoRepo;
+	/**
+	 * Constructor vacío para el singleton del Manager.
+	 */
 	private Manager() {
 		
 	}
 
+	/**
+	 * Creador del patrón singleton del manager.
+	 * @author Miguel.
+	 */
 	private static class ManagerHolder {
 		private static Manager singleton = new Manager();
 	}
 	
+	/**
+	 * Devuelve la instancia singleton de Manager.
+	 * @return la instancia de Manager.
+	 */
 	@Bean
 	public static Manager get() {
 		return ManagerHolder.singleton;
 	}
 	
+	/**
+	 * Controla que la contraseña sea mayor de 8 carácteres
+	 * y tiene mayuscula y número.
+	 * @param contrs.
+	 * @throws Exception Si la contraseña es incorrecta.
+	 */
 	private void comprobarPassword(String contrs) throws Exception {
 		int contadorMayus = 0;
 		int contadorMinus = 0;
@@ -74,6 +112,11 @@ public class Manager {
 		}
 	}
 	
+	/**
+	 * Calcula la letra del dni dado un número del dni.
+	 * @param dniNum.
+	 * @return la letra calculada.
+	 */
 	public char calcularLetraDni(int dniNum) {
 	    String juegoCaracteres="TRWAGMYFPDXBNJZSQVHLCKE";
 	    int modulo= dniNum % 23;
@@ -81,6 +124,12 @@ public class Manager {
 	    return letra;
 	}
 	
+	/**
+	 * Comprueba la validez del dni
+	 * 9 carácteres y letra correcta.
+	 * @param dni.
+	 * @throws Exception si el dni es incorrecto.
+	 */
 	public void comprobarDni(String dni) throws Exception{
 		int dniNum;
 		if(dni.length() > 9) {
@@ -101,6 +150,12 @@ public class Manager {
 		}
 	}
 	
+	/**
+	 * Comprueba que el número de la seguridad social
+	 * es correcto.
+	 * @param numSS.
+	 * @throws Exception si el número es incorrecto.
+	 */
 	private void comprobarNSS(String numSS) throws Exception{
 		if(numSS.length()!=12) {
 			throw new Exception("El numero de seguridad social no es correcto");
@@ -112,6 +167,13 @@ public class Manager {
 		}
 	}
 	
+	/**
+	 * Controla que al crear una cita no se solape con una ya existente.
+	 * @param dniPaciente el paciente dueño de la cita.
+	 * @param dniMedico medico de la cita.
+	 * @param fechaCita fecha a comprobar con formato dd/MM/yyyy HH:mm:ss.
+	 * @throws Exception si la fecha se solapa.
+	 */
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
 		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
 		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
@@ -144,6 +206,17 @@ public class Manager {
 		
 	}
 	
+	/**
+	 * Registra los usuarios en la base de datos.
+	 * @param dni del usuario.
+	 * @param nombre del usuario.
+	 * @param apellidos del usuario.
+	 * @param contrs del usuario.
+	 * @param numSS del usuario.
+	 * @param idEspecialidad del medico a guardar.
+	 * @return el usuario creado.
+	 * @throws Exception si algun dato es incorrecto.
+	 */
 	public Usuario register(String dni,	String nombre, String apellidos, String contrs, String numSS, int idEspecialidad) throws Exception {
 		if(dni == null || nombre == null || apellidos == null || contrs == null || numSS == null) {
 			throw new Exception("No debe haber campos vacios");
@@ -161,6 +234,13 @@ public class Manager {
 		return usuario;
 	}
 
+	/**
+	 * Devuelve las citas de un medico dado.
+	 * @param dni del medico.
+	 * @param pass del medico.
+	 * @return la lista de citas del medico si la contraseña es correcta.
+	 * @throws Exception si la contraseña es incorrecta.
+	 */
 	public List<Cita> getCitasMedico(String dni, String pass) throws Exception {
 		Medico med = medicoRepo.findByDni(Cifrador.cifrar(dni));
 		
@@ -173,23 +253,40 @@ public class Manager {
 		
 	}
 
+	/**
+	 * Devuelve las citas de un paciente dado.
+	 * @param dni del usuario.
+	 * @return lista de citas.
+	 * @throws Exception si el dni no es válido.
+	 */
 	public List<Cita> getCitasPaciente(String dni) throws Exception {
 		List<Cita> lista = citaRepo.findByDniPaciente(dni);
 		return lista;
 	}
 
+	/**
+	 * Comprueba que la contraseña y dni dados con correctos.
+	 * @param dni del usuario.
+	 * @param pass del usuario.
+	 * @return resultado de la comprobacion.
+	 * @throws Exception si los datos son incorrectos.
+	 */
 	public boolean autenticar(String dni, String pass) throws Exception {
 		String dniABuscar= Cifrador.cifrar(dni);
 		String passABuscar=Cifrador.cifrarHash(pass);
 
 		Usuario user = userRepo.findByDni(dniABuscar);
-		if(user.getContrs().equals(passABuscar)) {
-			return true;
-		} else {
-			return false;
-		}
+		return user.getContrs().equals(passABuscar);
 	}
 	
+	/**
+	 * Crea una cita con los parametros dados.
+	 * @param dniPaciente.
+	 * @param fecha de la cita.
+	 * @param especialidad de la cita.
+	 * @return la cita creada.
+	 * @throws Exception si la fecha se solapa o es pasada.
+	 */
 	public Cita pedirCita(String dniPaciente, String fecha, String especialidad) throws Exception {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
@@ -204,6 +301,13 @@ public class Manager {
 		return cita;
 	}
 
+	/**
+	 * Devuelve las fechas con cita de un paciente en una especialidad dada.
+	 * @param dniPaciente.
+	 * @param especialidad de las citas.
+	 * @return la lista de fechas con cita.
+	 * @throws Exception si los datos son incorrectos.
+	 */
 	public List<Date> getCitas(String dniPaciente, String especialidad) throws Exception {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
@@ -216,6 +320,13 @@ public class Manager {
 		return fechas;
 	}
 	
+	/**
+	 * Elimina una cita con los parametros dados.
+	 * @param dniPaciente.
+	 * @param fecha con formato dd/MM/yyyy HH:mm:ss.
+	 * @param especialidad de la cita.
+	 * @throws ParseException si el formato de la fecha es incorrecto.
+	 */
 	public void eliminarCitas(String dniPaciente, String fecha, String especialidad) throws ParseException {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
@@ -224,6 +335,16 @@ public class Manager {
 		citaRepo.delete(lista.get(0));
 	}
 	
+	/**
+	 * Crea un medico con los parametros dados y lo asocia a un paciente.
+	 * @param dniMedico.
+	 * @param nombre.
+	 * @param apellidos
+	 * @param contrs.
+	 * @param especialidad.
+	 * @param dniPaciente.
+	 * @throws Exception Si los datos son incorrectos.
+	 */
 	public void crearMedicoPaciente(String dniMedico, String nombre, String apellidos, String contrs, String especialidad, String dniPaciente)throws Exception{
 		Medico medico = new Medico(dniMedico, nombre, apellidos, contrs, especialidad);
 		PacienteMedico pacienteMed = new PacienteMedico(dniPaciente, dniMedico, especialidad);
@@ -231,6 +352,14 @@ public class Manager {
 		pacienteMedicoRepo.insert(pacienteMed);
 	}
 	
+	/**
+	 * Comprueba si existe la cita dada.
+	 * @param dniPaciente.
+	 * @param especialidad.
+	 * @param fecha con formato dd/MM/yyyy HH:mm:ss.
+	 * @return true si existe la cita.
+	 * @throws ParseException si el formato de la fecha es incorrecto.
+	 */
 	public boolean existeCita(String dniPaciente, String especialidad, String fecha) throws ParseException {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
@@ -238,6 +367,15 @@ public class Manager {
 		return citaRepo.existCustomCita(dniPaciente, dniMedico, fechaCita);
 	}
 	
+	/**
+	 * Cambia la fecha de una cita con los parametros dados.
+	 * @param dniPaciente.
+	 * @param especialidad.
+	 * @param fechaActual con formato dd/MM/yyyy HH:mm:ss.
+	 * @param fechaModificar con formato dd/MM/yyyy HH:mm:ss.
+	 * @return la cita modificada.
+	 * @throws ParseException si la fecha tiene formato incorrecto.
+	 */
 	public Cita modificarCita(String dniPaciente, String especialidad, String fechaActual, String fechaModificar) throws ParseException {
 		PacienteMedico pacienteMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		String dniMedico = pacienteMed.getDniMedico();
@@ -250,6 +388,11 @@ public class Manager {
 		return cita;
 	}
 	
+	/**
+	 * Crea una especialidad con los datos dados y la inserta en la base de datos.
+	 * @param nombrEspecialidad.
+	 * @param tiempoCita.
+	 */
 	public void crearEspecialidad(String nombrEspecialidad, int tiempoCita) {
 		Especialidad especialidad = new Especialidad(nombrEspecialidad, tiempoCita);
 		especialidadRepo.insert(especialidad);
