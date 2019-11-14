@@ -1,0 +1,22 @@
+#
+#@tag
+#Feature: Creación de una especialidad
+#
+#  @tag1
+#  Scenario Outline: Como gestor del sistema quiero poder crear especialidades
+#    Given Tengo el nombre y la duracion de una especialidad "<nombre>","<duracion>"
+#    When creo la especialidad "<Response>"
+#    Then La especialidad ha sido guardada "<nombre>","<duracion>","<response>"
+#    Then borro la especialidad "<nombre>","<duracion>","<response>"
+#    
+#Examples:
+#	|nombre         | duracion               |response             |
+#	| Podología     |   15                   | OK                  |
+#	|               |   20                   | Error               |
+#	| 1234          |   20                   | Error               |
+#	|E12            |   5                    | Error               |
+#	|Cabecera       |   15                   | OK                  |
+#	|Cabecera       |   A                    | Error               |
+#	|Oncología      |   0                    | Error               |
+#	|Podología      |                        | Error               |
+#	|Oncología      |   -1                   | Error               |
