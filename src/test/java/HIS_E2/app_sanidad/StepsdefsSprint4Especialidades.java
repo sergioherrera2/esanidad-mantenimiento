@@ -1,5 +1,6 @@
 package HIS_E2.app_sanidad;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -38,6 +39,11 @@ public class StepsdefsSprint4Especialidades {
 	Request request;
 	private String nombre_especialidad;
 	private String duracion_especialidad;
+	private String duracion_especialidad_mod;
+	private String hora_inicio_especialidad;
+	private String hora_inicio_especialidad_mod;
+	private String hora_final_especialidad;
+	private String hora_final_especialidad_mod;
 	private String duracion_modificar_especialidad;
 	private EspecialidadRepository especialidadRepo;
 	private List<Especialidad> lista_especialidades;
@@ -45,8 +51,9 @@ public class StepsdefsSprint4Especialidades {
 	private Especialidad especialidad;
 	
 	
-	@Given("^Tengo el nombre y la duracion de una especialidad \"([^\"]*)\",\"([^\"]*)\"$")
-	public void tengo_el_nombre_y_la_duracion_de_una_especialidad(String arg1, String arg2) {
+	
+	@Given("^Tengo nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\"$")
+	public void tengo_nombre_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7) {
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
 		} catch (Exception e) {
@@ -54,6 +61,27 @@ public class StepsdefsSprint4Especialidades {
 		}
 		nombre_especialidad = arg1;
 	    duracion_especialidad = arg2;
+	    hora_inicio_especialidad = arg3;
+	    hora_final_especialidad = arg4;
+	    duracion_especialidad = arg5;
+	    hora_inicio_especialidad = arg6;
+	    hora_final_especialidad = arg7;
+	    throw new PendingException();
+	}
+	
+	
+	@Given("^Tengo nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\"$")
+	public void tengo_nombre_duracion_hora_inicio_hora_final(String arg1, String arg2, String arg3, String arg4) {
+		try {
+			new TestContextManager(getClass()).prepareTestInstance(this);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		nombre_especialidad = arg1;
+	    duracion_especialidad = arg2;
+	    hora_inicio_especialidad = arg3;
+	    hora_final_especialidad = arg4;
+	    throw new PendingException();
 	}
 
 	@When("^creo la especialidad \"([^\"]*)\"$")
@@ -62,7 +90,7 @@ public class StepsdefsSprint4Especialidades {
 		try {
 			
 			
-		   //  especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad)
+		   //  especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad)
 			//RECORDAR QUE LA DURACION SE ENVIA COMO STRING
 			} catch( Exception e) {
 				if(!arg1.contentEquals("Error")) {
@@ -73,11 +101,11 @@ public class StepsdefsSprint4Especialidades {
 		 throw new PendingException();
 	}
 
-	@Then("^La especialidad ha sido guardada \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
-	public void la_especialidad_ha_sido_guardada(String arg1, String arg2, String arg3) {
+	@Then("^La especialidad ha sido guardada nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void la_especialidad_ha_sido_guardada_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		
 
-		if(arg3.equals("OK")) {
+		if(arg5.equals("OK")) {
 			List<Especialidad> especialidad =especialidadRepo.findCustomEspecialidad(arg1);
 			int duracion=0;
 			try {
@@ -94,10 +122,10 @@ public class StepsdefsSprint4Especialidades {
 		
 	}
 
-	@Then("^borro la especialidad \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
-	public void borro_la_especialidad(String arg1, String arg2, String arg3) {
+	@Then("^borro la especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void borro_la_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		if(arg3.equals("OK")) {
-			//Especialidad especialidad_borrada = especialidadRepo.deleteCustomespecialidad(arg1,arg2);
+			//Especialidad especialidad_borrada = especialidadRepo.deleteCustomespecialidad(arg1,arg2,arg3,arg4);
 			//assertNotNull(especialidad_borrada);
 		}
 	}
@@ -110,14 +138,15 @@ public class StepsdefsSprint4Especialidades {
 		} catch (Exception e) {
 		}
 		client = new OkHttpClient();
+		throw new PendingException();
 	}
 
-	@When("^Envio peticion crear especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",response \"([^\"]*)\"$")
-	public void envio_peticion_crear_especialidad_nombre_duracion_response(String arg1, String arg2, String arg3) {
+	@When("^Envio peticion crear especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void envio_peticion_crear_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_final\":\""+arg4+"\"}");
 		 request = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/crearEspecialidad")
+		  .url("https://app-sanidad.herokuapp.com/crearEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -125,8 +154,8 @@ public class StepsdefsSprint4Especialidades {
 		  .build();
 	}
 
-	@Then("^Recibo una respuesta \"([^\"]*)\", nombre \"([^\"]*)\",duracion \"([^\"]*)\"$")
-	public void recibo_una_respuesta_nombre_duracion(String arg1, String arg2, String arg3) {
+	@Then("^Recibo una respuesta  nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void recibo_una_respuesta_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		try {
 			Response response = client.newCall(request).execute();
 			String prueba= response.body().string();
@@ -137,11 +166,6 @@ public class StepsdefsSprint4Especialidades {
 				}
 			}else if(arg1.equals("Error")){
 				if(!jsonObject.get("type").equals("error")) {
-					try {
-					//	Manager.get().eliminarEspecialidad(arg1, arg2);
-					}catch(Exception e) {	
-						fail("Respuesta debería ser fallida pero es correcta y no se ha podido eliminar");
-				}
 					fail("Respuesta debería ser fallida pero es correcta");
 				}
 			}
@@ -168,11 +192,13 @@ public class StepsdefsSprint4Especialidades {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://app-sanidad.herokuapp.com");
+	    driver.get("https://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
 	    }
+	    driver.quit(); //eliminarlo cuando se ejécuten los tests
+	    throw new PendingException();
 	}
 	
 	
@@ -189,13 +215,15 @@ public class StepsdefsSprint4Especialidades {
 		}
 	}
 
-	@When("^relleno los campos nombre \"([^\"]*)\", duracion \"([^\"]*)\"$")
-	public void relleno_los_campos_nombre_duracion(String arg1, String arg2) {
+	@When("^relleno los campos nombre nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\"$")
+	public void relleno_los_campos_nombre_nombre_duracion_hora_inico_hora_final(String arg1, String arg2, String arg3, String arg4) {
 		try {
 		driver.findElement(By.name("href_pedirCita")).click();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       driver.findElement(By.name("nombre")).sendKeys(arg1);							
 	       driver.findElement(By.name("duracion")).sendKeys(arg2);
+	       driver.findElement(By.name("hora_inicio")).sendKeys(arg3);							
+	       driver.findElement(By.name("hora_fin")).sendKeys(arg4);
 		}catch(Exception e) {
 			driver.quit();
 			fail("no se encuentran los campos de nombre duración o boton crear especialidad");
@@ -225,8 +253,8 @@ public class StepsdefsSprint4Especialidades {
 	}
 	
 	
-	@Then("^la especialidad ha sido borrada correctamente nombre \"([^\"]*)\", duracion \"([^\"]*)\",\"([^\"]*)\"$")
-	public void la_especialidad_ha_sido_borrada_correctamente_nombre_duracion(String arg1, String arg2, String arg3) {
+	@Then("^la especialidad ha sido borrada correctamente nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void la_especialidad_ha_sido_borrada_correctamente_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 	   if(arg3.equals("OK")) {
 		   List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(arg1);
 		   
@@ -236,22 +264,42 @@ public class StepsdefsSprint4Especialidades {
 	}
 	@When("^Presiono el boton eliminar especialidad y recibo respuesta \"([^\"]*)\"$")
 	public void presiono_el_boton_eliminar_especialidad_y_recibo_respuesta(String arg1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		try {
+			 driver.findElement(By.name("btnEliminar0")).click();
+			   Alert alert = driver.switchTo().alert();
+		        String alertText = alert.getText();
+		        alert.accept();
+		} catch (UnhandledAlertException f) {
+
+		  } catch (NoAlertPresentException e) {
+			  driver.quit();
+			  if(arg1.equals("error")){
+				  fail("Debería haber una alerta de error");
+			  }
+		        
+		}catch(Exception e) {
+			driver.quit();
+			fail("No se puede encontrar boton de eliminar especialidad");
+		
+	}
 	}
 
 	@Then("^la especialidad se ha borrado nombre \"([^\"]*)\",duracion\"([^\"]*)\",response\"([^\"]*)\"$")
 	public void la_especialidad_se_ha_borrado_nombre_duracion_response(String arg1, String arg2, String arg3) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		
+		List<Especialidad> especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+		if(especialidades.get(0)!=null) {
+			 //especialidadRepo.deleteCustomespecialidad(arg1);
+			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");
+		}
 	}
 
-	@When("^Envio peticion eliminar especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",response \"([^\"]*)\"$")
-	public void envio_peticion_eliminar_especialidad_nombre_duracion_response(String arg1, String arg2, String arg3) {
+	@When("^Envio peticion eliminar especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void envio_peticion_eliminar_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_final\":\""+arg4+"\"}");
 		 request = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/eliminarEspecialidad")
+		  .url("https://app-sanidad.herokuapp.com/eliminarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -290,7 +338,7 @@ public class StepsdefsSprint4Especialidades {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-admin\":\""+arg1+"\"}");
 		 request = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/eliminarEspecialidad")
+		  .url("https://app-sanidad.herokuapp.com/eliminarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -330,10 +378,7 @@ public class StepsdefsSprint4Especialidades {
 		 duracion_modificar_especialidad = arg3;
 	}
 
-	@When("^modifico la especialidad nombre\"([^\"]*)\",duracion\"([^\"]*)\",nueva duracion\"([^\"]*)\", response\"([^\"]*)\"$")
-	public void modifico_la_especialidad_nombre_duracion_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4) {
-	    //especialidad = Manager.get().modificarEspecialidad(nombre_especialidad,duracion_especialdiad,duracion_modificar_especialidad);
-	}
+
 
 	@Then("^la especialidad ha sido modificada correctamente nombre \"([^\"]*)\", nueva duracion \"([^\"]*)\",\"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_nombre_nueva_duracion(String arg1, String arg2, String arg3) {
@@ -344,8 +389,166 @@ public class StepsdefsSprint4Especialidades {
 				fail("la especialidad no se ha modificado correctamente");
 			}
 		}
-	     
-	     
+	    
+	}
+	
+	@When("^Envio peticion modificar especialidad nombre\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response\"([^\"]*)\"$")
+	public void envio_peticion_modificar_especialidad_nombre_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_final\":\""+arg4+"\",\"N_duracion\":\""+arg5+"\"}");
+		 request = new Request.Builder()
+		  .url("https://app-sanidad.herokuapp.com/modificarEspecialidad")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "261c6c14-638b-4338-bce3-9e11efae04a9")
+		  .build();
+	}
+
+	@Then("^Recibo una respuesta de modificacion nombre\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response\"([^\"]*)\"$")
+	public void recibo_una_respuesta_de_modificacion_nombre_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
+		try {
+			Response response = client.newCall(request).execute();
+			String prueba= response.body().string();
+			JSONObject jsonObject = new JSONObject(prueba);
+			if(arg6.equals("OK")) {
+				if(jsonObject.get("type").equals("error")) {
+					fail("Respuesta fallida pero debería ser correcta");
+				}
+			}else if(arg6.equals("Error")){
+				if(!jsonObject.get("type").equals("error")) {
+					fail("Respuesta debería ser fallida pero es correcta");
+				}
+			}
+		} catch (Exception e) {
+			fail("Error recibiendo la respuesta");
+		}
+	}
+	@Then("^relleno los campos de modificacion duracion_mod \"([^\"]*)\",hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\"$")
+	public void relleno_los_campos_de_modificacion_duracion_mod_hora_inicio_mod_hora_final_mod(String arg1, String arg2, String arg3) {
+		try {
+		       driver.findElement(By.name("duracion_mod")).sendKeys(arg1);							
+		       driver.findElement(By.name("hora_inicio_mod")).sendKeys(arg2);
+		       driver.findElement(By.name("hora_final_mod")).sendKeys(arg3);	
+			 driver.findElement(By.name("btnModificarEspecialidad")).click();
+			   Alert alert = driver.switchTo().alert();
+		        String alertText = alert.getText();
+		        alert.accept();
+		} catch (UnhandledAlertException f) {
+
+		  } catch (NoAlertPresentException e) {
+			  driver.quit();
+			  if(arg1.equals("error")){
+				  fail("Debería haber una alerta de error");
+			  }
+		        
+		}catch(Exception e) {
+			driver.quit();
+			fail("No se puede encontrar boton de crear especialidad");
+		
+	}
+	}
+	
+	
+	
+
+	
+	@When("^modifico la especialidad response \"([^\"]*)\"$")
+	public void modifico_la_especialidad_response(String arg1) {
+		
+		try {
+			
+			
+		   //  especialidad = Manager.get().modificarEspecialidad(nombre_especialidad, 
+		//	duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad,duracion_especialidad_mod,hora_inicio_especialidad_mod,hora_final_especialidad_mod)
+			//RECORDAR QUE LA DURACION SE ENVIA COMO STRING
+			} catch( Exception e) {
+				if(!arg1.contentEquals("Error")) {
+					fail("Debería haberse creado la especialidad");
+				}
+			
+			}
+		 throw new PendingException();
+	}
+	
+	@Then("^la especialidad ha sido modificada correctamente nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void la_especialidad_ha_sido_modificada_correctamente_nombre_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8) {
+		if(arg8.equals("OK")) {
+			assertEquals(especialidad.getNombreEspecialidad(),arg1);
+			assertEquals(especialidad.getDuracionCita(),arg5);
+			//	assertEquals(especialidad.getHoraInicio,arg6);
+		//	assertEquals(especialidad.getHoraFin(),arg7);
+
+			
+		}
+
+	}
+	
+	@When("^Envio peticion modificar especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void envio_peticion_modificar_especialidad_nombre_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8) {
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_fin\":\""+arg4+"\",\"duracion_mod\":"
+				+ "\""+arg5+"\",\"hora_inico_mod\":\""+arg6+"\",\"hora_fin_mod\":\""+arg7+"\"}");
+		 request = new Request.Builder()
+		  .url("https://app-sanidad.herokuapp.com/modificarEspecialidad")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "af9231cc-f85a-4fbc-a63a-3c3ea6a900a6")
+		  .build();
+	}
+	
+	@Then("^Recibo una respuesta de modificacion nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
+	public void recibo_una_respuesta_de_modificacion_nombre_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8) {
+		try {
+			Response response = client.newCall(request).execute();
+			String prueba= response.body().string();
+			JSONObject jsonObject = new JSONObject(prueba);
+			if(arg8.equals("OK")) {
+				if(jsonObject.get("type").equals("error")) {
+					fail("Respuesta fallida pero debería ser correcta");
+				}
+			}else if(arg1.equals("Error")){
+				if(!jsonObject.get("type").equals("error")) {
+					fail("Respuesta debería ser fallida pero es correcta");
+				}
+			}
+		} catch (Exception e) {
+			fail("Error recibiendo la respuesta");
+		}
+	}
+	
+	@When("^Presiono el boton modificar especialidad y recibo respuesta \"([^\"]*)\"$")
+	public void presiono_el_boton_modificar_especialidad_y_recibo_respuesta(String arg1) {
+		try {
+			 driver.findElement(By.name("btnModificar0")).click();
+			   Alert alert = driver.switchTo().alert();
+		        String alertText = alert.getText();
+		        alert.accept();
+		} catch (UnhandledAlertException f) {
+
+		  } catch (NoAlertPresentException e) {
+			  driver.quit();
+			  if(arg1.equals("error")){
+				  fail("Debería haber una alerta de error");
+			  }
+		        
+		}catch(Exception e) {
+			driver.quit();
+			fail("No se puede encontrar boton de eliminar especialidad");
+		
+	}
+	}
+
+	@Then("^la especialidad ha sido modificada correctamente nombre\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response \"([^\"]*)\"$")
+	public void la_especialidad_ha_sido_modificada_correctamente_nombre_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
+		List<Especialidad> especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+
+		if(especialidades.get(0)!=null) {
+			 //especialidadRepo.deleteCustomespecialidad(arg1);
+			driver.quit();
+			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");
+		}
 	}
 
 

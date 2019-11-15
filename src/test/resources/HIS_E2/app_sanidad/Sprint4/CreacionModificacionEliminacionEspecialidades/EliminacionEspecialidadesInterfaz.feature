@@ -2,16 +2,16 @@
 
 
 @tag
-Feature: Creación de una especialidad
+Feature: Eliminación de una especialidad
 
   @tag1
-  Scenario Outline: Como gestor del sistema quiero poder crear especialidades a traves de la web
-    Given Tengo el nombre y la duracion de una especialidad "<Especialidad Prueba>","<25>"
+  Scenario Outline: Como administrador del sistema quiero poder eliminar citas (Vista)
+     Given Tengo nombre "<nombre>",duracion "<duracion>",hora inicio "<hora_inicio>",hora final "<hora_final>"
   Given creo la especialidad "<OK>"
    Given Abroo Firefox y entro en la aplicacion citas
    And Entro en la vista del gestor dni"<768766579C>" contraseña "<password>"
    When Presiono el boton eliminar especialidad y recibo respuesta "<response>"
-   Then la especialidad se ha borrado nombre "<nombre>",duracion"<duracion>",response"<response>"
+   Then la especialidad ha sido borrada correctamente nombre "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
   
   
 Examples:
