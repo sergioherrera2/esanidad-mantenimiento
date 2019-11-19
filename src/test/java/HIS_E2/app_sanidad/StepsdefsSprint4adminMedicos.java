@@ -132,5 +132,85 @@ public class StepsdefsSprint4adminMedicos {
 		}
 	    throw new PendingException();
 	}
+	
+	
+	@Then("^relleno los campos de creacion medico dni\"([^\"]*)\" especialidad \"([^\"]*)\"$")
+	public void relleno_los_campos_de_creacion_medico_dni_especialidad(String arg1, String arg2) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
 
+	@When("^Envio peticion de crear medicco dni \"([^\"]*)\" , especlialidad \"([^\"]*)\", response \"([^\"]*)\"$")
+	public void envio_peticion_de_crear_medicco_dni_especlialidad_response(String arg1, String arg2, String arg3) {
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\"}");
+		 request = new Request.Builder()
+		  .url("https://app-sanidad.herokuapp.com/eliminarMedico")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "907529fd-13c9-436d-bd25-a8af5dbe6492")
+		  .build();
+	}
+
+	@Then("^elmedico ha sido borrado correctamente dni \"([^\"]*)\", especialdiad \"([^\"]*)\" response \"([^\"]*)\"$")
+	public void elmedico_ha_sido_borrado_correctamente_dni_especialdiad_response(String arg1, String arg2, String arg3) {
+		   if(arg3.equals("OK")) {
+			   Medico medico = medicoRepo.findByDni(arg1);
+			   
+			 assertNotNull(medico);
+			 
+		   }
+		
+	}
+	@Given("^usuario administrador \"([^\"]*)\"$")
+	public void usuario_administrador(String arg1) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^Pido lista de DNIs manager$")
+	public void pido_lista_de_DNIs_manager() {
+
+	}
+
+
+
+	@When("^pido lista de médicos web$")
+	public void pido_lista_de_médicos_web() {
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"especialidad\":\"Podología\"}");
+		 request = new Request.Builder()
+		  .url("https://app-sanidad.herokuapp.com/listaMedicos")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "37ebd8d3-96eb-473e-b143-4ac8b89aabd0")
+		  .build();
+	}
+
+	@When("^pido lista de médicos web \"([^\"]*)\"$")
+	public void pido_lista_de_médicos_web(String arg1) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+	@Then("^recibo una lista de DNIs \"([^\"]*)\"$")
+	public void recibo_una_lista_de_DNIs(String arg1) {
+		try {
+			Response response = client.newCall(request).execute();
+		String prueba= response.body().string();
+			JSONObject jsonObject = new JSONObject(prueba);
+			if(arg1.equals("OK")) {
+				if(jsonObject.get("type").equals("error")) {
+					fail("Respuesta fallida pero debería ser correcta");
+				}
+			}else if(arg1.equals("Error")){
+				if(!jsonObject.get("type").equals("error")) {
+					fail("Respuesta debería ser fallida pero es correcta");
+				}
+			}
+		} catch (Exception e) {
+			fail("Error recibiendo la respuesta");
+		}
+	}
 }
