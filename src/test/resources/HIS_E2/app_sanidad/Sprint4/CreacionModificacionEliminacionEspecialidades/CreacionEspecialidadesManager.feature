@@ -5,7 +5,7 @@ Feature: Creación de una especialidad
   @tag1
   Scenario Outline: Como administrador quiero crear una especialidad (Manager)
     Given Tengo nombre "<nombre>",duracion "<duracion>",hora inicio "<hora_inicio>",hora final "<hora_final>"
-    When creo la especialidad "<Response>"
+    When creo la especialidad "<response>"
     Then La especialidad ha sido guardada nombre "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
     Then borro la especialidad nombre "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
     

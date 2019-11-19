@@ -93,7 +93,7 @@ public class StepsdefsSprint4Especialidades {
 		   //  especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad)
 			//RECORDAR QUE LA DURACION SE ENVIA COMO STRING
 			} catch( Exception e) {
-				if(!arg1.contentEquals("Error")) {
+				if(!arg1.equals("Error")) {
 					fail("Debería haberse creado la especialidad");
 				}
 			
@@ -218,7 +218,7 @@ public class StepsdefsSprint4Especialidades {
 	@When("^relleno los campos nombre nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\"$")
 	public void relleno_los_campos_nombre_nombre_duracion_hora_inico_hora_final(String arg1, String arg2, String arg3, String arg4) {
 		try {
-		driver.findElement(By.name("href_pedirCita")).click();
+		driver.findElement(By.name("href_crearEspecialidad")).click();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       driver.findElement(By.name("nombre")).sendKeys(arg1);							
 	       driver.findElement(By.name("duracion")).sendKeys(arg2);
