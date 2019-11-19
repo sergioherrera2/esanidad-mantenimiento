@@ -1,6 +1,6 @@
 
 @tag
-Feature: Creación de una especialidad
+Feature: Creación de una especialidad POSTMAN
 
   @tag1
   Scenario Outline: Como administrador quiero crear una especialidad (Web)

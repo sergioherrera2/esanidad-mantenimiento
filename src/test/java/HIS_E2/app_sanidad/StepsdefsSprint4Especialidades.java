@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestContextManager;
 
 import HIS_E2.app_sanidad.controller.Manager;
@@ -33,7 +34,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StepsdefsSprint4Especialidades {
+public class StepsdefsSprint4Especialidades extends JunitTests2{
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
@@ -45,6 +46,7 @@ public class StepsdefsSprint4Especialidades {
 	private String hora_final_especialidad;
 	private String hora_final_especialidad_mod;
 	private String duracion_modificar_especialidad;
+	@Autowired
 	private EspecialidadRepository especialidadRepo;
 	private List<Especialidad> lista_especialidades;
 	private Usuario user_admin;
@@ -81,7 +83,7 @@ public class StepsdefsSprint4Especialidades {
 	    duracion_especialidad = arg2;
 	    hora_inicio_especialidad = arg3;
 	    hora_final_especialidad = arg4;
-	    throw new PendingException();
+
 	}
 
 	@When("^creo la especialidad \"([^\"]*)\"$")
@@ -90,15 +92,15 @@ public class StepsdefsSprint4Especialidades {
 		try {
 			
 			
-		   //  especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad)
-			//RECORDAR QUE LA DURACION SE ENVIA COMO STRING
+		     especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad);
+
 			} catch( Exception e) {
 				if(!arg1.equals("Error")) {
 					fail("Debería haberse creado la especialidad");
 				}
 			
 			}
-		 throw new PendingException();
+
 	}
 
 	@Then("^La especialidad ha sido guardada nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
@@ -125,9 +127,10 @@ public class StepsdefsSprint4Especialidades {
 	@Then("^borro la especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void borro_la_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		if(arg3.equals("OK")) {
-			//Especialidad especialidad_borrada = especialidadRepo.deleteCustomespecialidad(arg1,arg2,arg3,arg4);
-			//assertNotNull(especialidad_borrada);
+			Especialidad especialidad_borrada = Manager.get().eliminarEspecialidad(arg1);
+			assertNotNull(especialidad_borrada);
 		}
+		
 	}
 	
 	
@@ -138,7 +141,7 @@ public class StepsdefsSprint4Especialidades {
 		} catch (Exception e) {
 		}
 		client = new OkHttpClient();
-		throw new PendingException();
+
 	}
 
 	@When("^Envio peticion crear especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
