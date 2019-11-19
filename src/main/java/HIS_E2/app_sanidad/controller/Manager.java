@@ -389,11 +389,17 @@ public class Manager {
 	}
 	
 	/**
-	 * Controla que el string dado no contenga números.
+	 * Controla que el string dado no contenga números o sea vacio.
 	 * @param nombre el string a controlar.
 	 * @throws Exception si el string contiene numeros.
 	 */
 	public void numerosNombre(String nombre) throws Exception {
+		if(nombre.equals("")) {
+			throw new Exception("El nombre no puede ser vacio");
+		}
+		if(nombre.equals(null)) {
+			throw new Exception("El nombre no puede ser vacio");
+		}
 		for(int i = 0; i < nombre.length(); i++) {
 			if(Character.isDigit(nombre.charAt(i))) {
 				throw new Exception("El nombre no puede contener numeros");
