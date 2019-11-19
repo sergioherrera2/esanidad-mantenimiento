@@ -177,8 +177,8 @@ public class Manager {
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
 		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
 		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
-		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
-		int duracion = especialidad.get(0).getDuracionCita();
+		Especialidad especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
+		int duracion = especialidad.getDuracionCita();
 		Date fechaCitaPlusDuracion = new Date(fechaCita.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
 		for(int i = 0; i<citas.size(); i++) {
 			Date fechaSolapada = citas.get(i).getFecha();
@@ -415,11 +415,9 @@ public class Manager {
 	 * @return la especialidad eliminada.
 	 */
 	public Especialidad eliminarEspecialidad(String nombreEspecialidad) {
-		List<Especialidad> lista = especialidadRepo.findCustomEspecialidad(nombreEspecialidad);
-		for(int i = 0; i<lista.size(); i++) {
-			especialidadRepo.delete(lista.get(i));
-		}
-		return lista.get(0);
+		Especialidad lista = especialidadRepo.findCustomEspecialidad(nombreEspecialidad);
+		especialidadRepo.delete(lista);
+		return lista;
 	}
 	
 	/**
@@ -444,8 +442,8 @@ public class Manager {
 	 * @throws ParseException.
 	 */
 	public Especialidad modificarEspecialidad(String nombre, String duracionOld, String horaInicioOld, String horaFinOld, String duracionNew, String horaInicioNew, String horaFinNew) throws ParseException {
-		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(nombre);
-		especialidadRepo.delete(especialidad.get(0));
+		Especialidad especialidad = especialidadRepo.findCustomEspecialidad(nombre);
+		especialidadRepo.delete(especialidad);
 		int duracionNewInt = Integer.parseInt(duracionNew);
 		Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicioNew);
 		Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFinNew);
