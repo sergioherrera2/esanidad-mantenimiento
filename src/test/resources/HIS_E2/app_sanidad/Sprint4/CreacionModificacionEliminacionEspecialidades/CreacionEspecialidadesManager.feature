@@ -11,7 +11,7 @@ Feature: Creación de una especialidad MANAGER
     
 Examples:
 	|nombre         | duracion     |hora_inicio| hora_final       |response             |
-	| Alergologo    |   15         |  9:00     | 14:00            | OK                  |
+	| Urología      |   15         |  9:00     | 14:00            | OK                  |
 	|               |   20         |  9:00     | 14:00            | Error               |
 	| 1234          |   20         |  9:00     |14:00             | Error               |
 	|E12            |   5          |  9:00     | 14:00            | Error               |
@@ -20,6 +20,5 @@ Examples:
 	|Oncología      |   0          |  9:00     |14:00             | Error               |
 	|Podología      |              |  9:00     |14:00             | Error               |
 	|Oncología      |   -1         |  9:00     |14:00             | Error               |
-	| Podología     |   15         |  9:00     | 22:00            | Error               |
 	| Podología     |   15         |  22:00    | 4:00             | Error               |
 	| Podología     |   15         |  8:00     | 14:00            | Error               |

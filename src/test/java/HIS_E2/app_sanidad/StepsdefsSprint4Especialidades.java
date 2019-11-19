@@ -93,13 +93,16 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 			
 			
 		     especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad);
-
+		     if(arg1.equals("Error")){
+		    	 fail("debería haber un error al insertar (Borrar de la base de datos)");
+		     }
 			} catch( Exception e) {
 				if(!arg1.equals("Error")) {
 					fail("Debería haberse creado la especialidad");
 				}
 			
 			}
+		
 
 	}
 
@@ -108,7 +111,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		
 
 		if(arg5.equals("OK")) {
-			List<Especialidad> especialidad =especialidadRepo.findCustomEspecialidad(arg1);
+			Especialidad especialidad =especialidadRepo.findCustomEspecialidad(arg1);
 			int duracion=0;
 			try {
 				 duracion = Integer.parseInt(arg2);
@@ -116,7 +119,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 				fail("La duración no es un número");
 			}
 			
-			if(especialidad.get(0).getDuracionCita()!=duracion || !especialidad.get(0).getNombreEspecialidad().equals(arg1)){
+			if(especialidad.getDuracionCita()!=duracion || !especialidad.getNombreEspecialidad().equals(arg1)){
 				fail("La especialidad insertada y la guardada no coinciden");
 				
 			}
@@ -126,7 +129,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 
 	@Then("^borro la especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void borro_la_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
-		if(arg3.equals("OK")) {
+		if(arg5.equals("OK")) {
 			Especialidad especialidad_borrada = Manager.get().eliminarEspecialidad(arg1);
 			assertNotNull(especialidad_borrada);
 		}
@@ -259,9 +262,9 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@Then("^la especialidad ha sido borrada correctamente nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_borrada_correctamente_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 	   if(arg3.equals("OK")) {
-		   List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(arg1);
+		   Especialidad especialidad = especialidadRepo.findCustomEspecialidad(arg1);
 		   
-		 assertNotNull(especialidad.get(0));
+		 assertNotNull(especialidad);
 		 
 	   }
 	}
@@ -290,8 +293,8 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@Then("^la especialidad se ha borrado nombre \"([^\"]*)\",duracion\"([^\"]*)\",response\"([^\"]*)\"$")
 	public void la_especialidad_se_ha_borrado_nombre_duracion_response(String arg1, String arg2, String arg3) {
 		
-		List<Especialidad> especialidades = especialidadRepo.findCustomEspecialidad(arg1);
-		if(especialidades.get(0)!=null) {
+		Especialidad especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+		if(especialidades!=null) {
 			 //especialidadRepo.deleteCustomespecialidad(arg1);
 			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");
 		}
@@ -386,7 +389,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@Then("^la especialidad ha sido modificada correctamente nombre \"([^\"]*)\", nueva duracion \"([^\"]*)\",\"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_nombre_nueva_duracion(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			lista_especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+			especialidad = especialidadRepo.findCustomEspecialidad(arg1);
 			Especialidad espeModificada = lista_especialidades.get(0);
 			if(espeModificada.getDuracionCita()!= especialidad.getDuracionCita()) {
 				fail("la especialidad no se ha modificado correctamente");
@@ -545,9 +548,9 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 
 	@Then("^la especialidad ha sido modificada correctamente nombre\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_nombre_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
-		List<Especialidad> especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+		Especialidad especialidades = especialidadRepo.findCustomEspecialidad(arg1);
 
-		if(especialidades.get(0)!=null) {
+		if(especialidades !=null) {
 			 //especialidadRepo.deleteCustomespecialidad(arg1);
 			driver.quit();
 			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");
