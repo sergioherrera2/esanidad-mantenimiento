@@ -392,10 +392,65 @@ public class Manager {
 	 * Crea una especialidad con los datos dados y la inserta en la base de datos.
 	 * @param nombrEspecialidad.
 	 * @param tiempoCita.
+	 * @param horaInicio.
+	 * @param horaFin.
+	 * @return la especialidad insertada.
+	 * @throws ParseException.
 	 */
-	public void crearEspecialidad(String nombrEspecialidad, int tiempoCita) {
-		Especialidad especialidad = new Especialidad(nombrEspecialidad, tiempoCita);
+	public Especialidad crearEspecialidad(String nombrEspecialidad, String tiempoCita, String horaInicio, String horaFin) throws Exception {
+		Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicio);
+		Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFin);
+		int tiempoCitaInt = Integer.parseInt(tiempoCita);
+		Especialidad especialidad = new Especialidad(nombrEspecialidad, tiempoCitaInt, horaInicioDate, horaFinDate);
+		if(especialidadRepo.findCustomEspecialidad(nombrEspecialidad) != null) {
+			throw new Exception("Especialidad ya existente");
+		}
 		especialidadRepo.insert(especialidad);
+		return especialidad;
 	}
 	
+	/**
+	 * Elimina una especialidad dado un nombre.
+	 * @param nombreEspecialidad.
+	 * @return la especialidad eliminada.
+	 */
+	public Especialidad eliminarEspecialidad(String nombreEspecialidad) {
+		List<Especialidad> lista = especialidadRepo.findCustomEspecialidad(nombreEspecialidad);
+		for(int i = 0; i<lista.size(); i++) {
+			especialidadRepo.delete(lista.get(i));
+		}
+		return lista.get(0);
+	}
+	
+	/**
+	 * Consulta las especialidades existentes.
+	 * @return la lista con las especialidades encontradas.
+	 */
+	public List<Especialidad> consultarEspecialidades(){
+		List<Especialidad> lista = especialidadRepo.findAll();
+		return lista;
+	}
+	
+	/**
+	 * Modifica la especialidad con los valores New.
+	 * @param nombre.
+	 * @param duracionOld.
+	 * @param horaInicioOld.
+	 * @param horaFinOld.
+	 * @param duracionNew.
+	 * @param horaInicioNew.
+	 * @param horaFinNew.
+	 * @return la especialidad modificada.
+	 * @throws ParseException.
+	 */
+	public Especialidad modificarEspecialidad(String nombre, String duracionOld, String horaInicioOld, String horaFinOld, String duracionNew, String horaInicioNew, String horaFinNew) throws ParseException {
+		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(nombre);
+		especialidadRepo.delete(especialidad.get(0));
+		int duracionNewInt = Integer.parseInt(duracionNew);
+		Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicioNew);
+		Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFinNew);
+		Especialidad esp = new Especialidad(nombre, duracionNewInt, horaInicioDate, horaFinDate);
+		especialidadRepo.insert(esp);
+		return esp;
+	}
 }

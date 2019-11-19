@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HIS_E2.app_sanidad.model.Cita;
+import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Usuario;
 
 @RestController
@@ -215,6 +216,84 @@ public class WebController {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		respuesta.put("resultado", "cita anulada correctamente");
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de creacion de especialidad.
+	 * @param jso
+	 * @return el mensaje con la especializacion creada
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/crearEspecialidad")
+	public Map<String, Object> crearEspecialidad(@RequestBody Map<String, String> jso) throws Exception{
+		String nombreEspecialidad = jso.get("nombreEspecialidad");
+		String tiempoCita = jso.get("tiempoCita");
+		String horaInicio = jso.get("horaInicio");
+		String horaFin = jso.get("horaFin");
+		Especialidad especialidad = Manager.get().crearEspecialidad(nombreEspecialidad, tiempoCita, horaInicio, horaFin);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(especialidad));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de la eliminación de especialidades.
+	 * @param jso.
+	 * @return el mensaje con la especialización creada.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/eliminarEspecialidad")
+	public Map<String, Object> eliminarEspecialidad(@RequestBody Map<String, String> jso) throws Exception{
+		String nombreEspecialidad = jso.get("nombreEspecialidad");
+		Especialidad especialidad = Manager.get().eliminarEspecialidad(nombreEspecialidad);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(especialidad));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de consulta de especialidades.
+	 * @param jso
+	 * @return la lista de especialidades.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/consultaEspecialidades")
+	public Map<String, Object> consultarEspecialidades(@RequestBody Map<String, String> jso) throws Exception{
+		List<Especialidad> lista = Manager.get().consultarEspecialidades();
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+		respuesta.put("type", "OK");
+		for(int i = 0; i<lista.size(); i++) {
+			respuesta.put("nombreEspecialidad"+i, lista.get(i).getNombreEspecialidad());
+			respuesta.put("duracionCita"+i, lista.get(i).getDuracionCita());
+			respuesta.put("horaInicio"+i,formatter.format(lista.get(i).getHoraInicio()));
+			respuesta.put("horaFin"+i,formatter.format(lista.get(i).getHoraFin()));
+		}
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de modificacion de especialidades.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la especialidad modificada.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/modificarEspecialidad")
+	public Map<String, Object> modificarEspecialidad(@RequestBody Map<String, String> jso) throws Exception{
+		String nombre = jso.get("nombreEspecialidad");
+		String duracionOld = jso.get("duracionOld");
+		String horaInicioOld = jso.get("horaInicioOld");
+		String horaFinOld = jso.get("horaInicioOld");
+		String duracionNew = jso.get("duracionNew");
+		String horaInicioNew = jso.get("horaInicioNew");
+		String horaFinNew = jso.get("horaFinNew");
+		Especialidad especialidad = Manager.get().modificarEspecialidad(nombre, duracionOld, horaInicioOld, horaFinOld, duracionNew, horaInicioNew, horaFinNew);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(especialidad));
 		return respuesta;
 	}
 	
