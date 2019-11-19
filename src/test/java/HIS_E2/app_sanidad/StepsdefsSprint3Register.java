@@ -7,8 +7,11 @@ import static org.junit.Assert.fail;
 
 import org.json.JSONObject;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
@@ -62,7 +65,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://localhost:8080/register");
+	    driver.get("https://app-sanidad.herokuapp.com/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -89,6 +92,14 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	public void recibo_respuesta(String arg1) {
 		try {
 			 driver.findElement(By.name("btnRegistrar")).click();
+			   Alert alert = driver.switchTo().alert();
+		        String alertText = alert.getText();
+		        System.out.println("Alert data: " + alertText);
+		        alert.accept();
+		} catch (UnhandledAlertException f) {
+
+		  } catch (NoAlertPresentException e) {
+		        
 		}catch(Exception e) {
 			fail("Can't find Register button");
 		
@@ -99,7 +110,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		}else {
 			String new_url = driver.getCurrentUrl();
 			 assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/register")); 
-		}
+		}                               
 		
 		
 	}
