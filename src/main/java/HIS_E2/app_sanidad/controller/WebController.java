@@ -266,6 +266,7 @@ public class WebController {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 		respuesta.put("type", "OK");
+		respuesta.put("numero", lista.size());
 		for(int i = 0; i<lista.size(); i++) {
 			respuesta.put("nombreEspecialidad"+i, lista.get(i).getNombreEspecialidad());
 			respuesta.put("duracionCita"+i, lista.get(i).getDuracionCita());
