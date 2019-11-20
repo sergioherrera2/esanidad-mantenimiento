@@ -13,4 +13,7 @@ Feature: Title of your feature
 
 Examples:
 |dni       |           especialidad       |response   |
-|84675678M |     Podologia                | OK        |
+|84675678M |     Podología                | OK        |
+|05726690N |                              | Error     |
+|          |     Podología                | Error     |
+|05726690N |     Farmaceutica             | Error     |
