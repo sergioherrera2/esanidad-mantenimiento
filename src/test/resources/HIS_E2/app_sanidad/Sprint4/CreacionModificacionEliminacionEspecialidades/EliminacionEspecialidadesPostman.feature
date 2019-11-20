@@ -1,23 +1,23 @@
 
 @tag
-Feature: Creación de una especialidad
+Feature: Eliminar una especialidad Postman
 
   @tag1
   Scenario Outline: Como administrador del sistema quiero poder eliminar citas (Web)
    Given Tengo nombre "<nombre>",duracion "<duracion>",hora inicio "<hora_inicio>",hora final "<hora_final>"
-    And creo la especialidad "<Response>"
+    And creo la especialidad "<response>"
     Given ClienteHttpEspecialidad
     When Envio peticion eliminar especialidad nombre "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
     Then Recibo una respuesta  nombre "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
    Then la especialidad ha sido borrada correctamente nombre "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
 Examples:
-	|nombre         | duracion               |response             |
-	| Podología     |   15                   | OK                  |
-	|               |   20                   | Error               |
-	| 1234          |   20                   | Error               |
-	|E12            |   5                    | Error               |
-	|Cabecera       |   15                   | OK                  |
-	|Cabecera       |   A                    | Error               |
-	|Oncología      |   0                    | Error               |
-	|Podología      |                        | Error               |
-	|Oncología      |   -1                   | Error               |
+	|nombre         | duracion     |hora_inicio| hora_final       |response             |
+	| Podología     |   15         |  9:00     | 14:00            | OK                  |
+	|               |   20         |  9:00     | 14:00            | Error               |
+	| 1234          |   20         |  9:00     |14:00             | Error               |
+	|E12            |   5          |  9:00     | 14:00            | Error               |
+	|Cabecera       |   15         |  9:00     |14:00             | OK                  |
+	|Cabecera       |   A          |  9:00     |14:00             | Error               |
+	|Oncología      |   0          |  9:00     |14:00             | Error               |
+	|Podología      |              |  9:00     |14:00             | Error               |
+	|Oncología      |   -1         |  9:00     |14:00             | Error               |

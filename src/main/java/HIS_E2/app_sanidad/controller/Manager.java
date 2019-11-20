@@ -177,8 +177,8 @@ public class Manager {
 	private void controlarSolapamiento(String dniPaciente, String dniMedico, Date fechaCita) throws Exception{
 		List<Cita> citas = citaRepo.findByDniPaciente(dniPaciente);
 		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
-		List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
-		int duracion = especialidad.get(0).getDuracionCita();
+		Especialidad especialidad = especialidadRepo.findCustomEspecialidad(medico.getIdEspecialidad());
+		int duracion = especialidad.getDuracionCita();
 		Date fechaCitaPlusDuracion = new Date(fechaCita.getTime() + (duracion * ONE_MINUTE_IN_MILLIS));
 		for(int i = 0; i<citas.size(); i++) {
 			Date fechaSolapada = citas.get(i).getFecha();
@@ -389,13 +389,92 @@ public class Manager {
 	}
 	
 	/**
+	 * Controla que el string dado no contenga números o sea vacio.
+	 * @param nombre el string a controlar.
+	 * @throws Exception si el string contiene numeros.
+	 */
+	public void numerosNombre(String nombre) throws Exception {
+		if(nombre.equals("")) {
+			throw new Exception("El nombre no puede ser vacio");
+		}
+		if(nombre.equals(null)) {
+			throw new Exception("El nombre no puede ser vacio");
+		}
+		for(int i = 0; i < nombre.length(); i++) {
+			if(Character.isDigit(nombre.charAt(i))) {
+				throw new Exception("El nombre no puede contener numeros");
+			}
+		}
+	}
+	/**
 	 * Crea una especialidad con los datos dados y la inserta en la base de datos.
 	 * @param nombrEspecialidad.
 	 * @param tiempoCita.
+	 * @param horaInicio.
+	 * @param horaFin.
+	 * @return la especialidad insertada.
+	 * @throws ParseException.
 	 */
-	public void crearEspecialidad(String nombrEspecialidad, int tiempoCita) {
-		Especialidad especialidad = new Especialidad(nombrEspecialidad, tiempoCita);
+	public Especialidad crearEspecialidad(String nombrEspecialidad, String tiempoCita, String horaInicio, String horaFin) throws Exception {
+		Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicio);
+		Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFin);
+		int tiempoCitaInt = Integer.parseInt(tiempoCita);
+		numerosNombre(nombrEspecialidad);
+		if(tiempoCitaInt <= 0 || tiempoCitaInt > 60) {
+			throw new Exception("La duracion de la cita de la especialidad debe ser mayor que 0 y menor o igual que 60");
+		}
+		Especialidad especialidad = new Especialidad(nombrEspecialidad, tiempoCitaInt, horaInicioDate, horaFinDate);
+		if(especialidadRepo.findCustomEspecialidad(nombrEspecialidad) != null) {
+			throw new Exception("Especialidad ya existente");
+		}
 		especialidadRepo.insert(especialidad);
+		return especialidad;
 	}
 	
+	/**
+	 * Elimina una especialidad dado un nombre.
+	 * @param nombreEspecialidad.
+	 * @return la especialidad eliminada.
+	 */
+	public Especialidad eliminarEspecialidad(String nombreEspecialidad) {
+		Especialidad lista = especialidadRepo.findCustomEspecialidad(nombreEspecialidad);
+		especialidadRepo.delete(lista);
+		return lista;
+	}
+	
+	/**
+	 * Consulta las especialidades existentes.
+	 * @return la lista con las especialidades encontradas.
+	 */
+	public List<Especialidad> consultarEspecialidades(){
+		List<Especialidad> lista = especialidadRepo.findAll();
+		return lista;
+	}
+	
+	/**
+	 * Modifica la especialidad con los valores New.
+	 * @param nombre.
+	 * @param duracionOld.
+	 * @param horaInicioOld.
+	 * @param horaFinOld.
+	 * @param duracionNew.
+	 * @param horaInicioNew.
+	 * @param horaFinNew.
+	 * @return la especialidad modificada.
+	 * @throws Exception.
+	 */
+	public Especialidad modificarEspecialidad(String nombre, String duracionOld, String horaInicioOld, String horaFinOld, String duracionNew, String horaInicioNew, String horaFinNew) throws Exception {
+		Especialidad especialidad = especialidadRepo.findCustomEspecialidad(nombre);
+		especialidadRepo.delete(especialidad);
+		int duracionNewInt = Integer.parseInt(duracionNew);
+		Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicioNew);
+		Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFinNew);
+		numerosNombre(nombre);
+		if(duracionNewInt <= 0 || duracionNewInt > 60) {
+			throw new Exception("La duracion de la cita de la especialidad debe ser mayor que 0 y menor o igual que 60");
+		}
+		Especialidad esp = new Especialidad(nombre, duracionNewInt, horaInicioDate, horaFinDate);
+		especialidadRepo.insert(esp);
+		return esp;
+	}
 }
