@@ -477,4 +477,54 @@ public class Manager {
 		especialidadRepo.insert(esp);
 		return esp;
 	}
+	
+	/**
+	 * Metodo para crear medico en el sistema.
+	 * @param dniMedico.
+	 * @param especialidad.
+	 * @return el medico creado.
+	 * @throws Exception si el medico o la especialidad no existen.
+	 */
+	public Medico crearMedico(String dniMedico,String especialidad) throws Exception {
+		Usuario user = userRepo.findByDni(Cifrador.cifrar(dniMedico));
+		if(user == null) {
+			throw new Exception("El medico debe estar registrado como usuario");
+		}
+		if(especialidadRepo.findCustomEspecialidad(especialidad) == null) {
+			throw new Exception("Especialidad no existente");
+		}
+		Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()), Cifrador.descifrar(user.getApellidos()), Cifrador.descifrar(user.getContrs()), especialidad);
+		medicoRepo.insert(medico);
+		return medico;
+	}
+	
+	/**
+	 * Método para la eliminación de médicos.
+	 * @param dniMedico.
+	 * @return el médico eliminado.
+	 * @throws Exception.
+	 */
+	public Medico eliminarMedico(String dniMedico) throws Exception {
+		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
+		List<PacienteMedico> pacMed = pacienteMedicoRepo.findCustomDniMedico(dniMedico);
+		for(int i = 0; i < pacMed.size(); i++) {
+			pacienteMedicoRepo.delete(pacMed.get(i));
+		}
+		medicoRepo.delete(medico);
+		return medico;
+	}
+	
+	/**
+	 * Metodo para listar los dni de los medicos.
+	 * @return la lista de dnis de medicos.
+	 * @throws Exception.
+	 */
+	public List<String> listaMedicos() throws Exception {
+		List<Medico> medicos = medicoRepo.findAll();
+		List<String> dnis = new ArrayList<String>();
+		for(int i = 0; i < medicos.size(); i++) {
+			dnis.add(Cifrador.descifrar(medicos.get(i).getDni()));
+		}
+		return dnis;
+	}
 }

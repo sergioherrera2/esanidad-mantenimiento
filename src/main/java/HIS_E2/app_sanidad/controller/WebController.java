@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
+import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Usuario;
 
 @RestController
@@ -298,6 +299,56 @@ public class WebController {
 		return respuesta;
 	}
 	
+	/**
+	 * Recibe peticiones POST de creación de médicos.
+	 * @param jso el cuerpo de la petición.
+	 * @return la respuesta con el medico creado.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/crearMedico")
+	public Map<String, Object> crearMedico(@RequestBody Map<String, String> jso) throws Exception {
+		String dniMedico = jso.get("dni");
+		String especialidad = jso.get("especialidad");
+		Medico medico = Manager.get().crearMedico(dniMedico, especialidad);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(medico));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de eliminación de médicos.
+	 * @param jso el cuerpo de la petición.
+	 * @return la respuesta con el médico eliminado.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/eliminarMedico")
+	public Map<String, Object> eliminarMedico(@RequestBody Map<String, String> jso) throws Exception {
+		String dniMedico = jso.get("dni");
+		Medico medico = Manager.get().eliminarMedico(dniMedico);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(medico));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de listar los medicos.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la lista de dnis de medicos.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/listaMedicos")
+	public Map<String, Object> listaMedicos(@RequestBody Map<String, String> jso) throws Exception {
+		List<String> lista = Manager.get().listaMedicos();
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("numero", lista.size());
+		for(int i = 0; i < lista.size(); ) {
+			respuesta.put("dni"+i, lista.get(i));
+		}
+		return respuesta;
+	}
 	/**
 	 * Recoge las excepciones generadas por la aplicación.
 	 * @param ex la excepción generada.
