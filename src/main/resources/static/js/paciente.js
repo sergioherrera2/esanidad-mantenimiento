@@ -63,6 +63,7 @@ function eliminarCita(id) {
 		if (data.type == "OK") {
 			console.log("eliminar");
 			console.log(data);
+			setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
 		}
 	}), 10000);
 }

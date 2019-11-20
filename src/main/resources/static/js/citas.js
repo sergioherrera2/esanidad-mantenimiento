@@ -1,3 +1,52 @@
+
+    var recurso = "http://localhost:8080/consultaEspecialidades";
+        var data = {
+           
+        };
+        data = JSON.stringify(data);
+
+        setTimeout($.ajax({
+                url: recurso,
+                type: "POST",
+                data: data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+        .done(function(data, textStatus, jqXHR) {
+            console.log(data.type);
+            if (data.type == "OK") {
+            	var combo = document.getElementById("producto");
+            	for (var i = 0; i < (data.numero); i++) {
+
+            		
+            		 
+            		/* Para obtener el texto */
+            		combo.options[i].text="caca";
+            		
+            		
+        		}
+            	
+            	
+                
+
+            } else {
+                if (data.type="error") {
+                    alert("Error al obtener las especialidades de las citas, contacte con el servicio de soporte.");
+                }
+                
+
+            }
+
+        }), 10000);
+
+
+
+
+
 function pedirCita() {
     var fecha = document.getElementById("fecha").value;
     var especialidad = document.getElementById("especialidad").value;

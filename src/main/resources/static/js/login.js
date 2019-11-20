@@ -1,3 +1,13 @@
+
+function mandarDatosEnter(event){
+	
+	if(event.keyCode === 13){
+		validateLogin();
+	}
+	
+}
+
+
 function validateLogin() {
 	var Dni = document.getElementById("username").value;
 	var contraseña = document.getElementById("password").value;
