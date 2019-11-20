@@ -506,7 +506,25 @@ public class Manager {
 	 */
 	public Medico eliminarMedico(String dniMedico) throws Exception {
 		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
+		List<PacienteMedico> pacMed = pacienteMedicoRepo.findCustomDniMedico(dniMedico);
+		for(int i = 0; i < pacMed.size(); i++) {
+			pacienteMedicoRepo.delete(pacMed.get(i));
+		}
 		medicoRepo.delete(medico);
 		return medico;
+	}
+	
+	/**
+	 * Metodo para listar los dni de los medicos.
+	 * @return la lista de dnis de medicos.
+	 * @throws Exception.
+	 */
+	public List<String> listaMedicos() throws Exception {
+		List<Medico> medicos = medicoRepo.findAll();
+		List<String> dnis = new ArrayList<String>();
+		for(int i = 0; i < medicos.size(); i++) {
+			dnis.add(Cifrador.descifrar(medicos.get(i).getDni()));
+		}
+		return dnis;
 	}
 }

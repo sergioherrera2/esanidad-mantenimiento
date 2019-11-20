@@ -333,6 +333,23 @@ public class WebController {
 	}
 	
 	/**
+	 * Recibe peticiones POST de listar los medicos.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la lista de dnis de medicos.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/listaMedicos")
+	public Map<String, Object> listaMedicos(@RequestBody Map<String, String> jso) throws Exception {
+		List<String> lista = Manager.get().listaMedicos();
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("numero", lista.size());
+		for(int i = 0; i < lista.size(); ) {
+			respuesta.put("dni"+i, lista.get(i));
+		}
+		return respuesta;
+	}
+	/**
 	 * Recoge las excepciones generadas por la aplicación.
 	 * @param ex la excepción generada.
 	 * @return el mensaje type=error generado.
