@@ -13,9 +13,10 @@
 
 
 
-#Examples:
-#|dni       |           especialidad       |response   |
-#|84675678M |     Podología                | OK        |
-#|92892773N |     Homeopatía               | Error     |
-#|05726690N |       f                      | Error     |
-#|12345678S |     Oncología                | Error     |
+
+Examples:
+|dni       |           especialidad       |response   |
+|84675678M |     Podología                | OK        |
+|05726690N |                              | Error     |
+|          |     Podología                | Error     |
+|05726690N |     Farmaceutica             | Error     |

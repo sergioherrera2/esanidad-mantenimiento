@@ -21,5 +21,3 @@ Feature: Como administrador quiero ver la lista de especialidades
   When Envio peticion recibir lista especialidades dni_admin "23456225C"
   Then Recibo Respuesta lista especialidades "OK"
       Then borro la especialidad nombre "Podología",duracion "15",hora inico "9:00",hora final "13:00",response "OK"
- 
- 
