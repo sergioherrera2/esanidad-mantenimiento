@@ -1,5 +1,5 @@
 var DNI = JSON.parse(sessionStorage.getItem("data"));
-var recurso = "https://app-sanidad.herokuapp.com/citasPaciente";
+var recurso = "http://localhost:8080/citasPaciente";
 var datosDNIP = [];
 var datosES = [];
 var datosF = [];
@@ -42,7 +42,7 @@ setTimeout($.ajax({
  * "centroDeSalud": "CIUDAD REAL", "especialidad": " ONCOLOGÍA", } ];
  */
 function eliminarCita(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
+	var recurso = "http://localhost:8080/anularCita";
 	var data = {
 		dniPaciente : datosDNIP[id],
 		especialidad : datosES[id],
@@ -76,7 +76,7 @@ function modificarCita(id){
 
 function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
-	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
+	var recurso = "http://localhost:8080/anularCita";
 
 	var cabecera = '<tr>' + '<th>FECHA</th>' + '<th>DNI PACIENTE</th>'
 			+ '<th>ESPECIALIDAD</th>' + '</tr>';
@@ -98,6 +98,6 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 function cerrarSesion (){
 	
 	sessionStorage.removeItem("data");
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+	setTimeout(location.href = 'http://localhost:8080/', 10000);
 	
 }

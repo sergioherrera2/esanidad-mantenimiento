@@ -1,6 +1,6 @@
 
 @tag
-Feature: Creación de una especialidad
+Feature: Creación de una especialidad MANAGER
 
   @tag1
   Scenario Outline: Como administrador quiero crear una especialidad (Manager)
@@ -20,6 +20,3 @@ Examples:
 	|Oncología      |   0          |  9:00     |14:00             | Error               |
 	|Podología      |              |  9:00     |14:00             | Error               |
 	|Oncología      |   -1         |  9:00     |14:00             | Error               |
-	| Podología     |   15         |  9:00     | 22:00            | Error               |
-	| Podología     |   15         |  22:00    | 4:00             | Error               |
-	| Podología     |   15         |  8:00     | 14:00            | Error               |

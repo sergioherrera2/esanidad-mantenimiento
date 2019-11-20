@@ -2,6 +2,7 @@ package HIS_E2.app_sanidad;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestContextManager;
 
 import HIS_E2.app_sanidad.controller.Manager;
@@ -33,7 +35,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StepsdefsSprint4Especialidades {
+public class StepsdefsSprint4Especialidades extends JunitTests2{
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
@@ -45,9 +47,10 @@ public class StepsdefsSprint4Especialidades {
 	private String hora_final_especialidad;
 	private String hora_final_especialidad_mod;
 	private String duracion_modificar_especialidad;
+	@Autowired
 	private EspecialidadRepository especialidadRepo;
 	private List<Especialidad> lista_especialidades;
-	private Usuario user_admin;
+	private Usuario user_admin = new Usuario();
 	private Especialidad especialidad;
 	
 	
@@ -63,10 +66,9 @@ public class StepsdefsSprint4Especialidades {
 	    duracion_especialidad = arg2;
 	    hora_inicio_especialidad = arg3;
 	    hora_final_especialidad = arg4;
-	    duracion_especialidad = arg5;
-	    hora_inicio_especialidad = arg6;
-	    hora_final_especialidad = arg7;
-	    throw new PendingException();
+	    duracion_especialidad_mod = arg5;
+	    hora_inicio_especialidad_mod = arg6;
+	    hora_final_especialidad_mod = arg7;
 	}
 	
 	
@@ -81,7 +83,7 @@ public class StepsdefsSprint4Especialidades {
 	    duracion_especialidad = arg2;
 	    hora_inicio_especialidad = arg3;
 	    hora_final_especialidad = arg4;
-	    throw new PendingException();
+
 	}
 
 	@When("^creo la especialidad \"([^\"]*)\"$")
@@ -90,15 +92,18 @@ public class StepsdefsSprint4Especialidades {
 		try {
 			
 			
-		   //  especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad)
-			//RECORDAR QUE LA DURACION SE ENVIA COMO STRING
+		     especialidad = Manager.get().crearEspecialidad(nombre_especialidad, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad);
+		     if(arg1.equals("Error")){
+		    	 fail("debería haber un error al insertar (Borrar de la base de datos)");
+		     }
 			} catch( Exception e) {
 				if(!arg1.equals("Error")) {
 					fail("Debería haberse creado la especialidad");
 				}
 			
 			}
-		 throw new PendingException();
+		
+
 	}
 
 	@Then("^La especialidad ha sido guardada nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
@@ -106,7 +111,7 @@ public class StepsdefsSprint4Especialidades {
 		
 
 		if(arg5.equals("OK")) {
-			List<Especialidad> especialidad =especialidadRepo.findCustomEspecialidad(arg1);
+			Especialidad especialidad =especialidadRepo.findCustomEspecialidad(arg1);
 			int duracion=0;
 			try {
 				 duracion = Integer.parseInt(arg2);
@@ -114,7 +119,7 @@ public class StepsdefsSprint4Especialidades {
 				fail("La duración no es un número");
 			}
 			
-			if(especialidad.get(0).getDuracionCita()!=duracion || !especialidad.get(0).getNombreEspecialidad().equals(arg1)){
+			if(especialidad.getDuracionCita()!=duracion || !especialidad.getNombreEspecialidad().equals(arg1)){
 				fail("La especialidad insertada y la guardada no coinciden");
 				
 			}
@@ -124,10 +129,15 @@ public class StepsdefsSprint4Especialidades {
 
 	@Then("^borro la especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void borro_la_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
-		if(arg3.equals("OK")) {
-			//Especialidad especialidad_borrada = especialidadRepo.deleteCustomespecialidad(arg1,arg2,arg3,arg4);
-			//assertNotNull(especialidad_borrada);
+		if(arg5.equals("OK")) {
+			try {
+			Especialidad especialidad_borrada = Manager.get().eliminarEspecialidad(arg1);
+			assertNotNull(especialidad_borrada);
+			}catch(Exception e) {
+				
+			}
 		}
+		
 	}
 	
 	
@@ -138,15 +148,15 @@ public class StepsdefsSprint4Especialidades {
 		} catch (Exception e) {
 		}
 		client = new OkHttpClient();
-		throw new PendingException();
+
 	}
 
 	@When("^Envio peticion crear especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void envio_peticion_crear_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_final\":\""+arg4+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"tiempoCita\":\""+arg2+"\",\"horaInicio\":\""+arg3+"\",\"horaFin\":\""+arg4+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearEspecialidad")
+		  .url("http://localhost:8080/crearEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -192,7 +202,7 @@ public class StepsdefsSprint4Especialidades {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com");
+	    driver.get("http://localhost:8080");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -255,10 +265,10 @@ public class StepsdefsSprint4Especialidades {
 	
 	@Then("^la especialidad ha sido borrada correctamente nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_borrada_correctamente_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
-	   if(arg3.equals("OK")) {
-		   List<Especialidad> especialidad = especialidadRepo.findCustomEspecialidad(arg1);
+	   if(arg5.equals("OK")) {
+		   Especialidad especialidad = especialidadRepo.findCustomEspecialidad(arg1);
 		   
-		 assertNotNull(especialidad.get(0));
+		 assertNull(especialidad);
 		 
 	   }
 	}
@@ -287,8 +297,8 @@ public class StepsdefsSprint4Especialidades {
 	@Then("^la especialidad se ha borrado nombre \"([^\"]*)\",duracion\"([^\"]*)\",response\"([^\"]*)\"$")
 	public void la_especialidad_se_ha_borrado_nombre_duracion_response(String arg1, String arg2, String arg3) {
 		
-		List<Especialidad> especialidades = especialidadRepo.findCustomEspecialidad(arg1);
-		if(especialidades.get(0)!=null) {
+		Especialidad especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+		if(especialidades!=null) {
 			 //especialidadRepo.deleteCustomespecialidad(arg1);
 			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");
 		}
@@ -297,9 +307,9 @@ public class StepsdefsSprint4Especialidades {
 	@When("^Envio peticion eliminar especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void envio_peticion_eliminar_especialidad_nombre_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_final\":\""+arg4+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"tiempoCita\":\""+arg2+"\",\"horaInicio\":\""+arg3+"\",\"horaFin\":\""+arg4+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarEspecialidad")
+		  .url("http://localhost:8080/eliminarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -316,7 +326,19 @@ public class StepsdefsSprint4Especialidades {
 
 	@When("^Pido la lista de especialidades \"([^\"]*)\"$")
 	public void pido_la_lista_de_especialidades(String arg1) {
-	    //lista_especialidades = Manager.get().listaEspecialidades(user_admin);
+		try {
+			
+			
+			lista_especialidades = Manager.get().consultarEspecialidades();
+		     
+
+			} catch( Exception e) {
+				fail("no se puede visualizar la lista");
+				}
+			
+			
+
+	    
 	}
 	
 
@@ -329,7 +351,7 @@ public class StepsdefsSprint4Especialidades {
 	@Then("^Recibo una respuesta lista de especialidades \"([^\"]*)\"$")
 	public void recibo_una_respuesta_lista_de_especialidades(String arg1) {
 	    if(arg1.equals("OK")) {
-	    	//assertNotNull(lista_especialidades);
+	    	assertNotNull(lista_especialidades);
 	    }
 	}
 
@@ -338,7 +360,7 @@ public class StepsdefsSprint4Especialidades {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-admin\":\""+arg1+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarEspecialidad")
+		  .url("http://localhost:8080/consultaEspecialidades")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -383,9 +405,10 @@ public class StepsdefsSprint4Especialidades {
 	@Then("^la especialidad ha sido modificada correctamente nombre \"([^\"]*)\", nueva duracion \"([^\"]*)\",\"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_nombre_nueva_duracion(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			lista_especialidades = especialidadRepo.findCustomEspecialidad(arg1);
-			Especialidad espeModificada = lista_especialidades.get(0);
-			if(espeModificada.getDuracionCita()!= especialidad.getDuracionCita()) {
+			int duracion = 0;
+			duracion = Integer.parseInt(arg2);
+			especialidad = especialidadRepo.findCustomEspecialidad(arg1);
+			if(especialidad.getDuracionCita()!= duracion) {
 				fail("la especialidad no se ha modificado correctamente");
 			}
 		}
@@ -395,9 +418,9 @@ public class StepsdefsSprint4Especialidades {
 	@When("^Envio peticion modificar especialidad nombre\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response\"([^\"]*)\"$")
 	public void envio_peticion_modificar_especialidad_nombre_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_final\":\""+arg4+"\",\"N_duracion\":\""+arg5+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"duracionOld\":\""+arg2+"\",\"horaInicioOld\":\""+arg3+"\",\"horaFinOld\":\""+arg4+"\",\"N_duracion\":\""+arg5+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/modificarEspecialidad")
+		  .url("http://localhost:8080/modificarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -459,16 +482,20 @@ public class StepsdefsSprint4Especialidades {
 		try {
 			
 			
-		   //  especialidad = Manager.get().modificarEspecialidad(nombre_especialidad, 
-		//	duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad,duracion_especialidad_mod,hora_inicio_especialidad_mod,hora_final_especialidad_mod)
-			//RECORDAR QUE LA DURACION SE ENVIA COMO STRING
+		     especialidad = Manager.get().modificarEspecialidad(nombre_especialidad, 
+			duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad,duracion_especialidad_mod,hora_inicio_especialidad_mod,hora_final_especialidad_mod);
+		     
+
 			} catch( Exception e) {
+				if(arg1.equals("Error")) {
+					borro_la_especialidad_nombre_duracion_hora_inico_hora_final_response(nombre_especialidad, duracion_especialidad, hora_inicio_especialidad, hora_final_especialidad, "OK");
+					
+				}
 				if(!arg1.contentEquals("Error")) {
 					fail("Debería haberse creado la especialidad");
 				}
 			
 			}
-		 throw new PendingException();
 	}
 	
 	@Then("^la especialidad ha sido modificada correctamente nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
@@ -487,10 +514,10 @@ public class StepsdefsSprint4Especialidades {
 	@When("^Envio peticion modificar especialidad nombre \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void envio_peticion_modificar_especialidad_nombre_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"nombre\":\""+arg1+"\",\"duracion\":\""+arg2+"\",\"hora_inicio\":\""+arg3+"\",\"hora_fin\":\""+arg4+"\",\"duracion_mod\":"
-				+ "\""+arg5+"\",\"hora_inico_mod\":\""+arg6+"\",\"hora_fin_mod\":\""+arg7+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"duracionOld\":\""+arg2+"\",\"horaInicioOld\":\""+arg3+"\",\"horaFinOld\":\""+arg4+"\",\"duracionNew\":"
+				+ "\""+arg5+"\",\"horaInicioNew\":\""+arg6+"\",\"horaFinNew\":\""+arg7+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/modificarEspecialidad")
+		  .url("http://localhost:8080/modificarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -508,10 +535,12 @@ public class StepsdefsSprint4Especialidades {
 				if(jsonObject.get("type").equals("error")) {
 					fail("Respuesta fallida pero debería ser correcta");
 				}
-			}else if(arg1.equals("Error")){
+			}else if(arg8.equals("Error")){
 				if(!jsonObject.get("type").equals("error")) {
 					fail("Respuesta debería ser fallida pero es correcta");
 				}
+				borro_la_especialidad_nombre_duracion_hora_inico_hora_final_response(nombre_especialidad, duracion_especialidad, hora_inicio_especialidad, hora_final_especialidad, "OK");
+				
 			}
 		} catch (Exception e) {
 			fail("Error recibiendo la respuesta");
@@ -542,9 +571,9 @@ public class StepsdefsSprint4Especialidades {
 
 	@Then("^la especialidad ha sido modificada correctamente nombre\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_nombre_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
-		List<Especialidad> especialidades = especialidadRepo.findCustomEspecialidad(arg1);
+		Especialidad especialidades = especialidadRepo.findCustomEspecialidad(arg1);
 
-		if(especialidades.get(0)!=null) {
+		if(especialidades !=null) {
 			 //especialidadRepo.deleteCustomespecialidad(arg1);
 			driver.quit();
 			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");

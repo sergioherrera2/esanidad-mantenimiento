@@ -11,6 +11,10 @@ import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * 
+ * @author Eduardo
+ */
 public class Cifrador {
 
 	Base64.Encoder encoder = Base64.getEncoder();  
@@ -20,6 +24,12 @@ public class Cifrador {
 	static Key aesKey=null;
 	static String key = "";
 	
+/**
+ * Cifra un string dado.
+ * @param a el string a cifrar.
+ * @return el string dado.
+ * @throws Exception si los datos son incorrectos.
+ */
 public static String cifrar(String a) throws Exception {
 	
 		if(existingKey==false) {
@@ -32,6 +42,12 @@ public static String cifrar(String a) throws Exception {
         return new String(encryptedB64);
 	}
 	
+	/**
+	 * Metodo para descifrar
+	 * @param string
+	 * @return el string descifrado
+	 * @throws Exception si los datos son incorrectos
+	 */
 	public static String descifrar(String string) throws Exception{
         byte[] encryptedB64=Base64.getDecoder().decode(string);
 
@@ -41,6 +57,13 @@ public static String cifrar(String a) throws Exception {
         return decrypted;
 	}
 	
+	/**
+	 * Crea un cifrador.
+	 * @return un cifrador.
+	 * @throws NoSuchAlgorithmException si no esta disponible el cifrador.
+	 * @throws NoSuchPaddingException padding not existing.
+	 * @throws IOException si ocurre una excepción I/O.
+	 */
 	public static Cipher createCipher() throws NoSuchAlgorithmException, NoSuchPaddingException, IOException {  
 	    key = "VE9SRkVLRVJLUExITFNSSVRQU0dJTkdOVFRIUEtST1I=";
 	    key = decodeBase64(key);
@@ -51,6 +74,12 @@ public static String cifrar(String a) throws Exception {
         return cipher;
 	}
 	
+	/**
+	 * Cifra un hash.
+	 * @param x string.
+	 * @return el hash.
+	 * @throws Exception sin falla el hash.
+	 */
 	public static String cifrarHash(String x) throws Exception{
 		byte[] bytesOfMessage = x.getBytes("UTF-8");
 
@@ -59,11 +88,23 @@ public static String cifrar(String a) throws Exception {
 		return new String(thedigest);
 	}
 	
+	/**
+	 * Decodifica un string.
+	 * @param texto el string.
+	 * @return el string descifrado.
+	 * @throws UnsupportedEncodingException si falla la codificación.
+	 */
 	public static String decodeBase64(String texto) throws UnsupportedEncodingException {
 	    byte[] archivo = Base64.getDecoder().decode(texto);
 	    return new String(archivo);
 	}
 	
+	/**
+	 * Devuelve un desencriptador.
+	 * @param text el string.
+	 * @return el desencriptador.
+	 * @throws UnsupportedEncodingException si falla la codificación.
+	 */
 	public static String decryptCaesar(String text) throws UnsupportedEncodingException 
     { 
 		String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

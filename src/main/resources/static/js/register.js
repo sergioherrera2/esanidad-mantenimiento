@@ -98,7 +98,7 @@ function validate() {
 
     function enviarContenido(nom, Apellidos, contraseña, contraseña2, nss, Dni) {
 
-        var recurso = "https://app-sanidad.herokuapp.com/register";
+        var recurso = "http://localhost:8080/register";
         var data = {
             type: "register",
             nombre: nom,
@@ -124,7 +124,7 @@ function validate() {
             console.log(data.type);
             if (data.type == "OK") {
             	
-                setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+                setTimeout(location.href = 'http://localhost:8080/', 10000);
 
             } else {
                 if (data.type="error") {
