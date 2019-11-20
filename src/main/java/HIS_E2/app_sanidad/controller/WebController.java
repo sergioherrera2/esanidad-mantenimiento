@@ -286,7 +286,7 @@ public class WebController {
 		String nombre = jso.get("nombreEspecialidad");
 		String duracionOld = jso.get("duracionOld");
 		String horaInicioOld = jso.get("horaInicioOld");
-		String horaFinOld = jso.get("horaInicioOld");
+		String horaFinOld = jso.get("horaFinOld");
 		String duracionNew = jso.get("duracionNew");
 		String horaInicioNew = jso.get("horaInicioNew");
 		String horaFinNew = jso.get("horaFinNew");
