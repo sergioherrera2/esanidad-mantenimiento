@@ -1,6 +1,6 @@
 
 @tag
-Feature: Eliminar una Especialidad Manager
+Feature: Eliminar Una relación paciente-medico
 
   @tag1
   Scenario Outline: Como administrador del sistema quiero poder eliminar citas (Manager)
@@ -8,7 +8,7 @@ Feature: Eliminar una Especialidad Manager
     Given creo la relacion "<Response>"
 		Given la relacion ha sido guardada dni-user "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
    When borro la relacion dni-user "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
-    Then la relacion ha sido borrada "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
+    Then la relacion ha sido borrada "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
     
 Examples:
     | dni-user   | dni-medico  |  Response  |

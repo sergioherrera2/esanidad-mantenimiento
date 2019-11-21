@@ -1,8 +1,8 @@
 @tag
-Feature: Modificar Especialidad Postman
+Feature: Crear Paciente Medico manager
 
   @tag1
-  Scenario Outline: Como administrador quiero unir medico y paciente
+  Scenario Outline: Como administrador quiero crear una relacion medico-paciente (MANAGER)
     Given Tengo dni-user "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
     When creo la relacion "<Response>"
     Then la relacion ha sido guardada dni-user "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"

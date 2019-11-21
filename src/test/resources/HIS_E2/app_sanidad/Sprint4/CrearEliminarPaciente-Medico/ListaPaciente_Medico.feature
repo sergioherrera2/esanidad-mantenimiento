@@ -1,10 +1,14 @@
 
 @tag
-Feature: Title of your feature
-  I want to use this template for my feature file
+Feature: Recibir Lista medico Paciente (MANAGER)
 
   @tag1
-  Scenario: 
+  Scenario: Recibir Lista medico Paciente (MANAGER)
     When Pido la lista de relaciones MedicoPaciente
-    Then Recibo la Lista MedicoPaciente
+    Then Tengo la Lista MedicoPaciente
 
+  @tag1
+  Scenario: Recibir Lista medico Paciente (MANAGER)
+    Given ClienteHttpMedicoPaciente
+    When hago peticion  MedicoPaciente
+    Then Recibo la Lista MedicoPaciente
