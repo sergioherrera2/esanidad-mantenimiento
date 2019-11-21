@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestContextManager;
 
 import HIS_E2.app_sanidad.controller.Manager;
@@ -35,6 +36,8 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 	private String medico_dni;
 	private String medico_especialidad;
 	private Medico medico;
+	private List<String> medicosDNIs;
+	@Autowired
 	private MedicoRepository medicoRepo;
 	private Usuario user_admin = new Usuario();
 	
@@ -70,7 +73,6 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 					}
 				
 				}
-			 throw new PendingException();
 		
 	}
 
@@ -117,7 +119,6 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		} catch (Exception e) {
 		}
 		client = new OkHttpClient();
-		throw new PendingException();
 	}
 
 	@When("^Envio peticion crear medico dni \"([^\"]*)\",especialidad \"([^\"]*)\", response \"([^\"]*)\"$")
@@ -125,7 +126,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearMedico")
+		  .url("http://localhost:8080/crearMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -151,7 +152,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		} catch (Exception e) {
 			fail("Error recibiendo la respuesta");
 		}
-	    throw new PendingException();
+
 	}
 	
 	
@@ -200,9 +201,15 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 	@When("^Pido lista de DNIs manager$")
 	public void pido_lista_de_DNIs_manager() {
 		try {
+			new TestContextManager(getClass()).prepareTestInstance(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
 			
 			
-			   // medico = Manager.get().listaMedicos();
+			medicosDNIs = Manager.get().listaMedicos();
 				} catch( Exception e) {
 			}
 				
@@ -217,7 +224,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"especialidad\":\"Podología\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/listaMedicos")
+		  .url("http://localhost:8080/listaMedicos")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -225,29 +232,10 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		  .build();
 	}
 
-	@When("^pido lista de médicos web \"([^\"]*)\"$")
-	public void pido_lista_de_médicos_web(String arg1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
+
 	@Then("^recibo una lista de DNIs \"([^\"]*)\"$")
 	public void recibo_una_lista_de_DNIs(String arg1) {
-		try {
-			Response response = client.newCall(request).execute();
-		String prueba= response.body().string();
-			JSONObject jsonObject = new JSONObject(prueba);
-			if(arg1.equals("OK")) {
-				if(jsonObject.get("type").equals("error")) {
-					fail("Respuesta fallida pero debería ser correcta");
-				}
-			}else if(arg1.equals("Error")){
-				if(!jsonObject.get("type").equals("error")) {
-					fail("Respuesta debería ser fallida pero es correcta");
-				}
-			}
-		} catch (Exception e) {
-			fail("Error recibiendo la respuesta");
-		}
+		assertNotNull(medicosDNIs);
 	}
 	
 	
@@ -290,7 +278,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarMedico")
+		  .url("http://localhost:8080/eliminarMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")

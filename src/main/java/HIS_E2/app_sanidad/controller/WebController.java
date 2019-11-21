@@ -344,7 +344,7 @@ public class WebController {
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
 		respuesta.put("numero", lista.size());
-		for(int i = 0; i < lista.size(); ) {
+		for(int i = 0; i < lista.size(); i++) {
 			respuesta.put("dni"+i, lista.get(i));
 		}
 		return respuesta;
