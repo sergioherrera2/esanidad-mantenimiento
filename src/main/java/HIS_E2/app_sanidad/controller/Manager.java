@@ -493,7 +493,8 @@ public class Manager {
 		if(especialidadRepo.findCustomEspecialidad(especialidad) == null) {
 			throw new Exception("Especialidad no existente");
 		}
-		Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()), Cifrador.descifrar(user.getApellidos()), Cifrador.descifrar(user.getContrs()), especialidad);
+		Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()), Cifrador.descifrar(user.getApellidos()), user.getContrs(), especialidad);
+		medico.setContrs(user.getContrs());
 		medicoRepo.insert(medico);
 		return medico;
 	}
