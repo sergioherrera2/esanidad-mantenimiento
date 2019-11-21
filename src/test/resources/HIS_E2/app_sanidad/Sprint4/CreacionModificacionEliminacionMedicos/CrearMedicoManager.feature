@@ -1,5 +1,5 @@
 @tag
-Feature: Creación de una especialidad
+Feature: Creación de Medico
 
   @tag1
   Scenario Outline: Como administrador quiero crear una medico (Manager)

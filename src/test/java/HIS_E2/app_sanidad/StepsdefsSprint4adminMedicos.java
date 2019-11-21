@@ -12,6 +12,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.springframework.test.context.TestContextManager;
 
+import HIS_E2.app_sanidad.controller.Manager;
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Usuario;
@@ -26,7 +28,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StepsdefsSprint4adminMedicos {
+public class StepsdefsSprint4adminMedicos extends JunitTests2{
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
@@ -61,7 +63,7 @@ public class StepsdefsSprint4adminMedicos {
 		try {
 			
 			
-			   // medico = Manager.get().crearMedico("medico_dni","medico_especialidad");
+			    medico = Manager.get().crearMedico(medico_dni,medico_especialidad);
 				} catch( Exception e) {
 					if(!arg1.equals("Error")) {
 						fail("Debería haberse creado la especialidad");
@@ -75,7 +77,12 @@ public class StepsdefsSprint4adminMedicos {
 	@Then("^el medico ha sido guardado correctamente dni \"([^\"]*)\", especialidad \"([^\"]*)\", response \"([^\"]*)\"$")
 	public void el_medico_ha_sido_guardado_correctamente_dni_especialidad_response(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			medico = medicoRepo.findByDni(arg1);
+			try {
+				medico = medicoRepo.findByDni(Cifrador.cifrar(arg1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			assertNotNull(medico);
 		}
 			
@@ -84,8 +91,19 @@ public class StepsdefsSprint4adminMedicos {
 	@Then("^borro el medico dni \"([^\"]*)\", especialidad \"([^\"]*)\", response \"([^\"]*)\"$")
 	public void borro_el_medico_dni_especialidad_response(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			//Medico medico = medicoRepo.deleteByDni(arg1);
-			Medico medico_borrado = medicoRepo.findByDni(arg1);
+			try {
+				Medico medico = Manager.get().eliminarMedico(arg1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Medico medico_borrado = null;
+			try {
+				medico_borrado = medicoRepo.findByDni(Cifrador.cifrar(arg1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			assertNull(medico_borrado);
 			
 		}
