@@ -8,7 +8,7 @@ Feature: Eliminar una especialidad Postman
     Given ClienteHttpMedicoPaciente
     When Envio peticion eliminar relacion dni-user "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
     Then la relacion ha sido guardada dni-user "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
-   Then la relacion ha sido borrada "<nombre>",duracion "<duracion>",hora inico "<hora_inicio>",hora final "<hora_final>",response "<response>"
+    Then la relacion ha sido borrada "<dni-user>", dni-medico "<dni-medico>", Response "<Response>"
 Examples:
     | dni-user   | dni-medico  |  Response  |
     |05726690N   |05707785J    |    OK      |

@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import HIS_E2.app_sanidad.controller.Manager;
 import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.UserRepository;
@@ -19,7 +20,7 @@ public class JunitTests2 {
 	@Autowired
 	UserRepository userRepo;
 	@Test
-	public void multiplicationOfZeroIntegersShouldReturnZero() {
+	public void pruebas() {
 		try {
 			new TestContextManager(getClass()).prepareTestInstance(this);
 		} catch (Exception e1) {
@@ -36,4 +37,44 @@ public class JunitTests2 {
 		Usuario user =userRepo.findByDni(dniABuscar);
 		user.toString();
     }
+	@Test
+	public void pruebas1() {
+		try {
+			new TestContextManager(getClass()).prepareTestInstance(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			Manager.get().crearEspecialidad("gestor", "1", "9:00", "14:00");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
+		
+		@Test
+		public void pruebas2() {
+			try {
+				new TestContextManager(getClass()).prepareTestInstance(this);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				Manager.get().crearMedico("98276278S","gestor");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+		
+		
+	}
+	
+	
+	
 }
