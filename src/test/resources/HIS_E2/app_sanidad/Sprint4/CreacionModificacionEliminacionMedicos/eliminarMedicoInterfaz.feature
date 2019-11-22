@@ -15,4 +15,3 @@ Examples:
 |05726690N |                              | Error     |
 |          |     Podología                | Error     |
 |05726690N |     Farmaceutica             | Error     |
-
