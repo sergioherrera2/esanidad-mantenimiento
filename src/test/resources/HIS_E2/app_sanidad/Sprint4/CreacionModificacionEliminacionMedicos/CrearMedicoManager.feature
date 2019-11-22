@@ -1,5 +1,5 @@
 @tag
-Feature: Creación de una especialidad
+Feature: Creación de Medico
 
   @tag1
   Scenario Outline: Como administrador quiero crear una medico (Manager)
@@ -10,7 +10,7 @@ Feature: Creación de una especialidad
     
 Examples:
 |dni       |           especialidad       |response   |
-|84675678M |     Podología                | OK        |
+|84675678M |     Cabecera                 | OK        |
 |05726690N |                              | Error     |
 |          |     Podología                | Error     |
 |05726690N |     Farmaceutica             | Error     |

@@ -237,20 +237,22 @@ public class Manager {
 	/**
 	 * Devuelve las citas de un medico dado.
 	 * @param dni del medico.
-	 * @param pass del medico.
+	 * @param fecha dia de las citas del medico.
 	 * @return la lista de citas del medico si la contraseña es correcta.
 	 * @throws Exception si la contraseña es incorrecta.
 	 */
-	public List<Cita> getCitasMedico(String dni, String pass) throws Exception {
-		Medico med = medicoRepo.findByDni(Cifrador.cifrar(dni));
-		
-		if(med.getContrs().equals(pass)) {
-			List<Cita> lista = citaRepo.findByDniMedico(dni);
-			return lista;
-		} else {
-			return null;
+	public List<Cita> getCitasMedico(String dni, String fecha) throws Exception {
+		List<Cita> listaCitas = citaRepo.findByDniMedico(dni);
+		List<Cita> lista = new ArrayList<Cita>();
+		Date fechaDia = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+		Date fechaDiaFin = new Date(fechaDia.getTime() + (1440 * ONE_MINUTE_IN_MILLIS));
+		for(int i = 0; i < listaCitas.size(); i++) {
+			Date fechaCita = listaCitas.get(i).getFecha();
+			if((fechaCita.after(fechaDia) && fechaCita.before(fechaDiaFin)) || fechaCita.equals(fechaDia)) {
+				lista.add(listaCitas.get(i));
+			}
 		}
-		
+		return lista;
 	}
 
 	/**
@@ -334,24 +336,7 @@ public class Manager {
 		List<Cita> lista = citaRepo.deleteCustomCita(dniPaciente, dniMedico, fechaCita);
 		citaRepo.delete(lista.get(0));
 	}
-	
-	/**
-	 * Crea un medico con los parametros dados y lo asocia a un paciente.
-	 * @param dniMedico.
-	 * @param nombre.
-	 * @param apellidos
-	 * @param contrs.
-	 * @param especialidad.
-	 * @param dniPaciente.
-	 * @throws Exception Si los datos son incorrectos.
-	 */
-	public void crearMedicoPaciente(String dniMedico, String nombre, String apellidos, String contrs, String especialidad, String dniPaciente)throws Exception{
-		Medico medico = new Medico(dniMedico, nombre, apellidos, contrs, especialidad);
-		PacienteMedico pacienteMed = new PacienteMedico(dniPaciente, dniMedico, especialidad);
-		medicoRepo.insert(medico);
-		pacienteMedicoRepo.insert(pacienteMed);
-	}
-	
+		
 	/**
 	 * Comprueba si existe la cita dada.
 	 * @param dniPaciente.
@@ -493,7 +478,8 @@ public class Manager {
 		if(especialidadRepo.findCustomEspecialidad(especialidad) == null) {
 			throw new Exception("Especialidad no existente");
 		}
-		Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()), Cifrador.descifrar(user.getApellidos()), Cifrador.descifrar(user.getContrs()), especialidad);
+		Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()), Cifrador.descifrar(user.getApellidos()), user.getContrs(), especialidad);
+		medico.setContrs(user.getContrs());
 		medicoRepo.insert(medico);
 		return medico;
 	}
@@ -526,5 +512,37 @@ public class Manager {
 			dnis.add(Cifrador.descifrar(medicos.get(i).getDni()));
 		}
 		return dnis;
+	}
+	
+	/**
+	 * Crea una relacion medico-paciente.
+	 * @param dniPaciente.
+	 * @param dniMedico.
+	 * @return la relacion creada.
+	 * @throws Exception.
+	 */
+	public PacienteMedico crearMedicoPaciente(String dniPaciente, String dniMedico) throws Exception {
+		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
+		String especialidad = medico.getIdEspecialidad();
+		if(pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad) == null) {
+			PacienteMedico pacMed = new PacienteMedico(dniPaciente, dniMedico, especialidad);
+			pacienteMedicoRepo.insert(pacMed);
+			return pacMed;
+		} else {
+			throw new Exception("El paciente ya tiene un medico asignado para la especialidad"+especialidad);
+		}
+	}
+	
+	/**
+	 * Elimina la relacion Paciente-Medico.
+	 * @param dniPaciente dni del paciente a eliminar.
+	 * @param dniMedico dni del medico relacionado.
+	 * @return la relación eliminada.
+	 */
+	public PacienteMedico eliminarPacienteMedico(String dniPaciente, String dniMedico) {
+		String especialidad = medicoRepo.findByDni(dniMedico).getIdEspecialidad();
+		PacienteMedico pacMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		pacienteMedicoRepo.delete(pacMed);
+		return pacMed;
 	}
 }

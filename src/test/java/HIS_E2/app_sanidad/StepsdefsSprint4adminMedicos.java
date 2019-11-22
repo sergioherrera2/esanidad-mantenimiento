@@ -10,8 +10,11 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestContextManager;
 
+import HIS_E2.app_sanidad.controller.Manager;
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Usuario;
@@ -26,13 +29,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StepsdefsSprint4adminMedicos {
+public class StepsdefsSprint4adminMedicos extends JunitTests2{
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
 	private String medico_dni;
 	private String medico_especialidad;
 	private Medico medico;
+	private List<String> medicosDNIs;
+	@Autowired
 	private MedicoRepository medicoRepo;
 	private Usuario user_admin = new Usuario();
 	
@@ -61,21 +66,25 @@ public class StepsdefsSprint4adminMedicos {
 		try {
 			
 			
-			   // medico = Manager.get().crearMedico("medico_dni","medico_especialidad");
+			    medico = Manager.get().crearMedico(medico_dni,medico_especialidad);
 				} catch( Exception e) {
 					if(!arg1.equals("Error")) {
 						fail("Debería haberse creado la especialidad");
 					}
 				
 				}
-			 throw new PendingException();
 		
 	}
 
 	@Then("^el medico ha sido guardado correctamente dni \"([^\"]*)\", especialidad \"([^\"]*)\", response \"([^\"]*)\"$")
 	public void el_medico_ha_sido_guardado_correctamente_dni_especialidad_response(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			medico = medicoRepo.findByDni(arg1);
+			try {
+				medico = medicoRepo.findByDni(Cifrador.cifrar(arg1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			assertNotNull(medico);
 		}
 			
@@ -84,8 +93,19 @@ public class StepsdefsSprint4adminMedicos {
 	@Then("^borro el medico dni \"([^\"]*)\", especialidad \"([^\"]*)\", response \"([^\"]*)\"$")
 	public void borro_el_medico_dni_especialidad_response(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			//Medico medico = medicoRepo.deleteByDni(arg1);
-			Medico medico_borrado = medicoRepo.findByDni(arg1);
+			try {
+				Medico medico = Manager.get().eliminarMedico(arg1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Medico medico_borrado = null;
+			try {
+				medico_borrado = medicoRepo.findByDni(Cifrador.cifrar(arg1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			assertNull(medico_borrado);
 			
 		}
@@ -99,7 +119,6 @@ public class StepsdefsSprint4adminMedicos {
 		} catch (Exception e) {
 		}
 		client = new OkHttpClient();
-		throw new PendingException();
 	}
 
 	@When("^Envio peticion crear medico dni \"([^\"]*)\",especialidad \"([^\"]*)\", response \"([^\"]*)\"$")
@@ -107,7 +126,7 @@ public class StepsdefsSprint4adminMedicos {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearMedico")
+		  .url("http://localhost:8080/crearMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -133,7 +152,7 @@ public class StepsdefsSprint4adminMedicos {
 		} catch (Exception e) {
 			fail("Error recibiendo la respuesta");
 		}
-	    throw new PendingException();
+
 	}
 	
 	
@@ -182,9 +201,15 @@ public class StepsdefsSprint4adminMedicos {
 	@When("^Pido lista de DNIs manager$")
 	public void pido_lista_de_DNIs_manager() {
 		try {
+			new TestContextManager(getClass()).prepareTestInstance(this);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
 			
 			
-			   // medico = Manager.get().listaMedicos();
+			medicosDNIs = Manager.get().listaMedicos();
 				} catch( Exception e) {
 			}
 				
@@ -199,7 +224,7 @@ public class StepsdefsSprint4adminMedicos {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"especialidad\":\"Podología\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/listaMedicos")
+		  .url("http://localhost:8080/listaMedicos")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -207,29 +232,10 @@ public class StepsdefsSprint4adminMedicos {
 		  .build();
 	}
 
-	@When("^pido lista de médicos web \"([^\"]*)\"$")
-	public void pido_lista_de_médicos_web(String arg1) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
+
 	@Then("^recibo una lista de DNIs \"([^\"]*)\"$")
 	public void recibo_una_lista_de_DNIs(String arg1) {
-		try {
-			Response response = client.newCall(request).execute();
-		String prueba= response.body().string();
-			JSONObject jsonObject = new JSONObject(prueba);
-			if(arg1.equals("OK")) {
-				if(jsonObject.get("type").equals("error")) {
-					fail("Respuesta fallida pero debería ser correcta");
-				}
-			}else if(arg1.equals("Error")){
-				if(!jsonObject.get("type").equals("error")) {
-					fail("Respuesta debería ser fallida pero es correcta");
-				}
-			}
-		} catch (Exception e) {
-			fail("Error recibiendo la respuesta");
-		}
+		assertNotNull(medicosDNIs);
 	}
 	
 	
@@ -272,7 +278,7 @@ public class StepsdefsSprint4adminMedicos {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarMedico")
+		  .url("http://localhost:8080/eliminarMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
