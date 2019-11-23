@@ -21,11 +21,11 @@ Feature: Creación de una especialidad
 
 Examples:
     | dni-user   | dni-medico  |  Response  |
-    |05726690N   |05707785J    |    OK      |
-    |            |05707785J    | Error      |
-    |05726690N   |             | Error      |
+    |97637789Y   |65278762R    |    OK      |
+    |            |65278762R    | Error      |
+    |97637789Y   |             | Error      |
     |            |             | Error      |
-    |05726690    |05707785J    | Error      |
-    |05726690N   |05707785     | Error      |
-    |057266904N  |05707785J    | Error      |
-    |05726690N   |057077852J   | Error      |
+    |05726690    |65278762R    | Error      |
+    |97637789Y   |05707785     | Error      |
+    |057266904N  |65278762R    | Error      |
+    |97637789Y   |057077852J   | Error      |

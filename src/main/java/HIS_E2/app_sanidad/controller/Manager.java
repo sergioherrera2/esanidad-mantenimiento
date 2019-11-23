@@ -524,6 +524,9 @@ public class Manager {
 	public PacienteMedico crearMedicoPaciente(String dniPaciente, String dniMedico) throws Exception {
 		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
 		String especialidad = medico.getIdEspecialidad();
+		if(userRepo.findByDni(Cifrador.cifrar(dniPaciente)) == null) {
+			throw new Exception ("El Dni no corresponde con un paciente");
+		}
 		if(pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad) == null) {
 			PacienteMedico pacMed = new PacienteMedico(dniPaciente, dniMedico, especialidad);
 			pacienteMedicoRepo.insert(pacMed);
@@ -538,9 +541,10 @@ public class Manager {
 	 * @param dniPaciente dni del paciente a eliminar.
 	 * @param dniMedico dni del medico relacionado.
 	 * @return la relación eliminada.
+	 * @throws Exception 
 	 */
-	public PacienteMedico eliminarPacienteMedico(String dniPaciente, String dniMedico) {
-		String especialidad = medicoRepo.findByDni(dniMedico).getIdEspecialidad();
+	public PacienteMedico eliminarPacienteMedico(String dniPaciente, String dniMedico) throws Exception {
+		String especialidad = medicoRepo.findByDni(Cifrador.cifrar(dniMedico)).getIdEspecialidad();
 		PacienteMedico pacMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		pacienteMedicoRepo.delete(pacMed);
 		return pacMed;

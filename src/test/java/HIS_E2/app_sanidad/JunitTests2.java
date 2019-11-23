@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import HIS_E2.app_sanidad.controller.Manager;
 import HIS_E2.app_sanidad.model.Cifrador;
+import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.UserRepository;
 
@@ -63,7 +64,7 @@ public class JunitTests2 {
 				e1.printStackTrace();
 			}
 			try {
-				Manager.get().crearMedico("98276278S","gestor");
+				PacienteMedico pacienteMedico = Manager.get().eliminarPacienteMedico("97637789Y","65278762R");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

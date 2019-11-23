@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
@@ -16,11 +17,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestContextManager;
 
 import HIS_E2.app_sanidad.controller.Manager;
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Especialidad;
+import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.PacienteMedico;
+import HIS_E2.app_sanidad.repositories.MedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteMedicoRepository;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -32,14 +37,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StepsdefsSprint4medico_paciente {
+public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
 	private String dni_medico;
 	private String dni_paciente;
-	//private PacienteMedico  pacienteMedico = new PacienteMedico();
+	private PacienteMedico  pacienteMedico;
+	@Autowired
 	private PacienteMedicoRepository pacienteMedicoRepo;
+	@Autowired
+	private MedicoRepository medicoRepo;
+	private List<PacienteMedico> pacienteMedicos;
 	
 	
 	
@@ -57,7 +66,7 @@ public class StepsdefsSprint4medico_paciente {
 	@When("^creo la relacion \"([^\"]*)\"$")
 	public void creo_la_relacion(String arg1) {
 		try {
-			//pacienteMedico = Manager.get().crearMedicoPaciente(dni_paciente,dni_medico);
+			pacienteMedico = Manager.get().crearMedicoPaciente(dni_paciente,dni_medico);
 		     if(arg1.equals("Error")){
 		    	 fail("debería haber un error al insertar (Borrar de la base de datos)");
 		     }
@@ -71,8 +80,15 @@ public class StepsdefsSprint4medico_paciente {
 	@Then("^la relacion ha sido guardada dni-user \"([^\"]*)\", dni-medico \"([^\"]*)\", Response \"([^\"]*)\"$")
 	public void la_relacion_ha_sido_guardada_dni_user_dni_medico_Response(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
-			//PacienteMedico pacienteMedico = pacienteMedicoRepo.findCustomPacienteMedico(arg1, arg2);
-			//assertNotNull(pacienteMedico);
+			Medico medico = null;
+			try {
+				medico = medicoRepo.findByDni(Cifrador.cifrar(arg2));
+				String especialidad = medico.getIdEspecialidad();
+				PacienteMedico pacienteMedico = pacienteMedicoRepo.findCustomMedico(arg1, especialidad);
+				assertNotNull(pacienteMedico);
+			} catch (Exception e) {
+				fail("debería poder encontrarse la relación");
+			}
 				
 			}
 		
@@ -82,8 +98,8 @@ public class StepsdefsSprint4medico_paciente {
 	public void borro_la_relacion_dni_user_dni_medico_Response(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
 			try {
-	//		PacienteMedico pacienteMedico = Manager.get().eliminarPacienteMedico(arg1,arg2);
-	//		assertNotNull(pacienteMedico);
+			PacienteMedico pacienteMedico = Manager.get().eliminarPacienteMedico(arg1,arg2);
+			assertNotNull(pacienteMedico);
 			}catch(Exception e) {
 				
 			}
@@ -102,9 +118,9 @@ public class StepsdefsSprint4medico_paciente {
 	@When("^Envio peticion crear MedicoPaciente dni-user \"([^\"]*)\", dni-medico \"([^\"]*)\", Response \"([^\"]*)\"$")
 	public void envio_peticion_crear_MedicoPaciente_dni_user_dni_medico_Response(String arg1, String arg2, String arg3) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni_paciente\":\""+arg1+"\",\"dni_medico\":\""+arg2+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/crearPacienteMedico")
+		  .url("http://localhost:8080/crearMedicoPaciente")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -136,9 +152,9 @@ public class StepsdefsSprint4medico_paciente {
 	@When("^Envio peticion eliminar relacion dni-user \"([^\"]*)\", dni-medico \"([^\"]*)\", Response \"([^\"]*)\"$")
 	public void envio_peticion_eliminar_relacion_dni_user_dni_medico_Response(String arg1, String arg2, String arg3) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni_paciente\":\""+arg1+"\",\"dni_medico\":\""+arg2+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/crearPacienteMedico")
+		  .url("http://localhost:8080/eliminarPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -148,7 +164,6 @@ public class StepsdefsSprint4medico_paciente {
 
 	@When("^Pido la lista de relaciones MedicoPaciente$")
 	public void pido_la_lista_de_relaciones_MedicoPaciente() {
-	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
 
@@ -168,9 +183,14 @@ public class StepsdefsSprint4medico_paciente {
 	@Then("^la relacion ha sido borrada \"([^\"]*)\", dni-medico \"([^\"]*)\", Response \"([^\"]*)\"$")
 	public void la_relacion_ha_sido_borrada_dni_medico_Response(String arg1, String arg2, String arg3) {
 		   if(arg3.equals("OK")) {
-			   //PacienteMedico paciente_medico =pacienteMedicoRepo.findCustomPacienteMedico(arg1, arg2);
-			   
-			// assertNull(paciente_medico);
+				try {
+					Medico medico = medicoRepo.findByDni(Cifrador.cifrar(arg2));
+					String especialidad = medico.getIdEspecialidad();
+					PacienteMedico pacienteMedico = pacienteMedicoRepo.findCustomMedico(arg1, especialidad);
+					assertNull(pacienteMedico);
+				} catch (Exception e) {
+					fail("debería poder encontrarse la relación");
+				}
 			 
 		   }
 	}
