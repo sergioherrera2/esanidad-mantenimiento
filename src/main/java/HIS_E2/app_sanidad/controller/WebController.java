@@ -120,10 +120,13 @@ public class WebController {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
 		JSONObject resultado=new JSONObject();
-
 		if(Manager.get().autenticar(dni, pass)) {
 			resultado.put("type", "OK");
 			resultado.put("resultado", "login correcto");
+			String especialidad = Manager.get().obtenerEspecilidad(dni);
+			if(especialidad != null) {
+				resultado.put("especialidad", especialidad);
+			}
 		} else {
 			throw new Exception("Credenciales invalidas");
 		}

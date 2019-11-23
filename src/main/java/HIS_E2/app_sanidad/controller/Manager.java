@@ -549,4 +549,20 @@ public class Manager {
 		pacienteMedicoRepo.delete(pacMed);
 		return pacMed;
 	}
+	
+	/**
+	 * Devuelve la especialidad de un medico si existe.
+	 * @param dni del usuario a busca.
+	 * @return la especialidad asignada, null si no existe.
+	 * @throws Exception.
+	 */
+	public String obtenerEspecilidad(String dni) throws Exception {
+		Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dni));
+		if(medico != null) {
+			String especialidad = medico.getIdEspecialidad();
+			return especialidad;
+		} else {
+			return null;
+		}
+	}
 }
