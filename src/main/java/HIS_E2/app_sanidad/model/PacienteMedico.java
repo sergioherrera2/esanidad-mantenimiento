@@ -18,6 +18,10 @@ public class PacienteMedico {
 		this.especialidad = especialidad;
 	}
 	
+	public PacienteMedico() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getDniPaciente() {
 		return dniPaciente;
 	}
