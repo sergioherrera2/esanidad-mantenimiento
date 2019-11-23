@@ -24,7 +24,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StepsdefsSprint4AutenticarMedico {
+public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 	private WebDriver driver;
 	OkHttpClient client;
 	Request request;
@@ -48,8 +48,8 @@ public class StepsdefsSprint4AutenticarMedico {
 		try {
 			
 			
-		     // especialidad = Manager.get().getEspecialidadMedico(dniMedico);
-		     if(arg1.equals("Error")){
+		      especialidad = Manager.get().obtenerEspecilidad(dniMedico);
+		     if(arg1.equals("Error") && especialidad != null){
 		    	 fail("debería haber un error al insertar (Borrar de la base de datos)");
 		     }
 			} catch( Exception e) {
@@ -75,7 +75,7 @@ public class StepsdefsSprint4AutenticarMedico {
 	@When("^Envio peticion autenticar \"([^\"]*)\" contrasenia \"([^\"]*)\" response \"([^\"]*)\"$")
 	public void envio_peticion_autenticar_contrasenia_response(String arg1, String arg2, String arg3) {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"contrasenia\":\""+arg2+"\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"pass\":\""+arg2+"\"}");
 		 request = new Request.Builder()
 		  .url("http://localhost:8080/autenticar")
 		  .post(body)
@@ -92,7 +92,7 @@ public class StepsdefsSprint4AutenticarMedico {
 			System.out.println(response.toString());
 			String prueba= response.body().string();
 			boolean isFound = prueba.contains("especialidad");
-			if(!isFound) {
+			if(!isFound && arg3.equals("OK")) {
 				fail("no contiene especialidad");
 			}
 

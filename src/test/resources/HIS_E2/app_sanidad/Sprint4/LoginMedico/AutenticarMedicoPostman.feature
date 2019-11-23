@@ -17,8 +17,6 @@ Feature: Autenticar Medico Postman
  | 65278762     | Albert123       | Error     |
  | 97637789S    | Carlos123       | Error     |
  |              | Carlos123       | Error     |  
- | 65278762R    |                 | Error     |
- | 65278762Z    | Albert123       | OK        | 
  
 
 
