@@ -8,7 +8,7 @@ import HIS_E2.app_sanidad.model.Medico;
 
 @Repository
 public interface MedicoRepository extends MongoRepository<Medico, String> {
-	
+
 	@Query(value = "{ 'dni' : ?0 }")
 	Medico findByDni(String dni);
 

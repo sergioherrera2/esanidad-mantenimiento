@@ -10,14 +10,15 @@ public class PacienteMedico {
 	String dniPaciente;
 	String dniMedico;
 	String especialidad;
-	
-	public PacienteMedico(String dniPaciente, String dniMedico, String especialidad) {
+
+	public PacienteMedico(String dniPaciente, String dniMedico,
+			String especialidad) {
 		super();
 		this.dniPaciente = dniPaciente;
 		this.dniMedico = dniMedico;
 		this.especialidad = especialidad;
 	}
-	
+
 	public PacienteMedico() {
 		// TODO Auto-generated constructor stub
 	}
@@ -40,5 +41,4 @@ public class PacienteMedico {
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
-	
 }

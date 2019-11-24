@@ -13,7 +13,8 @@ public class preguntasFrecuentesController {
 	/**Controlador mapeo de la página de citas.
 	 * @return Devuelve el html de la página de citas.
 	 */
-	@RequestMapping(value = "/preguntasFrecuentes", method = RequestMethod.GET)
+	@RequestMapping(value = "/preguntasFrecuentes",
+			method = RequestMethod.GET)
 	public String getPreguntaFrecuente() {
 		return "views/preguntasFrecuentes.html";
 	}
