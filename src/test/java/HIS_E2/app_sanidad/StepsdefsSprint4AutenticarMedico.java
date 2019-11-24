@@ -144,7 +144,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 	@When("^me autentico como medico \"([^\"]*)\"$")
 	public void me_autentico_como_medico(String arg1) {
 		try {
-		       driver.findElement(By.name("usarname")).sendKeys(dniMedico);							
+		       driver.findElement(By.name("username")).sendKeys(dniMedico);							
 		       driver.findElement(By.name("password")).sendKeys(contrasenia);
 		}catch(Exception e) {
 			driver.quit();
