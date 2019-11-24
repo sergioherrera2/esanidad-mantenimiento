@@ -6,7 +6,7 @@
 	
 	var especialidadD = document.getElementById("especialidadDoctor").value = JSON.parse(sessionStorage.getItem("especialidadMedico"));
 	var hola = document.getElementById("especialidadDoctor");
-	hola.value = 'hola';
+	
 	
 
 function obtenerCitaPaciente(){
@@ -56,7 +56,7 @@ setTimeout($.ajax({
 }
 
 function cambioRolPaciente(){
-	
+	alert("Esta cambiando el rol a Paciente...");
 	setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
 }
 
@@ -82,7 +82,7 @@ function eliminarCita(id) {
 		if (data.type == "OK") {
 			console.log("eliminar");
 			console.log(data);
-			setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
+			setTimeout(location.href = 'http://localhost:8080/eliminarCP', 10000);
 		}
 	}), 10000);
 }
@@ -103,7 +103,7 @@ function mostrarContenido(datosDNIP,datosES,datosF,datosH) {
 			hora : datosH[i],
 		};
 		data = JSON.stringify(data);
-		cuerpo += '<tr>' + '<td>' + datosF[i] + '</td>' + '<td>'
+		cuerpo += '<tr>' + '<td>' + datosF[i].substr(0,10) + '</td>' + '<td>'
 				+ datosH[i] + '</td>' + '<td>' + datosDNIP[i] + '</td>' +  '<td>' + datosES[i]
 				+ '</td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarCita(id);">' + 'Eliminar' + '</a></td>' + '</tr>';
 	}
@@ -113,6 +113,7 @@ function mostrarContenido(datosDNIP,datosES,datosF,datosH) {
 function cerrarSesion (){
 	
 	sessionStorage.removeItem("dniDoctor");
+	sessionStorage.removeItem("especialidadMedico");
 	setTimeout(location.href = 'http://localhost:8080/', 10000);
 	
 }

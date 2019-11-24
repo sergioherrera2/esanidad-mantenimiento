@@ -168,7 +168,7 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 }
 function cerrarSesion (){
 	
-	sessionStorage.removeItem("data");
+	sessionStorage.removeItem("dniPacienteGC");
 	setTimeout(location.href = 'http://localhost:8080/', 10000);
 	
 }

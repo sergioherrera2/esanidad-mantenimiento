@@ -1,6 +1,5 @@
 var DNI = JSON.parse(sessionStorage.getItem("data"));
 var divCambioRol = document.getElementById("divCambioRol");
-
 var especialidadMedico = JSON.parse(sessionStorage.getItem("especialidadMedico"));
 
 
@@ -39,16 +38,18 @@ setTimeout($.ajax({
 }), 10000);
 
 console.log(especialidadMedico);
+
 if(especialidadMedico == null){
-document.getElementById('divCambioRol').style.display = 'none';
+	document.getElementById('divCambioRol').style.display = 'none';
 }
 
 function cambiarRol(){
+	
 	alert("Esta cambiando el rol a Médido...")
 	setTimeout(location.href = 'http://localhost:8080/doctor', 10000);
 	
-	
 }
+
 function eliminarCita(id) {
 	var recurso = "http://localhost:8080/anularCita";
 	var data = {
@@ -107,6 +108,8 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 function cerrarSesion (){
 	
 	sessionStorage.removeItem("data");
+	sessionStorage.removeItem("dniDoctor");
+	sessionStorage.removeItem("especialidadMedico");
 	setTimeout(location.href = 'http://localhost:8080/', 10000);
 	
 }

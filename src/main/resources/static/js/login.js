@@ -44,7 +44,7 @@ function crea(){
 	
 	var recurso = "http://localhost:8080/crearEspecialidad";
 	var data = {
-		nombreEspecialidad : "PodologíaP",
+		nombreEspecialidad : "Gestor Citas",
 		tiempoCita : "15",
 		horaInicio : "08:00",
 		horaFin : "18:00",
@@ -88,8 +88,8 @@ function cread(){
 	
 	var recurso = "http://localhost:8080/crearMedico";
 	var data = {
-		dni : '71723158G',
-		especialidad  : "PodologíaP",
+		dni : '71723156W',
+		especialidad  : "Gestor Citas",
 		
 	};
 	data = JSON.stringify(data);
@@ -166,16 +166,26 @@ function validateLogin() {
 								function(data, textStatus, jqXHR) {
 									console.log(data.type + "HOLA");
 									if (data.type == "OK") {
-										sessionStorage.setItem("data", JSON
-												.stringify(Dni));
-										if (data.especialidad != null && data.especialidad != undefined) {
-											sessionStorage.setItem("dniDoctor",JSON.stringify(Dni))
-											sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
-										}
+										
+										
+										
+										if(data.especialidad == 'Gestor Citas'){
+											
+											setTimeout(location.href = 'http://localhost:8080/gestorCitas',10000);
+										}else{
+											
+											if (data.especialidad != null && data.especialidad != undefined && data.especialidad != 'Gestor Citas') {
+												sessionStorage.setItem("dniDoctor",JSON.stringify(Dni))
+												sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
+											}else{
+												sessionStorage.setItem("data", JSON.stringify(Dni));
+											}
+											
+											
 
-										setTimeout(
-												location.href = 'http://localhost:8080/paciente',
-												10000);
+										setTimeout(location.href = 'http://localhost:8080/paciente',10000);
+										
+										}
 
 									} else {
 
