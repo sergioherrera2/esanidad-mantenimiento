@@ -6,12 +6,12 @@ Feature: Autencicacion como Medico
   Scenario Outline: Como medico quiero autenticarme
     Given un un medico "<dni>" contrasenia "<contrasenia>"
     And Abroo un buscador y entro en la aplicacion citas
-    When me autentico
-    Then presiono el boton cambiar a vista de trabajo
+    When me autentico como medico "<response>"
+    Then presiono el boton cambiar a vista de trabajo "<response>"
     Then Cambio a vista de trabajo "<response>"
     
     
-   
+    
  Examples:
  |dni           | contrasenia     |  response |
  | 65278762R    | Albert123       | OK        |
@@ -19,4 +19,5 @@ Feature: Autencicacion como Medico
  | 65278762     | Albert123       | Error     |
  | 97637789S    | Carlos123       | Error     |
  |              | Carlos123       | Error     |  
-  
+ 
+

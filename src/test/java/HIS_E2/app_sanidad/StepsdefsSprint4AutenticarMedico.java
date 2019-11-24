@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.json.JSONObject;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
@@ -137,15 +138,14 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 	    	driver.quit();
 	    	fail("Can't connect to application");
 	    }
-	    driver.quit(); //eliminarlo cuando se ejécuten los tests
-	    throw new PendingException();
 	}
 
-	@When("^me autentico$")
-	public void me_autentico() {
+
+	@When("^me autentico como medico \"([^\"]*)\"$")
+	public void me_autentico_como_medico(String arg1) {
 		try {
-		       driver.findElement(By.name("username")).sendKeys("dniMedico");							
-		       driver.findElement(By.name("password")).sendKeys("contrasenia");
+		       driver.findElement(By.name("username")).sendKeys(dniMedico);							
+		       driver.findElement(By.name("password")).sendKeys(contrasenia);
 		}catch(Exception e) {
 			driver.quit();
 			fail("No se encuentran los campos");
@@ -153,25 +153,30 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 		try {
 			 driver.findElement(By.name("btnLogin")).click();
 		}catch(Exception e) {
-			fail("No se encuentra el boton de login");
+			if(arg1.equals("OK")) {
+				fail("No se encuentra el boton de login");	
+			}
+
 		
 	}
 	}
 
-	@Then("^presiono el boton cambiar a vista de trabajo$")
-	public void presiono_el_boton_cambiar_a_vista_de_trabajo() {
+
+	@Then("^presiono el boton cambiar a vista de trabajo \"([^\"]*)\"$")
+	public void presiono_el_boton_cambiar_a_vista_de_trabajo(String arg1) {
 		try {
-			 driver.findElement(By.name("btnVistaDeTrabajo")).click();
+			 driver.findElement(By.name("cambiarRol")).click();
 		}catch(Exception e) {
-			fail("No se encuentra el boton de vista De Trabajo");
+			if(!arg1.equals("Error")) {
+				fail("No se encuentra el boton de vista De Trabajo");	
+			}
+
 		
-	  }
-	}
+		}			
+	}	
 	
 	
-	
-	
-	
+		
 	
 	
 	@Then("^recibo la especialidad de medico \"([^\"]*)\"$")
@@ -188,11 +193,31 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 	public void cambio_a_vista_de_trabajo(String arg1) {
 		
 		if(arg1.equals("OK")) {
-			String new_url = driver.getCurrentUrl();
-			 assertTrue(new_url.equals("http://localhost:8080/trabajo"));
+			   Alert alert = driver.switchTo().alert();
+		        String alertText = alert.getText();
+		        alert.accept();
 		}
 		
+	}
+	@When("^presiono boton eliminar citas$")
+	public void presiono_boton_eliminar_citas() {
+		try {
+			 driver.findElement(By.name("btnLogin")).click();
+		}catch(Exception e) {
+			fail("No se encuentra el boton de login");
+		
+	}
+	}
+	@Then("^Recibo una respuesta de medico eliminar cita \"([^\"]*)\"$")
+	public void recibo_una_respuesta_de_medico_eliminar_cita(String arg1) {
+		try {
+			 driver.findElement(By.name("btnEnviar")).click();
+		}catch(Exception e) {
+			fail("No se encuentra el boton de login");
+		
+	}
 	}
 
 
 }
+

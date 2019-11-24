@@ -51,7 +51,6 @@ public class StepsdefsSprint4gestorCitas {
 	    	driver.quit();
 	    	fail("Can't connect to application");
 	    }
-	    driver.quit(); //eliminarlo cuando se ejécuten los tests
 	}
 
 	@Given("^Me autentico como gestor dni \"([^\"]*)\" pwd \"([^\"]*)\"$")
@@ -93,9 +92,11 @@ public class StepsdefsSprint4gestorCitas {
 	@When("^Pido una cita como gestor dni-user \"([^\"]*)\", especialidad \"([^\"]*)\", fecha \"([^\"]*)\"$")
 	public void pido_una_cita_como_gestor_dni_user_especialidad_fecha(String arg1, String arg2, String arg3) {
 		try {
+			String[] split = arg3.split("");
 		       driver.findElement(By.name("dni")).sendKeys(arg1);							
 		       driver.findElement(By.name("especialidad")).sendKeys(arg2);
-		       driver.findElement(By.name("fecha")).sendKeys(arg3);
+		       driver.findElement(By.name("fecha")).sendKeys(split[0]);
+		       driver.findElement(By.name("hora")).sendKeys(split[1]);
 		}catch(Exception e) {
 			driver.quit();
 			fail("No se encuentran los campos");
