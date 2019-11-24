@@ -1,12 +1,17 @@
 
+var contenidoDespegable = true;
+
+function mostrarEspecializaciones(){
 	var nombreEspecialidad = [];
 	var duracionCita = [];
 	var horaInicio = [];
 	var horaFin = [];
 	
+	
+	if(contenidoDespegable == true){
     var recurso = "http://localhost:8080/consultaEspecialidades";
         var data = {
-           
+           dni:""
         };
         data = JSON.stringify(data);
 
@@ -14,9 +19,6 @@
                 url: recurso,
                 type: "POST",
                 data: data,
-                xhrFields: {
-                    withCredentials: true
-                },
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -39,6 +41,7 @@
             		var option = document.createElement("option");
             		option.text = nombreEspecialidad[i];
             		x.add(option);
+            		contenidoDespegable = false;
             		
             		/* Para obtener el texto */
             		//combo.options[i].text="caca";
@@ -63,8 +66,8 @@
 
 
 
-
-
+	}
+}
 function pedirCita() {
     var fecha = document.getElementById("fecha").value;
     var especialidad = document.getElementById("especialidad").value;
@@ -74,7 +77,7 @@ function pedirCita() {
   fecha=fecha.replace("T"," ");
   fecha=fecha.replace("-","/");
   fecha=fecha.replace("-","/");
-    var recurso = "http://localhost:8080/pedirCita";
+    var recurso = "http://localhost:8080/citas";
         var data = {
             type: "cita",
             dniPaciente: DNI,

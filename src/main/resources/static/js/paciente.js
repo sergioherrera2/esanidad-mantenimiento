@@ -1,4 +1,9 @@
 var DNI = JSON.parse(sessionStorage.getItem("data"));
+var divCambioRol = document.getElementById("divCambioRol");
+
+var especialidadMedico = JSON.parse(sessionStorage.getItem("especialidadMedico"));
+
+
 var recurso = "http://localhost:8080/citasPaciente";
 var datosDNIP = [];
 var datosES = [];
@@ -33,14 +38,17 @@ setTimeout($.ajax({
 	$("#table-basic").DataTable();
 }), 10000);
 
-/*
- * var datos = [cita1 :{ "fecha": "12/05/19", "hora": "15:01", "centroDeSalud":
- * "LA SOLANA", "especialidad": " ONCOLOGÍA", }, { "fecha": "12/12/19", "hora":
- * "15:41", "centroDeSalud": "MANZANARES", "especialidad": " ONCOLOGÍA", }, {
- * "fecha": "11/05/19", "hora": "05:01", "centroDeSalud": "TOLEDO",
- * "especialidad": " ONCOLOGÍA", }, { "fecha": "12/05/29", "hora": "12:01",
- * "centroDeSalud": "CIUDAD REAL", "especialidad": " ONCOLOGÍA", } ];
- */
+console.log(especialidadMedico);
+if(especialidadMedico == null){
+document.getElementById('divCambioRol').style.display = 'none';
+}
+
+function cambiarRol(){
+	alert("Esta cambiando el rol a Médido...")
+	setTimeout(location.href = 'http://localhost:8080/doctor', 10000);
+	
+	
+}
 function eliminarCita(id) {
 	var recurso = "http://localhost:8080/anularCita";
 	var data = {
@@ -72,7 +80,7 @@ function modificarCita(id){
 	sessionStorage.setItem("fecha", JSON.stringify(datosF[id]));
 	sessionStorage.setItem("dni", JSON.stringify(datosDNIP[id]));
 	sessionStorage.setItem("especialidad", JSON.stringify(datosES[id]));
-	location.href = 'https://app-sanidad.herokuapp.com/modificarCita'
+	location.href = 'http://localhost:8080/modificarCita';
 }
 
 function mostrarContenido(datosDNIP,datosES,datosF) {

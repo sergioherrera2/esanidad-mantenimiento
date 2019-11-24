@@ -1,12 +1,10 @@
+function mandarDatosEnter(event) {
 
-function mandarDatosEnter(event){
-	
-	if(event.keyCode === 13){
+	if (event.keyCode === 13) {
 		validateLogin();
 	}
-	
-}
 
+}
 
 function validateLogin() {
 	var Dni = document.getElementById("username").value;
@@ -40,6 +38,10 @@ function validateLogin() {
 									if (data.type == "OK") {
 										sessionStorage.setItem("data", JSON
 												.stringify(Dni));
+										if (data.especialidad != null && data.especialidad != undefined) {
+											sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
+										}
+
 										setTimeout(
 												location.href = 'http://localhost:8080/paciente',
 												10000);

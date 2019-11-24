@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Juan Luis
  */
 @Controller
-public class indexDController {
+public class GestorCitasController {
 
 	/**Controlador mapeo de la página de citas.
 	 * @return Devuelve el html de la página de citas.
 	 */
-	@RequestMapping(value = "/indexD", method = RequestMethod.GET)
-	public String getindexDoctor() {
-		return "views/indexD.html";
+	@RequestMapping(value = "/gestorCitas", method = RequestMethod.GET)
+	public String getGestorCitas() {
+		return "views/gestorCitas.html";
 	}
 }
