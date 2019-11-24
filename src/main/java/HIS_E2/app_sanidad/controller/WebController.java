@@ -383,6 +383,20 @@ public class WebController {
 		return respuesta;
 	}
 	
+	@PostMapping(value = "/getHoras")
+	public Map<String, Object> getHoras(@RequestBody Map<String, String> jso) throws Exception {
+		String especialidad = jso.get("especialidad");
+		String dniPaciente = jso.get("dniPaciente");
+		String fecha = jso.get("fecha");
+		List<String> lista = Manager.get().getHoras(fecha, especialidad, dniPaciente);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("numero", lista.size());
+		for(int i = 0; i < lista.size(); i++) {
+			respuesta.put("hora"+i, lista.get(i));
+		}
+		return respuesta;
+	}
 	
 	/**
 	 * Recoge las excepciones generadas por la aplicación.
