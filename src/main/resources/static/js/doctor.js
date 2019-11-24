@@ -46,8 +46,9 @@ setTimeout($.ajax({
 			datosDNIP[i] = data['dniPaciente' + i];
 			datosES[i] = data['especialidad' + i];
 			datosF[i] = data['fecha'+ i];
+			datosH[i] = datosF[i].substr(11,18);
 		}
-		mostrarContenido(datosDNIP,datosES,datosF);
+		mostrarContenido(datosDNIP,datosES,datosF,datosH);
 	}
 	$("#table-basic").DataTable();
 }), 10000);
@@ -87,7 +88,7 @@ function eliminarCita(id) {
 }
 
 
-function mostrarContenido(datosDNIP,datosES,datosF) {
+function mostrarContenido(datosDNIP,datosES,datosF,datosH) {
 	var cuerpo = "";
 	
 
@@ -98,11 +99,12 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 		var data = {
 			dniPaciente : datosDNIP[i],
 			especialidad : datosES[i],
-			fecha :  datosF[i]
+			fecha :  datosF[i],
+			hora : datosH[i],
 		};
 		data = JSON.stringify(data);
 		cuerpo += '<tr>' + '<td>' + datosF[i] + '</td>' + '<td>'
-				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
+				+ datosH[i] + '</td>' + '<td>' + datosDNIP[i] + '</td>' +  '<td>' + datosES[i]
 				+ '</td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarCita(id);">' + 'Eliminar' + '</a></td>' + '</tr>';
 	}
 	$("#tablaCabecera").append(cabecera);

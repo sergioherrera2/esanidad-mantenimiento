@@ -1,3 +1,133 @@
+function creaMD(){
+	
+	var recurso = "http://localhost:8080/crearMedicoPaciente";
+	var data = {
+			dniMedico : "71723158G",
+			dniPaciente : "71723157A",
+		
+	};
+	data = JSON.stringify(data);
+	setTimeout(
+			$
+					.ajax({
+						url : recurso,
+						type : "POST",
+						data : data,
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+					})
+					.done(
+							function(data, textStatus, jqXHR) {
+								console.log(data.type + "HOLA");
+								if (data.type == "OK") {
+									console.log(data.resultado);
+
+									
+
+								} else {
+
+									if (data.type == "error") {
+										alert("¡Las contraseña o el DNI introducido son incorrectos!");
+									}
+
+									
+								}
+
+							}), 10000);
+	
+}
+function crea(){
+	
+	var recurso = "http://localhost:8080/crearEspecialidad";
+	var data = {
+		nombreEspecialidad : "PodologíaP",
+		tiempoCita : "15",
+		horaInicio : "08:00",
+		horaFin : "18:00",
+	};
+	data = JSON.stringify(data);
+	setTimeout(
+			$
+					.ajax({
+						url : recurso,
+						type : "POST",
+						data : data,
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+					})
+					.done(
+							function(data, textStatus, jqXHR) {
+								console.log(data.type + "HOLA");
+								if (data.type == "OK") {
+									console.log(data.resultado);
+
+									
+
+								} else {
+
+									if (data.type == "error") {
+										alert("¡Las contraseña o el DNI introducido son incorrectos!");
+									}
+
+									
+								}
+
+							}), 10000);
+	
+}
+
+function cread(){
+	
+	var recurso = "http://localhost:8080/crearMedico";
+	var data = {
+		dni : '71723158G',
+		especialidad  : "PodologíaP",
+		
+	};
+	data = JSON.stringify(data);
+	setTimeout(
+			$
+					.ajax({
+						url : recurso,
+						type : "POST",
+						data : data,
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+					})
+					.done(
+							function(data, textStatus, jqXHR) {
+								console.log(data.type + "HOLA");
+								if (data.type == "OK") {
+									console.log(data.resultado);
+
+									
+
+								} else {
+
+									if (data.type == "error") {
+										alert("¡Las contraseña o el DNI introducido son incorrectos!");
+									}
+
+									
+								}
+
+							}), 10000);
+	
+}
+
+
 function mandarDatosEnter(event) {
 
 	if (event.keyCode === 13) {

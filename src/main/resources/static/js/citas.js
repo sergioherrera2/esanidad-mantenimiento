@@ -1,11 +1,80 @@
 
 var contenidoDespegable = true;
+var contenidoDespegableHoras = true;
+
+
+
+function obtenerHoras() {
+	
+	
+	var Fecha = document.getElementById("fecha").value;
+	Fecha =Fecha.substring(8,10)+Fecha.substring(4,8)+Fecha.substring(0,4)+Fecha.substring(10,Fecha.length);
+	Fecha=Fecha.replace("-","/");
+	Fecha=Fecha.replace("-","/");
+	
+	if(contenidoDespegableHoras == true){
+	var recurso = "http://localhost:8080/getHoras";
+    var data = {
+    	dniPaciente : JSON.parse(sessionStorage.getItem("data")),
+    	especialidad : document.getElementById("especialidad").value,
+    	fecha : Fecha,
+    };
+    data = JSON.stringify(data);
+
+    setTimeout($.ajax({
+            url: recurso,
+            type: "POST",
+            data: data,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+    .done(function(data, textStatus, jqXHR) {
+        console.log(data.type);
+        if (data.type == "OK") {
+        	
+        	for (var i = 0; i < (data.numero); i++) {
+
+        	  
+        			  
+        			
+        		fechas[i] = data['hora' + i];
+        		
+        		
+        		var x = document.getElementById("horaFecha");
+        		var option = document.createElement("option");
+        		option.text = fechas[i];
+        		x.add(option);
+        		contenidoDespegableHoras = false;
+        		
+        	
+    		}
+        	
+        	
+            
+        	
+        } else {
+            if (data.type="error") {
+                alert("Error al obtener las horas de las citas, contacte con el servicio de soporte.");
+            }
+            
+
+        }
+        
+
+
+    }), 10000);
+    
+	}
+	
+}
 
 function mostrarEspecializaciones(){
 	var nombreEspecialidad = [];
 	var duracionCita = [];
 	var horaInicio = [];
 	var horaFin = [];
+
 	
 	
 	if(contenidoDespegable == true){
@@ -43,10 +112,7 @@ function mostrarEspecializaciones(){
             		x.add(option);
             		contenidoDespegable = false;
             		
-            		/* Para obtener el texto */
-            		//combo.options[i].text="caca";
-            		
-            		
+            	
         		}
             	
             	
@@ -67,6 +133,13 @@ function mostrarEspecializaciones(){
 
 
 	}
+	
+	
+	 
+	
+	
+	
+	
 }
 function pedirCita() {
     var fecha = document.getElementById("fecha").value;
