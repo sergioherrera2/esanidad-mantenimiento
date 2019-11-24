@@ -9,6 +9,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import HIS_E2.app_sanidad.controller.Manager;
 import HIS_E2.app_sanidad.model.Cifrador;
+import HIS_E2.app_sanidad.model.Especialidad;
+import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.UserRepository;
@@ -63,8 +65,7 @@ public class JunitTests2 {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			try {
-				PacienteMedico pacienteMedico = Manager.get().eliminarPacienteMedico("97637789Y","65278762R");
+			try {				Especialidad esp= Manager.get().crearEspecialidad("EspecialidadC", "15", "9:00", "14:00");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

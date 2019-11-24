@@ -69,7 +69,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 			    medico = Manager.get().crearMedico(medico_dni,medico_especialidad);
 				} catch( Exception e) {
 					if(!arg1.equals("Error")) {
-						fail("Debería haberse creado la especialidad");
+						fail("Debería haberse creado el médico");
 					}
 				
 				}

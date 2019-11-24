@@ -10,10 +10,10 @@ Feature: Eliminar medico
     When Envio peticion de eliminar medico dni "<dni>" , especlialidad "<especialidad>", response "<response>"
     Then Recibo una respuesta response "<response>"
 
-
+    
 Examples:
 |dni       |           especialidad       |response   |
-|84675678M |     Podología                | OK        |
+|97637789Y |     EspecialidadC            | OK        |
 |05726690N |                              | Error     |
 |          |     Podología                | Error     |
 |05726690N |     Farmaceutica             | Error     |

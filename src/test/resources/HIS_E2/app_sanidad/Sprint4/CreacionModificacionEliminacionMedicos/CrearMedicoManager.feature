@@ -10,7 +10,7 @@ Feature: Creación de Medico
     
 Examples:
 |dni       |           especialidad       |response   |
-|84675678M |     Cabecera                 | OK        |
+|97637789Y |     EspecialidadC            | OK        |
 |05726690N |                              | Error     |
 |          |     Podología                | Error     |
 |05726690N |     Farmaceutica             | Error     |
