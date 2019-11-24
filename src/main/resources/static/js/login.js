@@ -39,6 +39,7 @@ function validateLogin() {
 										sessionStorage.setItem("data", JSON
 												.stringify(Dni));
 										if (data.especialidad != null && data.especialidad != undefined) {
+											sessionStorage.setItem("dniDoctor",JSON.stringify(Dni))
 											sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
 										}
 
