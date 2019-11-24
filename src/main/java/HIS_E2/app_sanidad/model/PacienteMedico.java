@@ -1,10 +1,12 @@
 package HIS_E2.app_sanidad.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "PacienteMedico")
 public class PacienteMedico {
 
+	ObjectId _id;
 	String dniPaciente;
 	String dniMedico;
 	String especialidad;
@@ -16,6 +18,10 @@ public class PacienteMedico {
 		this.especialidad = especialidad;
 	}
 	
+	public PacienteMedico() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getDniPaciente() {
 		return dniPaciente;
 	}

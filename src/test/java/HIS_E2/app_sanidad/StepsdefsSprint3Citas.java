@@ -134,7 +134,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 			e.printStackTrace();
 		}
 		try {
-			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
+//			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
 		} catch (Exception e1) {
 		}
 		client = new OkHttpClient();
@@ -211,11 +211,11 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		  * 
 		  */
 			try {
-				Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726691J");
+	//			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726691J");
 			} catch (Exception e1) {
 			}
 			try {
-				Manager.get().crearMedicoPaciente("03879902D", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726692Z");
+	//			Manager.get().crearMedicoPaciente("03879902D", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726692Z");
 			} catch (Exception e1) {
 			}
 			try {

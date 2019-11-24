@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
+import HIS_E2.app_sanidad.model.Medico;
+import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
 
 @RestController
@@ -70,22 +72,17 @@ public class WebController {
 	@PostMapping("/getCitas")
 	public Map<String, Object> getCitas(@RequestBody Map<String, String> jso) throws Exception {
 		String dni = jso.get("dni");
-		String pass = jso.get("pass");
-		List<Cita> list = Manager.get().getCitasMedico(dni, pass);
+		String fecha = jso.get("fecha");
+		List<Cita> list = Manager.get().getCitasMedico(dni, fecha);
 		Map<String, Object> respuesta=new HashMap<String, Object>();
-		if (list == null) {
-			respuesta.put("type", "ERROR");
-			respuesta.put("message", "contraseña incorrecta");
-		} else {
-			respuesta.put("type", "OK");
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			for(int i = 0; i<list.size(); i++) {
+		respuesta.put("type", "OK");
+		respuesta.put("numero", list.size());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		for(int i = 0; i<list.size(); i++) {
 				respuesta.put("fecha"+i, formatter.format(list.get(i).getFecha()));
 				respuesta.put("dniPaciente"+i, list.get(i).getDniPaciente());
 				respuesta.put("especialidad"+i,list.get(i).getEspecialidad());
-			}
 		}
-		
 		return respuesta;
 	}
 	
@@ -123,10 +120,13 @@ public class WebController {
 		String dni = jso.get("dni");
 		String pass = jso.get("pass");
 		JSONObject resultado=new JSONObject();
-
 		if(Manager.get().autenticar(dni, pass)) {
 			resultado.put("type", "OK");
 			resultado.put("resultado", "login correcto");
+			String especialidad = Manager.get().obtenerEspecilidad(dni);
+			if(especialidad != null) {
+				resultado.put("especialidad", especialidad);
+			}
 		} else {
 			throw new Exception("Credenciales invalidas");
 		}
@@ -297,6 +297,92 @@ public class WebController {
 		respuesta.put("resultado", new ObjectMapper().writeValueAsString(especialidad));
 		return respuesta;
 	}
+	
+	/**
+	 * Recibe peticiones POST de creación de médicos.
+	 * @param jso el cuerpo de la petición.
+	 * @return la respuesta con el medico creado.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/crearMedico")
+	public Map<String, Object> crearMedico(@RequestBody Map<String, String> jso) throws Exception {
+		String dniMedico = jso.get("dni");
+		String especialidad = jso.get("especialidad");
+		Medico medico = Manager.get().crearMedico(dniMedico, especialidad);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(medico));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de eliminación de médicos.
+	 * @param jso el cuerpo de la petición.
+	 * @return la respuesta con el médico eliminado.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/eliminarMedico")
+	public Map<String, Object> eliminarMedico(@RequestBody Map<String, String> jso) throws Exception {
+		String dniMedico = jso.get("dni");
+		Medico medico = Manager.get().eliminarMedico(dniMedico);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(medico));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de listar los medicos.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la lista de dnis de medicos.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/listaMedicos")
+	public Map<String, Object> listaMedicos(@RequestBody Map<String, String> jso) throws Exception {
+		List<String> lista = Manager.get().listaMedicos();
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("numero", lista.size());
+		for(int i = 0; i < lista.size(); i++) {
+			respuesta.put("dni"+i, lista.get(i));
+		}
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de creacion de Medico-paciente.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la respuesta con la relacion creada.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/crearMedicoPaciente")
+	public Map<String, Object> crearMedicoPaciente(@RequestBody Map<String, String> jso) throws Exception {
+		String dniMedico = jso.get("dniMedico");
+		String dniPaciente = jso.get("dniPaciente");
+		PacienteMedico pacMed = Manager.get().crearMedicoPaciente(dniPaciente, dniMedico);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(pacMed));
+		return respuesta;
+	}
+	
+	/**
+	 * Recibe peticiones POST de eliminación de Medico-paciente.
+	 * @param jso el cuerpo de la peticion.
+	 * @return la respuesta con la relacion eliminada.
+	 * @throws Exception.
+	 */
+	@PostMapping(value = "/eliminarPacienteMedico")
+	public Map<String, Object> eliminarPacienteMedico(@RequestBody Map<String, String> jso) throws Exception {
+		String dniMedico = jso.get("dniMedico");
+		String dniPaciente = jso.get("dniPaciente");
+		PacienteMedico pacMed = Manager.get().eliminarPacienteMedico(dniPaciente, dniMedico);
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		respuesta.put("type", "OK");
+		respuesta.put("resultado", new ObjectMapper().writeValueAsString(pacMed));
+		return respuesta;
+	}
+	
 	
 	/**
 	 * Recoge las excepciones generadas por la aplicación.

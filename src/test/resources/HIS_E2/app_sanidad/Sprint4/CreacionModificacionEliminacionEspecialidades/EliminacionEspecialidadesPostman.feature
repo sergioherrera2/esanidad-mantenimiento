@@ -3,7 +3,7 @@
 Feature: Eliminar una especialidad Postman
 
   @tag1
-  Scenario Outline: Como administrador del sistema quiero poder eliminar citas (Web)
+  Scenario Outline: Como administrador del sistema quiero poder eliminar Especialidades (Web)
    Given Tengo nombre "<nombre>",duracion "<duracion>",hora inicio "<hora_inicio>",hora final "<hora_final>"
     And creo la especialidad "<response>"
     Given ClienteHttpEspecialidad
@@ -16,7 +16,7 @@ Examples:
 	|               |   20         |  9:00     | 14:00            | Error               |
 	| 1234          |   20         |  9:00     |14:00             | Error               |
 	|E12            |   5          |  9:00     | 14:00            | Error               |
-	|Cabecera       |   15         |  9:00     |14:00             | OK                  |
+	|Podología      |   10         |  9:00     |14:00             | OK                  |
 	|Cabecera       |   A          |  9:00     |14:00             | Error               |
 	|Oncología      |   0          |  9:00     |14:00             | Error               |
 	|Podología      |              |  9:00     |14:00             | Error               |

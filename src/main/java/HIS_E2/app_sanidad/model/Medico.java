@@ -1,9 +1,12 @@
 package HIS_E2.app_sanidad.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "medico")
 public class Medico extends Usuario{
+	
+	ObjectId _id;
 	String idEspecialidad;
 	
 	
