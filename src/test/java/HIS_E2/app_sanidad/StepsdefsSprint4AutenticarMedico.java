@@ -132,10 +132,11 @@ public class StepsdefsSprint4AutenticarMedico {
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 		    //Syçstm.setProperty("webdriver.chrome.driver", "src/test/resources/HIS_E2/app_sanidad/chromedriver.exe");
 		    // driver = new ChromeDriver();
+		    
 		    driver = new FirefoxDriver();
 		    System.out.println(driver);
 		    driver.manage().window().maximize();
-		    
+		    System.out.println("TRAVIS PRUEBAAA");
 	    driver.get("https://app-sanidad.herokuapp.com/");
 	    }catch(Exception e) {
 	    	e.printStackTrace();
