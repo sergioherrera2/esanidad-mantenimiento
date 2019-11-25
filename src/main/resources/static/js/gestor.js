@@ -128,6 +128,7 @@ function eliminarMedico(id) {
 		if (data.type == "OK") {
 			console.log(data);
 			console.log("médico eliminado");
+			setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
 		}
 	}), 10000);
 }

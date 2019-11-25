@@ -1,9 +1,6 @@
 var DNI = JSON.parse(sessionStorage.getItem("data"));
 var recurso = "http://localhost:8080/consultaEspecialidades";
 var datosNombre = [];
-var datosDuracion = [];
-var datosHoraInicio = [];
-var datosHoraFin = [];
 
 var data = {
     dni : DNI,
@@ -21,12 +18,8 @@ setTimeout($.ajax({
     },
 }).done(function(data, textStatus, jqXHR) {
     if (data.type == "OK") {
-        console.log(datosNombre[i]);
         for (var i = 0; i < (data.numero); i++) {
             datosNombre[i] = data['nombreEspecialidad' + i];
-            datosDuracion[i] = data['duracionCita'+ i];
-            datosHoraInicio[i] = data['horaInicio' + i];
-            datosHoraFin[i] = data['horaFin' + i];
         }
         mostrarEspecialidades(datosNombre);
     }
@@ -38,7 +31,7 @@ function mostrarEspecialidades(datosNombre) {
     for (var i = 0; i < datosNombre.length; i++) {
         select_especialidades += '<option>' + datosNombre[i] + '</option>';
     }
-    $("#selectEspecialidad").append(select_especialidades);
+    $("#especialidad").append(select_especialidades);
 }
 
 function crearMedico() {
@@ -66,6 +59,7 @@ function crearMedico() {
   })
   .done(function(data, textStatus, jqXHR) {
     console.log(data.type);
+    console.log(data.message);
     if (data.type == "OK") {
         setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
     } else {
