@@ -46,7 +46,7 @@ if(especialidadMedico == null){
 function cambiarRol(){
 	
 	alert("Esta cambiando el rol a Trabajador...")
-	setTimeout(location.href = 'http://localhost:8080/medico', 10000);
+	setTimeout(location.href = 'http://localhost:8080/doctor', 10000);
 	
 }
 
