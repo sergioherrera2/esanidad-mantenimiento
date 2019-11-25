@@ -1,6 +1,12 @@
 language: java
 script:
-- mvn clean
+- chmod 777 ./src/test/resources/HIS_E2/app_sanidad/geckodriver
+- mvn test
+dist: xenial
+services:
+  - xvfb
+addons:
+  firefox: "70.0"
 notifications:
   slack: hisespacio:0qEQjO7RRhAMmk67zdatTrtr
 deploy:
