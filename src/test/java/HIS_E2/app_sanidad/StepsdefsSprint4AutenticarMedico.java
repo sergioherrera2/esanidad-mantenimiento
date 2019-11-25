@@ -130,7 +130,7 @@ public class StepsdefsSprint4AutenticarMedico {
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability("marionatte", false);
-		    // Syçstm.setProprty("webdriver.chrome.driver","src/test/resources/HIS_E2/app_sanidad/chromedriver.exe");
+		    //  Syçstm.setProprty("webdriver.chrome.driver","src/test/resources/HIS_E2/app_sanidad/chromedriver.exe");
 		    // driver = new ChromeDriver();
 		    System.out.println("TRAVIS PRUEBAAA1");
 		    driver = new FirefoxDriver();
