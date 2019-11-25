@@ -105,7 +105,7 @@ public class StepsdefsSprint2Citas {
 	@Given("^Un usuario conectado en la pagina de citas$")
 	public void un_usuario_conectado_en_la_pagina_de_citas() {
 		 try {
-			    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+			    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 			    DesiredCapabilities dc = new DesiredCapabilities();
 			    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);

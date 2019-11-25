@@ -39,14 +39,14 @@ public class StepsdefsSprint4gestorCitas {
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://localhost:8080");
+	    driver.get("https://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
