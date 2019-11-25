@@ -59,7 +59,7 @@ function mostrarEspecializaciones(){
 	if(contenidoDespegable == true){
     var recurso = "http://localhost:8080/consultarEspecialdiadPaciente";
         var data = {
-        		dniPaciente : JSON.parse(sessionStorage.getItem("dniPacienteGC")),
+        		dniPaciente : document.getElementById("dni").value,
         };
         data = JSON.stringify(data);
 
