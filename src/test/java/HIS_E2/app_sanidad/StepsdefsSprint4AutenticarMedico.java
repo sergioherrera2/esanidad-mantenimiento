@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -125,16 +126,19 @@ public class StepsdefsSprint4AutenticarMedico {
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
+		  //  System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
-		    driver = new FirefoxDriver();
+		    System.setProperty("webdriver.chrome.driver", "src/test/resources/HIS_E2/app_sanidad/chromedriver");
+		     driver = new ChromeDriver();
+		    //driver = new FirefoxDriver();
 		    System.out.println(driver);
 		    driver.manage().window().maximize();
 		    
 	    driver.get("https://app-sanidad.herokuapp.com/");
 	    }catch(Exception e) {
+	    	e.printStackTrace();
 	    	driver.quit();
 	    	fail("Can't connect to application");
 	    }
