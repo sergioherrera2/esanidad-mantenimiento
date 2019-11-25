@@ -1,10 +1,19 @@
 var contenidoDespegable = true;
-var estadoMostrarHora = true;
+var contenidoDespegableHoras = true;
+
 var inputDNI = document.getElementById("dni").value = JSON.parse(sessionStorage.getItem("dniPacienteGC"));
 
 
 
-
+function volverAPedir(){
+	
+	contenidoDespegableHoras = true;
+	var fh = document.getElementById("horaFecha");
+	 for (let i = fh.options.length; i >= 0; i--) {
+		 fh.remove(i);
+		  }
+	
+}
 
 
 
@@ -107,16 +116,66 @@ function mostrarEspecializaciones(){
 
 function mostrarHora() {
 
-	var data = ['15:30:00','16:20:00','18:25:00'];
-	var selectHora = document.getElementById("horaFecha");
-	var option = document.createElement("option");
-	if(estadoMostrarHora == true){
-		
-		for(var i=0;i<data.length;i++){
-			var option = document.createElement("option");
-		option.text =data[i];
-		selectHora.add(option);}
-		estadoMostrarHora = false;
+	var fechas = [];
+	var Fecha = document.getElementById("fecha").value;
+	Fecha =Fecha.substring(8,10)+Fecha.substring(4,8)+Fecha.substring(0,4)+Fecha.substring(10,Fecha.length);
+	Fecha=Fecha.replace("-","/");
+	Fecha=Fecha.replace("-","/");
+	
+	
+	if(contenidoDespegableHoras == true){
+	var recurso = "http://localhost:8080/getHoras";
+    var data = {
+    	dniPaciente : document.getElementById("dni").value,
+    	especialidad : document.getElementById("especialidad").value,
+    	fecha : Fecha,
+    };
+    data = JSON.stringify(data);
+
+    setTimeout($.ajax({
+            url: recurso,
+            type: "POST",
+            data: data,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+    .done(function(data, textStatus, jqXHR) {
+        console.log(data.type);
+        if (data.type == "OK") {
+        	
+        	for (var i = 0; i < (data.numero); i++) {
+
+        	  
+        			  
+        			
+        		fechas[i] = data['hora' + i];
+        		
+        		
+        		var x = document.getElementById("horaFecha");
+        		var option = document.createElement("option");
+        		option.text = fechas[i];
+        		x.add(option);
+        		contenidoDespegableHoras = false;
+        		
+        	
+    		}
+        	
+        	
+            
+        	
+        } else {
+            if (data.type="error") {
+                alert("Error al obtener las horas de las citas, contacte con el servicio de soporte.");
+            }
+            
+
+        }
+        
+
+
+    }), 10000);
+    
 	}
 	
 	

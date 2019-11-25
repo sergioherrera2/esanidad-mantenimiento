@@ -578,16 +578,17 @@ public class Manager {
 		int duracion = esp.getDuracionCita();
 		Date horaI = esp.getHoraInicio();
 		LocalDateTime horaInicio = horaI.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		Date horaF = esp.getHoraInicio();
+		Date horaF = esp.getHoraFin();
 		LocalDateTime horaFin = horaF.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		List<Cita> citasMedico = citaRepo.findByDniMedico(pacMed.getDniMedico());
 		List<Cita> citasPaciente = citaRepo.findByDniPaciente(dniPaciente);
 		List<String> listaMedico = controlarHoras(fechaDia, duracion, horaInicio, horaFin, citasMedico);
 		List<String> listaPaciente = controlarHoras(fechaDia, duracion, horaInicio, horaFin, citasPaciente);
 		for(int i = 0; i < listaPaciente.size(); i++) {
-			if(!listaMedico.contains(listaPaciente.get(i))){
+			if(!listaMedico.contains(listaPaciente.get(i))) {
 				listaMedico.add(listaPaciente.get(i));
 			}
+			
 		}
 		return listaMedico;
 	}
