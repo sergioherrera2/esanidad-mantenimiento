@@ -35,13 +35,6 @@ function mostrarEspecialidades(datosNombre, datosDuracion, datosHoraInicio, dato
 	var cuerpo_especialidades = "";
 
 	for (var i = 0; i < datosNombre.length; i++) {
-		var data = {
-			nombre: datosNombre[i],
-      tiempo: datosDuracion[i],
-      inicio: datosHoraInicio[i],
-      fin: datosHoraFin[i]
-		};
-		data = JSON.stringify(data);
 		cuerpo_especialidades += '<tr>' + '<td>' + datosNombre[i] + '</td>' + '<td>'
 				+ datosDuracion[i] + ' minutos </td>' + '<td>' + datosHoraInicio[i] + '</td>' + '<td>' + datosHoraFin[i] + '</td>'
 				+ '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarEspecialidad(id);">' + 'Eliminar' + '</a></td>'

@@ -73,8 +73,6 @@
                     </li>
                     <li class="active"><a><i class="notika-icon notika-star"></i> Crear Médico</a>
                     </li>
-                    <li><a href="#"><i class="notika-icon notika-support"></i> Perfil</a>
-                    </li>
                     <li><a href="#" onclick="cerrarSesion()"><i class="notika-icon notika-next"></i> Salir</a>
                     </li>
                 </ul>
@@ -94,17 +92,17 @@
                         <h2>Crear Médico</h2>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group">
                                 <div class="nk-int-st">
                                     <input type="text" id="dni" name="dni" class="form-control" placeholder="DNI">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <div class="form-group">
                                 <div class="bootstrap-select fm-cmp-mg">
-                                    <select class="selectpicker" name="especialidad" id="especialidad">
+                                    <select class="selectpicker" name="especialidad" id="selectEspecialidad">
                                         <option>Selecciona Especialidad</option>
                                         <option>Oncología</option>
                                         <option>Podología</option>
@@ -112,24 +110,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <div class="form-group">
-                                <div class="nk-int-st">
-                                    <input type="text" id="dniPaciente" name="dniPaciente" class="form-control" placeholder="Paciente">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <div class="nk-int-st">
-                                    <p style="font-size: 11px;">*Deja en blanco el campo paciente a la hora de crear un médico si no quieres establecer un vínculo entre ambos.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <br><br><br><br>
+                        <br><br><br><br><br><br><br>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-example-int">
-                                <button id="btnPedirCita" class="btn btn-success notika-btn-success" onclick="pedirCita()">Crear</button>
+                                <button id="btnPedirCita" class="btn btn-success notika-btn-success" onclick="crearMedico()">Crear</button>
                             </div>
                         </div>
                     </div>
