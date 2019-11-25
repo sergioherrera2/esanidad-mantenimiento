@@ -3,16 +3,18 @@ function crearEspecialidad() {
   var tiempo = document.getElementById("tiempoCita").value;
   var inicio = document.getElementById("horaInicio").value;
   var fin = document.getElementById("horaFin").value;
-  var DNI = JSON.parse(sessionStorage.getItem("data"));
-
   var recurso = "http://localhost:8080/crearEspecialidad";
   var data = {
       type: "especialidad",
-      nombre: nombre,
-      tiempo: tiempo,
-      inicio: inicio,
-      fin: fin
+      nombreEspecialidad: nombre,
+      tiempoCita: tiempo,
+      horaInicio: inicio,
+      horaFin: fin
   };
+    console.log(nombre);
+    console.log(tiempo);
+    console.log(inicio);
+    console.log(fin);
   data = JSON.stringify(data);
   setTimeout($.ajax({
     url: recurso,
@@ -27,6 +29,7 @@ function crearEspecialidad() {
   })
   .done(function(data, textStatus, jqXHR) {
     console.log(data.type);
+    console.log(data.message);
     if (data.type == "OK") {
         setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
     } else {

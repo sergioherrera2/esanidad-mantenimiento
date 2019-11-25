@@ -140,6 +140,7 @@ function eliminarMedico(id) {
 }
 
 function modificarEspecialidad(id){
+	sessionStorage.setItem("nombre", JSON.stringify(datosNombre[id]));
 	sessionStorage.setItem("tiempo", JSON.stringify(datosDuracion[id]));
 	sessionStorage.setItem("inicio", JSON.stringify(datosHoraInicio[id]));
 	sessionStorage.setItem("fin", JSON.stringify(datosHoraFin[id]));

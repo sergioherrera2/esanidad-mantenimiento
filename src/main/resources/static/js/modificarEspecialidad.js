@@ -1,15 +1,23 @@
-function modificarCita (){
+var tiempo = JSON.parse(sessionStorage.getItem("tiempo"));
+var inicio = JSON.parse(sessionStorage.getItem("inicio"));
+var fin = JSON.parse(sessionStorage.getItem("fin"));
+document.getElementById("tiempoCita").value = tiempo;
+document.getElementById("horaInicio").value = inicio;
+document.getElementById("horaFin").value = fin;
+
+function modificarEspecialidad (){
+	var nombre = JSON.parse(sessionStorage.getItem("nombre"));
 	var tiempo = JSON.parse(sessionStorage.getItem("tiempo"));
-	var duracionNew = document.getElementById("fecha").value;
+	var duracionNew = document.getElementById("tiempoCita").value;
 	var inicio = JSON.parse(sessionStorage.getItem("inicio"));
-	var horaInicioNew = document.getElementById("fecha").value;
+	var horaInicioNew = document.getElementById("horaInicio").value;
 	var fin = JSON.parse(sessionStorage.getItem("fin"));
-	var horaFinNew = document.getElementById("fecha").value;
+	var horaFinNew = document.getElementById("horaFin").value;
 
 	var recurso = "http://localhost:8080/modificarEspecialidad";
 	var data = {
 		type: "modificar especialidad",
-		nombreEspecialidad: DNI,
+		nombreEspecialidad: nombre,
 		duracionNew: duracionNew,
 		duracionOld: tiempo,
 		horaInicioNew: horaInicioNew,
