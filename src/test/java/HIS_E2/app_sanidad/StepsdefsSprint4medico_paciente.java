@@ -120,7 +120,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/crearMedicoPaciente")
+		  .url("https://app-sanidad.herokuapp.com/crearMedicoPaciente")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -154,7 +154,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/eliminarPacienteMedico")
+		  .url("https://app-sanidad.herokuapp.com/eliminarPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -206,7 +206,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni_paciente\":\"\",\"dni_medico\":\"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/crearPacienteMedico")
+		  .url("https://app-sanidad.herokuapp.com/crearPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -237,14 +237,14 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://localhost:8080");
+	    driver.get("https://app-sanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");

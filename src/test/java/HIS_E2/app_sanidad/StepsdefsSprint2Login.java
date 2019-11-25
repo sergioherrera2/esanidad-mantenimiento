@@ -99,7 +99,7 @@ public class StepsdefsSprint2Login {
 	public void abro_un_buscador_y_entro_en_la_página_de_login() {
 		 try {
 		    	
-			    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+			    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 			    DesiredCapabilities dc = new DesiredCapabilities();
 			    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);

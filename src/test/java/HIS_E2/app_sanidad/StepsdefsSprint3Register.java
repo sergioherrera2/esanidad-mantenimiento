@@ -58,7 +58,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -147,7 +147,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("http://localhost:8080/register")
+				  .url("https://app-sanidad.herokuapp.com/register")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")

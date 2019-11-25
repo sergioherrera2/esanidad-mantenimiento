@@ -126,7 +126,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"especialidad\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/crearMedico")
+		  .url("https://app-sanidad.herokuapp.com/crearMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -224,7 +224,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"especialidad\":\"Podología\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/listaMedicos")
+		  .url("https://app-sanidad.herokuapp.com/listaMedicos")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -278,7 +278,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/eliminarMedico")
+		  .url("https://app-sanidad.herokuapp.com/eliminarMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
