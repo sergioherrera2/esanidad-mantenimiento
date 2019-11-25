@@ -2,15 +2,25 @@
 var contenidoDespegable = true;
 var contenidoDespegableHoras = true;
 
+function volverAPedir(){
+	
+	contenidoDespegableHoras = true;
+	var fh = document.getElementById("horaFecha");
+	 for (let i = fh.options.length; i >= 0; i--) {
+		 fh.remove(i);
+		  }
+	
+}
 
 
 function obtenerHoras() {
 	
-	
+	var fechas = [];
 	var Fecha = document.getElementById("fecha").value;
 	Fecha =Fecha.substring(8,10)+Fecha.substring(4,8)+Fecha.substring(0,4)+Fecha.substring(10,Fecha.length);
 	Fecha=Fecha.replace("-","/");
 	Fecha=Fecha.replace("-","/");
+	
 	
 	if(contenidoDespegableHoras == true){
 	var recurso = "http://localhost:8080/getHoras";
