@@ -39,3 +39,8 @@ function crearEspecialidad() {
     }
   }), 10000);
 }
+
+function cerrarSesion (){
+    sessionStorage.removeItem("data");
+    setTimeout(location.href = 'http://localhost:8080', 10000);
+}
