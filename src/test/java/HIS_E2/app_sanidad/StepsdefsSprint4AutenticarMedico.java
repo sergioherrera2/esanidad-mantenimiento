@@ -129,10 +129,11 @@ public class StepsdefsSprint4AutenticarMedico {
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
-		    driver = new FirefoxDriver();		
+		    driver = new FirefoxDriver();
+		    System.out.println(driver);
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://localhost:8080");
+	    driver.get("https://app-sanidad.herokuapp.com/");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
