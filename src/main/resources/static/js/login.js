@@ -1,3 +1,12 @@
+
+function mandarDatosEnter(event) {
+
+	if (event.keyCode === 13) {
+		validateLogin();
+	}
+
+}
+
 function validateLogin() {
 	var Dni = document.getElementById("username").value;
 	var contraseña = document.getElementById("password").value;
@@ -28,11 +37,26 @@ function validateLogin() {
 								function(data, textStatus, jqXHR) {
 									console.log(data.type + "HOLA");
 									if (data.type == "OK") {
-										sessionStorage.setItem("data", JSON
-												.stringify(Dni));
-										setTimeout(
-												location.href = 'http://localhost:8080/paciente',
-												10000);
+										
+										
+										
+										if(data.especialidad == 'Gestor Citas'){
+											
+											setTimeout(location.href = 'http://localhost:8080/gestorCitas',10000);
+										}else{
+											
+											if (data.especialidad != null && data.especialidad != undefined && data.especialidad != 'Gestor Citas') {
+												sessionStorage.setItem("dniDoctor",JSON.stringify(Dni))
+												sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
+											}else{
+												sessionStorage.setItem("data", JSON.stringify(Dni));
+											}
+											
+											
+
+										setTimeout(location.href = 'http://localhost:8080/paciente',10000);
+										
+										}
 
 									} else {
 
