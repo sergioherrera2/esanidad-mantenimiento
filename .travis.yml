@@ -3,7 +3,7 @@ script:
 - chmod 777 ./src/test/resources/HIS_E2/app_sanidad/geckodriver
 - mvn test
 addons:
-  firefox: "60.0"
+  firefox: "70.0"
 notifications:
   slack: hisespacio:0qEQjO7RRhAMmk67zdatTrtr
 deploy:
