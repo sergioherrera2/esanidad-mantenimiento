@@ -21,7 +21,7 @@ public class Usuario {
 		this.contrs = Cifrador.cifrarHash(contrs);
 	}
 	public Usuario() {
-		
+
 	}
 	public String getDni() {
 		return dni;
@@ -65,8 +65,9 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", contrs=" + contrs
+		return "Usuario [dni=" + dni + ", nombre=" + nombre
+				+ ", apellidos=" + apellidos
+				+ ", contrs=" + contrs
 				+ ", centroSalud=" + centroSalud + "]";
 	}
-	
 }
