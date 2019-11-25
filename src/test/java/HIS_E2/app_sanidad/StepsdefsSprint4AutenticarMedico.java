@@ -134,8 +134,6 @@ public class StepsdefsSprint4AutenticarMedico {
 		    // driver = new ChromeDriver();
 		    System.out.println("TRAVIS PRUEBAAA1");
 		    driver = new FirefoxDriver();
-		    System.out.println(driver);
-		    driver.manage().window().maximize();
 		    System.out.println("TRAVIS PRUEBAAA");
 	    driver.get("https://app-sanidad.herokuapp.com/");
 	    }catch(Exception e) {
