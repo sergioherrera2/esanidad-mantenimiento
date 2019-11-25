@@ -130,7 +130,7 @@ public class StepsdefsSprint4AutenticarMedico {
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
-		    //Systm.setProperty("webdriver.chrome.driver", "src/test/resources/HIS_E2/app_sanidad/chromedriver.exe");
+		    //Syçstm.setProperty("webdriver.chrome.driver", "src/test/resources/HIS_E2/app_sanidad/chromedriver.exe");
 		    // driver = new ChromeDriver();
 		    driver = new FirefoxDriver();
 		    System.out.println(driver);
