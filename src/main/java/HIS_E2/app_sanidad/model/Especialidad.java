@@ -8,14 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "especialidad")
 public class Especialidad {
-	
+
 	ObjectId _id;
 	String nombreEspecialidad;
 	int duracionCita;
 	Date horaInicio;
 	Date horaFin;
-	
-	public Especialidad(String nombreEspecialidad, int duracionCita, Date horaInicio, Date horaFin) {
+
+	public Especialidad(String nombreEspecialidad,
+			int duracionCita, Date horaInicio, Date horaFin) {
 		super();
 		this.nombreEspecialidad = nombreEspecialidad;
 		this.duracionCita = duracionCita;
@@ -38,7 +39,7 @@ public class Especialidad {
 	public void setDuracionCita(int duracionCita) {
 		this.duracionCita = duracionCita;
 	}
-	
+
 	public Date getHoraInicio() {
 		return horaInicio;
 	}
@@ -60,5 +61,4 @@ public class Especialidad {
 		return "Especialidad [nombreEspecialidad=" + nombreEspecialidad
 				+ ", duracionCita=" + duracionCita + "]";
 	}
-	
 }

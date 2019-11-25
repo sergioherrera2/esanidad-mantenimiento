@@ -7,7 +7,9 @@ public class Paciente extends Usuario {
 	String numeroSS;
 
 
-	public Paciente(String dni, String nombre, String apellidos, String contrs, String numeroSS) throws Exception {
+	public Paciente(String dni, String nombre,
+			String apellidos, String contrs,
+			String numeroSS) throws Exception {
 		super(dni, nombre, apellidos, contrs);
 		this.numeroSS = Cifrador.cifrar(numeroSS);
 	}
@@ -19,10 +21,13 @@ public class Paciente extends Usuario {
 	public void setNumeroSS(String numeroSS) {
 		this.numeroSS = numeroSS;
 	}
-  
+
 	@Override
 	public String toString() {
-		return "Paciente [numeroSS=" + numeroSS + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos
-				+ ", contrs=" + contrs + ", centroSalud=" + centroSalud + "]";
+		return "Paciente [numeroSS=" + numeroSS
+				+ ", dni=" + dni + ", nombre="
+				+ nombre + ", apellidos=" + apellidos
+				+ ", contrs=" + contrs + ", centroSalud="
+				+ centroSalud + "]";
 	}
 }

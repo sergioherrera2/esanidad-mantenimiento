@@ -5,12 +5,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "medico")
 public class Medico extends Usuario{
-	
+
 	ObjectId _id;
 	String idEspecialidad;
-	
-	
-	public Medico(String dni, String nombre, String apellidos, String contrs, String idEspecialidad) throws Exception {
+
+	public Medico(String dni, String nombre,
+			String apellidos, String contrs,
+			String idEspecialidad) throws Exception {
 		super(dni, nombre, apellidos, contrs);
 		this.idEspecialidad = idEspecialidad;
 	}
@@ -24,8 +25,10 @@ public class Medico extends Usuario{
 
 	@Override
 	public String toString() {
-		return "Medico [idEspecialidad=" + idEspecialidad + ", dni=" + dni + ", nombre=" + nombre + ", apellidos="
-				+ apellidos + ", contrs=" + contrs + ", centroSalud=" + centroSalud + "]";
+		return "Medico [idEspecialidad=" + idEspecialidad
+			+ ", dni=" + dni + ", nombre=" + nombre
+			+ ", apellidos="
+				+ apellidos + ", contrs=" + contrs
+				+ ", centroSalud=" + centroSalud + "]";
 	}
-	
 }

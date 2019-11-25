@@ -1,4 +1,4 @@
-	package HIS_E2.app_sanidad.controller;
+package HIS_E2.app_sanidad.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
