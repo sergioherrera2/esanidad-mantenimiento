@@ -69,11 +69,11 @@
                 <ul class="nav nav-tabs nav-justified notika-menu-wrap menu-it-icon-pro">
                     <li><a href="http://localhost:8080/gestor"><i class="notika-icon notika-house"></i> Inicio</a>
                     </li>
-                    <li class="active"><a><i class="notika-icon notika-app"></i> Crear Especialidad</a>
+                    <li><a href="http://localhost:8080/especialidad"><i class="notika-icon notika-app"></i> Crear Especialidad</a>
                     </li>
-                    <li><a href="#"><i class="notika-icon notika-star"></i> Crear Médico</a>
+                    <li><a href="http://localhost:8080/medico"><i class="notika-icon notika-star"></i> Crear Médico</a>
                     </li>
-                    <li><a href="http://localhost:8080/medicoPaciente"><i class="notika-icon notika-calendar"></i> Crear Médico-Paciente</a>
+                    <li class="active"><a><i class="notika-icon notika-calendar"></i> Crear Médico-Paciente</a>
                     </li>
                     <li><a href="#" onclick="cerrarSesion()"><i class="notika-icon notika-next"></i> Salir</a>
                     </li>
@@ -84,48 +84,34 @@
 </div>
 <!-- menu -->
 
-<!-- especialidad -->
+<!-- medico -->
 <div class="data-table-area">
     <div class="container">
         <div class="row" ng-controller="add">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="sale-statistic-inner notika-shadow mg-tb-30">
                     <div class="basic-tb-hd">
-                        <h2>Crear Especialidad</h2>
+                        <h2>Crear Médico-Paciente</h2>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group">
                                 <div class="nk-int-st">
-                                    <input type="text" id="nombreEspecialidad" name="nombreEspecialidad" class="form-control" placeholder="Nombre">
+                                    <input type="text" id="dniMedico" name="dniMedico" class="form-control" placeholder="DNI Médico">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group">
                                 <div class="nk-int-st">
-                                    <input type="number" id="tiempoCita" name="tiempoCita" class="form-control" placeholder="Duración">
+                                    <input type="text" id="dniPaciente" name="dniPaciente" class="form-control" placeholder="DNI Paciente">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <div class="nk-int-st">
-                                    <input type="time" id="horaInicio" value="08:00" name="horaInicio" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <div class="nk-int-st">
-                                    <input type="time" id="horaFin" value="14:00" name="horaFin" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <br><br><br>
+                        <br><br><br><br><br>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-example-int">
-                                <button id="btnPedirCita" class="btn btn-success notika-btn-success" onclick="crearEspecialidad()">Crear</button>
+                                <button id="btnPedirCita" class="btn btn-success notika-btn-success" onclick="crearMedico()">Crear</button>
                             </div>
                         </div>
                     </div>
@@ -183,6 +169,6 @@
 <script src="js/bootstrap-select/bootstrap-select.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
-<script src="js/especialidad.js"></script>
+<script src="js/medicoPaciente.js"></script>
 </body>
 </html>
