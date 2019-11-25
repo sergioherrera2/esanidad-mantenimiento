@@ -88,9 +88,9 @@ function mostrarEspecializaciones(){
 	
 	
 	if(contenidoDespegable == true){
-    var recurso = "http://localhost:8080/consultaEspecialidades";
+    var recurso = "http://localhost:8080/consultarEspecialdiadPaciente";
         var data = {
-           dni:""
+        		dniPaciente : JSON.parse(sessionStorage.getItem("data")),
         };
         data = JSON.stringify(data);
 
