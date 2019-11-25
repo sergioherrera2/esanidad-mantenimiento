@@ -125,7 +125,7 @@ public class StepsdefsSprint4AutenticarMedico {
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -138,7 +138,6 @@ public class StepsdefsSprint4AutenticarMedico {
 	    	fail("Can't connect to application");
 	    }
 	    driver.quit(); //eliminarlo cuando se ejécuten los tests
-	    throw new PendingException();
 	}
 
 	@When("^me autentico$")
