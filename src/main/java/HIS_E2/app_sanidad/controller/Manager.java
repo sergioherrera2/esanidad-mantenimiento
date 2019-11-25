@@ -618,4 +618,13 @@ public class Manager {
 		}
 		return lista;
 	}
+	
+	public List<String> consultarEspecialidadPaciente(String dniPaciente) {
+	    List<PacienteMedico> pacMed = pacienteMedicoRepo.findCustomDniPaciente(dniPaciente);
+	    List<String> lista = new ArrayList<String>();
+	    for(int i = 0; i < pacMed.size(); i++) {
+	      lista.add(pacMed.get(i).getEspecialidad());
+	    }
+	    return lista;
+	  }
 }
