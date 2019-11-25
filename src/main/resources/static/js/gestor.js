@@ -1,3 +1,7 @@
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'http://localhost:8080/'
+} else {
 var DNI = JSON.parse(sessionStorage.getItem("data"));
 var recurso = "http://localhost:8080/consultaEspecialidades";
 var datosNombre = [];
@@ -30,7 +34,7 @@ setTimeout($.ajax({
 		mostrarEspecialidades(datosNombre, datosDuracion, datosHoraInicio, datosHoraFin);
 	}
 }), 10000);
-
+}
 function mostrarEspecialidades(datosNombre, datosDuracion, datosHoraInicio, datosHoraFin) {
 	var cuerpo_especialidades = "";
 

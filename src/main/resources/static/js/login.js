@@ -54,9 +54,8 @@ function validateLogin() {
 											}else{
 												sessionStorage.setItem("data", JSON.stringify(Dni));
 											}
+											setTimeout(location.href = 'http://localhost:8080/paciente',10000);
 										}
-											
-										setTimeout(location.href = 'http://localhost:8080/paciente',10000);
 										
 										}
 
