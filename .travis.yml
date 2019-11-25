@@ -1,10 +1,9 @@
 language: java
 script:
+- chmod 777 ./src/test/resources/HIS_E2/app_sanidad/geckodriver
 - mvn test
 addons:
   firefox: "49.0"
- before_install:
-  - chmod -R +x /src
 notifications:
   slack: hisespacio:0qEQjO7RRhAMmk67zdatTrtr
 deploy:
