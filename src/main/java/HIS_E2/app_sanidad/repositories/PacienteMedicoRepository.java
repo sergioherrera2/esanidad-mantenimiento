@@ -16,4 +16,7 @@ public interface PacienteMedicoRepository extends MongoRepository<PacienteMedico
 
 	@Query(value = "{ 'dniMedico' : ?0}")
 	List<PacienteMedico> findCustomDniMedico(String dniMedico);
+	
+	@Query(value = "{ 'dniPaciente' : ?0}")
+	List<PacienteMedico> findCustomDniPaciente(String dniPaciente);
 }
