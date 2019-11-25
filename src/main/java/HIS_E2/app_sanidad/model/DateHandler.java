@@ -19,11 +19,13 @@ class DateHandler extends StdDeserializer<Date> {
 		  }
 
 		  @Override
-		  public Date deserialize(JsonParser jsonparser, DeserializationContext context)
+		  public Date deserialize(JsonParser jsonparser,
+				 DeserializationContext context)
 		      throws IOException {
 		    String date = jsonparser.getText();
 		    try {
-		      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		      SimpleDateFormat sdf =
+		    		 new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		      return sdf.parse(date);
 		    } catch (Exception e) {
 		      return null;

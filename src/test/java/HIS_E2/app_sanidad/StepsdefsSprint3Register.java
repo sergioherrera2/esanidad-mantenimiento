@@ -7,8 +7,11 @@ import static org.junit.Assert.fail;
 
 import org.json.JSONObject;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
@@ -55,14 +58,14 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("http://localhost:8080/register");
+	    driver.get("https://app-sanidad.herokuapp.com/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -89,6 +92,14 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	public void recibo_respuesta(String arg1) {
 		try {
 			 driver.findElement(By.name("btnRegistrar")).click();
+			   Alert alert = driver.switchTo().alert();
+		        String alertText = alert.getText();
+		        System.out.println("Alert data: " + alertText);
+		        alert.accept();
+		} catch (UnhandledAlertException f) {
+
+		  } catch (NoAlertPresentException e) {
+		        
 		}catch(Exception e) {
 			fail("Can't find Register button");
 		
@@ -99,7 +110,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		}else {
 			String new_url = driver.getCurrentUrl();
 			 assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/register")); 
-		}
+		}                               
 		
 		
 	}
@@ -136,7 +147,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("http://localhost:8080/register")
+				  .url("https://app-sanidad.herokuapp.com/register")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")

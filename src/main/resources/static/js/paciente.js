@@ -1,4 +1,12 @@
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'https://app-sanidad.herokuapp.com/'
+} else {
 var DNI = JSON.parse(sessionStorage.getItem("data"));
+var divCambioRol = document.getElementById("divCambioRol");
+var especialidadMedico = JSON.parse(sessionStorage.getItem("especialidadMedico"));
+
+
 var recurso = "https://app-sanidad.herokuapp.com/citasPaciente";
 var datosDNIP = [];
 var datosES = [];
@@ -33,14 +41,19 @@ setTimeout($.ajax({
 	$("#table-basic").DataTable();
 }), 10000);
 
-/*
- * var datos = [cita1 :{ "fecha": "12/05/19", "hora": "15:01", "centroDeSalud":
- * "LA SOLANA", "especialidad": " ONCOLOGÍA", }, { "fecha": "12/12/19", "hora":
- * "15:41", "centroDeSalud": "MANZANARES", "especialidad": " ONCOLOGÍA", }, {
- * "fecha": "11/05/19", "hora": "05:01", "centroDeSalud": "TOLEDO",
- * "especialidad": " ONCOLOGÍA", }, { "fecha": "12/05/29", "hora": "12:01",
- * "centroDeSalud": "CIUDAD REAL", "especialidad": " ONCOLOGÍA", } ];
- */
+console.log(especialidadMedico);
+
+if(especialidadMedico == null){
+	document.getElementById('divCambioRol').style.display = 'none';
+}
+}
+function cambiarRol(){
+	
+	alert("Esta cambiando el rol a Trabajador...")
+	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/doctor', 10000);
+	
+}
+
 function eliminarCita(id) {
 	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
 	var data = {
@@ -63,6 +76,7 @@ function eliminarCita(id) {
 		if (data.type == "OK") {
 			console.log("eliminar");
 			console.log(data);
+			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/paciente', 10000);
 		}
 	}), 10000);
 }
@@ -71,7 +85,7 @@ function modificarCita(id){
 	sessionStorage.setItem("fecha", JSON.stringify(datosF[id]));
 	sessionStorage.setItem("dni", JSON.stringify(datosDNIP[id]));
 	sessionStorage.setItem("especialidad", JSON.stringify(datosES[id]));
-	location.href = 'https://app-sanidad.herokuapp.com/modificarCita'
+	location.href = 'https://app-sanidad.herokuapp.com/modificarCita';
 }
 
 function mostrarContenido(datosDNIP,datosES,datosF) {
@@ -92,12 +106,10 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
 				+ '</td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarCita(id);">' + 'Eliminar' + '</a></td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="modificarCita(id);">' + 'Modificar' + '</a></td>' + '</tr>';
 	}
-	$("#tablaCabecera").append(cabecera);
-	$("#tablaCuerpo").append(cuerpo);
 }
 function cerrarSesion (){
-	
 	sessionStorage.removeItem("data");
+	sessionStorage.removeItem("dniDoctor");
+	sessionStorage.removeItem("especialidadMedico");
 	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
-	
 }

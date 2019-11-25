@@ -1,3 +1,12 @@
+
+function mandarDatosEnter(event) {
+
+	if (event.keyCode === 13) {
+		validateLogin();
+	}
+
+}
+
 function validateLogin() {
 	var Dni = document.getElementById("username").value;
 	var contraseña = document.getElementById("password").value;
@@ -28,11 +37,29 @@ function validateLogin() {
 								function(data, textStatus, jqXHR) {
 									console.log(data.type + "HOLA");
 									if (data.type == "OK") {
-										sessionStorage.setItem("data", JSON
-												.stringify(Dni));
-										setTimeout(
-												location.href = 'https://app-sanidad.herokuapp.com/paciente',
-												10000);
+										
+										
+										
+										if(data.especialidad == 'Gestor Citas'){
+											sessionStorage.setItem("data", JSON.stringify(Dni));
+											setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestorCitas',10000);
+										}else{
+											if(data.especialidad == 'Gestor Sistema') {
+												sessionStorage.setItem("data", JSON.stringify(Dni));
+												setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor',10000);
+											} else {
+											
+											if (data.especialidad != null && data.especialidad != undefined && data.especialidad != 'Gestor Citas' && data.especialidad != 'Gestor Sistema') {
+												sessionStorage.setItem("dniDoctor",JSON.stringify(Dni));
+												sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
+												sessionStorage.setItem("data", JSON.stringify(Dni));
+											}else{
+												sessionStorage.setItem("data", JSON.stringify(Dni));
+											}
+											setTimeout(location.href = 'https://app-sanidad.herokuapp.com/paciente',10000);
+										}
+										
+										}
 
 									} else {
 

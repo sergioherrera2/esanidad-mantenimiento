@@ -55,7 +55,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		}
 
 	    try {
-		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver.exe");					
+		    System.setProperty("webdriver.gecko.driver", "src/test/resources/HIS_E2/app_sanidad/geckodriver");					
 
 		    DesiredCapabilities dc = new DesiredCapabilities();
 		    dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -134,7 +134,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 			e.printStackTrace();
 		}
 		try {
-			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
+//			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726690N");
 		} catch (Exception e1) {
 		}
 		client = new OkHttpClient();
@@ -211,11 +211,11 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		  * 
 		  */
 			try {
-				Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726691J");
+	//			Manager.get().crearMedicoPaciente("05726693S", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726691J");
 			} catch (Exception e1) {
 			}
 			try {
-				Manager.get().crearMedicoPaciente("03879902D", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726692Z");
+	//			Manager.get().crearMedicoPaciente("03879902D", "nombre", "apellidos", "Antonio1234", "Cabecera", "05726692Z");
 			} catch (Exception e1) {
 			}
 			try {
@@ -360,7 +360,7 @@ public void envío_petición_Post_con_todos_los_campos_de_modificar_cita_dni_use
 	RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fechaActual\": \""+arg3+"\",\"fechaModificar\":\""+arg4+"\"}");
 	 
 	 request = new Request.Builder()
-			  .url("http://localhost:8080/modificarCita")
+			  .url("https://app-sanidad.herokuapp.com/modificarCita")
 			  .post(body)
 			  .addHeader("Content-Type", "application/json")
 			  .addHeader("User-Agent", "PostmanRuntime/7.19.0")

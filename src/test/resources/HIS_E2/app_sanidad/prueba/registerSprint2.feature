@@ -11,7 +11,7 @@
 # 
 #     Examples: 
 #      | DNI       | Nombre | Apellidos         | Contraseña    |Result  |Repetir_contraseña|NumeroSS    |
-#      | 00572676E |Antonio | Pulido Hernández  |Antonio123     |OK      |Antonio123        |123456789012 |
+#      |76876673R  |Antonio | Pulido Hernández  |Antonio123     |OK      |Antonio123        |123456789012 |
 #      | 1057267Z  |Antonio |    Pérez López    |PerezLopez123  |Error   |PerezLopez123     |123456789012 |
 #      | 10572676J |        | Pulido Hernández  |Jaimemanuel123 |Error   |Jaimemanuel123    |123456789012 | 
 #      | 10572676J |Jaime   |                   |Jaimemanuel123 |Error   |Jaimemanuel123    |123456789012 |
