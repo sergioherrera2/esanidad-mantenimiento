@@ -2,6 +2,10 @@ package HIS_E2.app_sanidad.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -706,5 +710,64 @@ public class Manager {
 		} else {
 			return null;
 		}
+	}
+  
+	public List<String> getHoras(String fecha, String especialidad, String dniPaciente) throws Exception{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate fechaLocal = LocalDate.parse(fecha, formatter);
+		LocalDateTime fechaDia = fechaLocal.atStartOfDay();
+		Especialidad esp = especialidadRepo.findCustomEspecialidad(especialidad);
+		PacienteMedico pacMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
+		int duracion = esp.getDuracionCita();
+		Date horaI = esp.getHoraInicio();
+		LocalDateTime horaInicio = horaI.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		Date horaF = esp.getHoraInicio();
+		LocalDateTime horaFin = horaF.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		List<Cita> citasMedico = citaRepo.findByDniMedico(pacMed.getDniMedico());
+		List<Cita> citasPaciente = citaRepo.findByDniPaciente(dniPaciente);
+		List<String> listaMedico = controlarHoras(fechaDia, duracion, horaInicio, horaFin, citasMedico);
+		List<String> listaPaciente = controlarHoras(fechaDia, duracion, horaInicio, horaFin, citasPaciente);
+		for(int i = 0; i < listaPaciente.size(); i++) {
+			if(!listaMedico.contains(listaPaciente.get(i))){
+				listaMedico.add(listaPaciente.get(i));
+			}
+		}
+		return listaMedico;
+	}
+
+	private List<String> controlarHoras(LocalDateTime fechaDia, int duracion, LocalDateTime horaInicio,
+			LocalDateTime horaFin, List<Cita> citasMedico) {
+		LocalDateTime fechaInicioCita = fechaDia.plusHours(horaInicio.getHour());
+		LocalDateTime fechaInicioDuracion = fechaInicioCita.plusMinutes(duracion);
+		LocalDateTime fechaFinCita = fechaDia.plusHours(horaFin.getHour());
+		List<String> lista = new ArrayList<String>();
+		boolean continuar = true;
+		while(continuar) {
+			for(int i = 0; i<citasMedico.size(); i++) {
+				LocalDateTime fechaCita = citasMedico.get(i).getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+				LocalDateTime fechaCitaDuracion = fechaCita.plusMinutes(duracion);
+				if(!((fechaInicioCita.isAfter(fechaCita) && fechaInicioCita.isBefore(fechaCitaDuracion)) || 
+						fechaInicioCita.isBefore(fechaCita) && fechaInicioDuracion.isAfter(fechaCita))) {
+					if(!(fechaInicioCita.equals(fechaCita) || fechaInicioCita.equals(fechaCitaDuracion))) {
+						lista.add(DateTimeFormatter.ofPattern("HH:mm").format(fechaInicioCita));
+					}
+				}
+				fechaInicioCita = fechaInicioCita.plusMinutes(duracion);
+				fechaInicioDuracion = fechaInicioCita.plusMinutes(duracion);
+				if(fechaInicioCita.isAfter(fechaFinCita) || fechaInicioCita.equals(fechaFinCita)) {
+					continuar = false;
+				}
+			}
+		}
+		return lista;
+	}
+	
+	public List<String> consultarEspecialidadPaciente(String dniPaciente) {
+		List<PacienteMedico> pacMed = pacienteMedicoRepo.findCustomDniPaciente(dniPaciente);
+		List<String> lista = new ArrayList<String>();
+		for(int i = 0; i < pacMed.size(); i++) {
+			lista.add(pacMed.get(i).getEspecialidad());
+		}
+		return lista;
 	}
 }
