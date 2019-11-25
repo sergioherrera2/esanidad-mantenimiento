@@ -49,7 +49,7 @@ public class JunitTests2 {
 			e1.printStackTrace();
 		}
 		try {
-			Manager.get().crearEspecialidad("gestor", "1", "9:00", "14:00");
+			Manager.get().crearEspecialidad("Pediatría", "1", "9:00", "14:00");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +65,8 @@ public class JunitTests2 {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			try {				Especialidad esp= Manager.get().crearEspecialidad("EspecialidadC", "15", "9:00", "14:00");
+			try {	
+				Manager.get().crearMedicoPaciente("05726690N", "73672276X");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
