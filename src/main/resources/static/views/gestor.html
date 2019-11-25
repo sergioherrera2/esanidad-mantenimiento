@@ -84,7 +84,7 @@
 </div>
 <!-- menu -->
 
-<!-- citas -->
+<!-- gestor -->
 <div class="data-table-area">
 	<div class="container">
 		<div class="row" ng-controller="add">
@@ -106,15 +106,7 @@
 								<th style="width: 10px;"></th>
 							</tr>
 							</thead>
-							<tbody id="tablaCuerpo">
-							<tr>
-								<td>Podología</td>
-								<td> 15 minutos</td>
-								<td>8:00 am</td>
-								<td>1:30 pm</td>
-								<td><a id='' href="javascript:void(0);" onclick="eliminarCita(id);">Eliminar</a></td>
-								<td><a id='' href="javascript:void(0);" onclick="modificarCita(id);">Modificar</a></td>
-							</tr>
+							<tbody id="tablaEspecialidadCuerpo">
 							</tbody>
 						</table>
 					</div>
@@ -131,19 +123,10 @@
 							<tr>
 								<th>DNI</th>
 								<th>Especialidad</th>
-								<th>Paciente</th>
-								<th style="width: 10px;"></th>
 								<th style="width: 10px;"></th>
 							</tr>
 							</thead>
-							<tbody id="tablaCuerpo">
-							<tr>
-								<td>00112233A</td>
-								<td> Podología</td>
-								<td> Sí</td>
-								<td><a id='' href="javascript:void(0);" onclick="eliminarCita(id);">Eliminar</a></td>
-								<td><a id='' href="javascript:void(0);" onclick="eliminarCita(id);">Modificar</a></td>
-							</tr>
+							<tbody id="tablaMedicoCuerpo">
 							</tbody>
 						</table>
 					</div>
@@ -201,8 +184,6 @@
 <script src="js/bootstrap-select/bootstrap-select.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
-<script src="js/citas.js"></script>
-<script src="js/login.js"></script>
-<script src="js/paciente.js"></script>
+<script src="js/gestor.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 var DNI = JSON.parse(sessionStorage.getItem("data"));
-var recurso = "https://app-sanidad.herokuapp.com/consultaEspecialidades";
+var recurso = "http://localhost:8080/consultaEspecialidades";
 var datosNombre = [];
 var datosDuracion = [];
 var datosHoraInicio = [];
@@ -23,7 +23,7 @@ setTimeout($.ajax({
 	if (data.type == "OK") {
 		for (var i = 0; i < (data.numero); i++) {
 			datosNombre[i] = data['nombreEspecialidad' + i];
-			datosDuracion[i] = data['tiempoCita'+ i];
+			datosDuracion[i] = data['duracionCita'+ i];
 			datosHoraInicio[i] = data['horaInicio' + i];
 			datosHoraFin[i] = data['horaFin' + i];
 		}
@@ -43,16 +43,15 @@ function mostrarEspecialidades(datosNombre, datosDuracion, datosHoraInicio, dato
 		};
 		data = JSON.stringify(data);
 		cuerpo_especialidades += '<tr>' + '<td>' + datosNombre[i] + '</td>' + '<td>'
-				+ datosDuracion[i] + '</td>' + '<td>' + datosHoraInicio[i] + '</td>' + '<td>' + datosHoraFin[i] + '</td>'
-				+ '<td><a id='+ i +' href="javascript:void(0);" onclick="eliminarEspecialidad(id);">' + 'Eliminar' + '</a></td>'
-				+ '<td><a id='+ i +' href="javascript:void(0);" onclick="modificarEspecialidad(id);">' + 'Modificar' + '</a></td>' + '</tr>';
+				+ datosDuracion[i] + ' minutos </td>' + '<td>' + datosHoraInicio[i] + '</td>' + '<td>' + datosHoraFin[i] + '</td>'
+				+ '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarEspecialidad(id);">' + 'Eliminar' + '</a></td>'
+				+ '<td><a id='+i+' href="javascript:void(0);" onclick="modificarEspecialidad(id);">' + 'Modificar' + '</a></td>' + '</tr>';
 	}
 	$("#tablaEspecialidadCuerpo").append(cuerpo_especialidades);
 }
 
-var recurso = "https://app-sanidad.herokuapp.com/listaMedicos";
+var recurso = "http://localhost:8080/listaMedicos";
 var datosDNI = [];
-var datosEspecialidad = [];
 
 var data = {
 	dni : DNI,
@@ -72,31 +71,29 @@ setTimeout($.ajax({
 	if (data.type == "OK") {
 		for (var i = 0; i < (data.numero); i++) {
 			datosDNI[i] = data['dni' + i];
-			datosEspecialidad[i] = data['especialidad' + i];
 		}
-		mostrarMedicos(datosDNI, datosEspecialidad);
+		mostrarMedicos(datosDNI);
 	}
 }), 10000);
 
-function mostrarMedicos(datosDNI, datosEspecialidad) {
+function mostrarMedicos(datosDNI) {
 	var cuerpo_medico = "";
 
 	for (var i = 0; i < datosDNI.length; i++) {
 		var data = {
 			dni : datosDNI[i],
-			especialidad: datosEspecialidad[i]
 		};
 		data = JSON.stringify(data);
-		cuerpo_medico += '<tr>' + '<td>' + datosDNI[i] + '</td>' + '<td>' + datosEspecialidad[i] + '</td>'
+		cuerpo_medico += '<tr>' + '<td>' + datosDNI[i] + '</td>'
 				+ '<td><a id='+ i +' href="javascript:void(0);" onclick="eliminarMedico(id);">' + 'Eliminar' + '</a></td>';
 	}
 	$("#tablaMedicoCuerpo").append(cuerpo_medico);
 }
 
 function eliminarEspecialidad(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/eliminarEspecialidad";
+	var recurso = "http://localhost:8080/eliminarEspecialidad";
 	var data = {
-		especialidad: datosNombre[id]
+		nombreEspecialidad: datosNombre[id]
 	}
 	data = JSON.stringify(data);
 	setTimeout($.ajax({
@@ -113,12 +110,13 @@ function eliminarEspecialidad(id) {
 		if (data.type == "OK") {
 			console.log(data);
 			console.log("especialidad eliminada");
+			setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
 		}
 	}), 10000);
 }
 
 function eliminarMedico(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/eliminarMedico";
+	var recurso = "http://localhost:8080/eliminarMedico";
 	var data = {
 		dni: datosDNI[id]
 	}
@@ -145,10 +143,10 @@ function modificarEspecialidad(id){
 	sessionStorage.setItem("tiempo", JSON.stringify(datosDuracion[id]));
 	sessionStorage.setItem("inicio", JSON.stringify(datosHoraInicio[id]));
 	sessionStorage.setItem("fin", JSON.stringify(datosHoraFin[id]));
-	location.href = 'https://app-sanidad.herokuapp.com/modificarEspecialidad'
+	location.href = 'http://localhost:8080/modificarEspecialidad'
 }
 
 function cerrarSesion (){
 	sessionStorage.removeItem("data");
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+	setTimeout(location.href = 'http://localhost:8080', 10000);
 }

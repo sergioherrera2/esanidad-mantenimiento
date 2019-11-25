@@ -5,7 +5,7 @@ function crearEspecialidad() {
   var fin = document.getElementById("horaFin").value;
   var DNI = JSON.parse(sessionStorage.getItem("data"));
 
-  var recurso = "https://app-sanidad.herokuapp.com/crearEspecialidad";
+  var recurso = "http://localhost:8080/crearEspecialidad";
   var data = {
       type: "especialidad",
       nombre: nombre,
@@ -28,7 +28,7 @@ function crearEspecialidad() {
   .done(function(data, textStatus, jqXHR) {
     console.log(data.type);
     if (data.type == "OK") {
-        setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
+        setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
     } else {
         if (data.type="error") {
             alert("Error al crear la especialidad, contacte con el servicio de soporte.");
