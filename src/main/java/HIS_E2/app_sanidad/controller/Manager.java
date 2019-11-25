@@ -425,7 +425,10 @@ public class Manager {
 	 * @param nombreEspecialidad.
 	 * @return la especialidad eliminada.
 	 */
-	public Especialidad eliminarEspecialidad(String nombreEspecialidad) {
+	public Especialidad eliminarEspecialidad(String nombreEspecialidad) throws Exception{
+		if(nombreEspecialidad.equals("Gestor Sistema")) {
+			throw new Exception("No se puede eliminar el gestor del sistema");
+		}
 		Especialidad lista = especialidadRepo.findCustomEspecialidad(nombreEspecialidad);
 		especialidadRepo.delete(lista);
 		return lista;

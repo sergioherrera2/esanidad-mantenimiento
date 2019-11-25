@@ -1,6 +1,6 @@
 language: java
 script:
-- mvn test
+- mvn clean
 notifications:
   slack: hisespacio:0qEQjO7RRhAMmk67zdatTrtr
 deploy:
