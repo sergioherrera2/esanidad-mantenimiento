@@ -2,6 +2,7 @@ package HIS_E2.app_sanidad.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -569,7 +570,9 @@ public class Manager {
 		}
 	}
 	public List<String> getHoras(String fecha, String especialidad, String dniPaciente) throws Exception{
-		LocalDateTime fechaDia = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate fechaLocal = LocalDate.parse(fecha, formatter);
+		LocalDateTime fechaDia = fechaLocal.atStartOfDay();
 		Especialidad esp = especialidadRepo.findCustomEspecialidad(especialidad);
 		PacienteMedico pacMed = pacienteMedicoRepo.findCustomMedico(dniPaciente, especialidad);
 		int duracion = esp.getDuracionCita();
