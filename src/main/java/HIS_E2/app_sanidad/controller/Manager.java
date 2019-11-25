@@ -516,7 +516,7 @@ public class Manager {
 		List<Medico> medicos = medicoRepo.findAll();
 		List<String> dnis = new ArrayList<String>();
 		for(int i = 0; i < medicos.size(); i++) {
-			dnis.add(Cifrador.descifrar(medicos.get(i).getDni()));
+			dnis.add(Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getDni())));
 		}
 		return dnis;
 	}
