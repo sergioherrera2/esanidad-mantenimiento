@@ -99,6 +99,7 @@ public class StepsdefsSprint4gestorCitas {
 			driver.quit();
 			fail("No se encuentran los campos");
 		}
+		driver.quit();
 
 	}
 

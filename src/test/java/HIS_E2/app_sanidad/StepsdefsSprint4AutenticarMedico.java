@@ -156,6 +156,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 			if(arg1.equals("OK")) {
 				fail("No se encuentra el boton de login");	
 			}
+			driver.quit();
 
 		
 	}
@@ -170,7 +171,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 			if(!arg1.equals("Error")) {
 				fail("No se encuentra el boton de vista De Trabajo");	
 			}
-
+			driver.quit();
 		
 		}			
 	}	
@@ -196,6 +197,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 			   Alert alert = driver.switchTo().alert();
 		        String alertText = alert.getText();
 		        alert.accept();
+		        driver.quit();
 		}
 		
 	}

@@ -6,8 +6,8 @@ Feature: Autencicacion como Medico
   Scenario Outline: Como medico quiero autenticarme
     Given un un medico "<dni>" contrasenia "<contrasenia>"
     And Abroo un buscador y entro en la aplicacion citas
-    When me autentico
-    Then presiono el boton cambiar a vista de trabajo
+    And me autentico como medico "<response>"
+    When presiono el boton cambiar a vista de trabajo "<response>"
     Then Cambio a vista de trabajo "<response>"
     
     
