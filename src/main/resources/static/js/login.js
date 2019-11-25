@@ -44,16 +44,18 @@ function validateLogin() {
 											
 											setTimeout(location.href = 'http://localhost:8080/gestorCitas',10000);
 										}else{
+											if(data.especialidad == 'Gestor Sistema') {
+												setTimeout(location.href = 'http://localhost:8080/gestor',10000);
+											} else {
 											
-											if (data.especialidad != null && data.especialidad != undefined && data.especialidad != 'Gestor Citas') {
+											if (data.especialidad != null && data.especialidad != undefined && data.especialidad != 'Gestor Citas' && data.especialidad != 'Gestor Sistema') {
 												sessionStorage.setItem("dniDoctor",JSON.stringify(Dni))
 												sessionStorage.setItem("especialidadMedico",JSON.stringify(data.especialidad));
 											}else{
 												sessionStorage.setItem("data", JSON.stringify(Dni));
 											}
+										}
 											
-											
-
 										setTimeout(location.href = 'http://localhost:8080/paciente',10000);
 										
 										}
