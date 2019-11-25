@@ -1,5 +1,9 @@
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'https://app-sanidad.herokuapp.com/'
+} else {
 var DNI = JSON.parse(sessionStorage.getItem("data"));
-var recurso = "http://localhost:8080/consultaEspecialidades";
+var recurso = "https://app-sanidad.herokuapp.com/consultaEspecialidades";
 var datosNombre = [];
 
 var data = {
@@ -24,7 +28,7 @@ setTimeout($.ajax({
         mostrarEspecialidades(datosNombre);
     }
 }), 10000);
-
+}
 function mostrarEspecialidades(datosNombre) {
     var select_especialidades = "";
 
@@ -39,7 +43,7 @@ function crearMedico() {
   var especialidad = document.getElementById("especialidad").value;
   var DNI = JSON.parse(sessionStorage.getItem("data"));
 
-  var recurso = "http://localhost:8080/crearMedico";
+  var recurso = "https://app-sanidad.herokuapp.com/crearMedico";
   var data = {
       type: "medico",
       dni: dni,
@@ -61,7 +65,7 @@ function crearMedico() {
     console.log(data.type);
     console.log(data.message);
     if (data.type == "OK") {
-        setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
+        setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
     } else {
         if (data.type="error") {
             alert("Error al crear el médico, contacte con el servicio de soporte.");
@@ -72,5 +76,5 @@ function crearMedico() {
 
 function cerrarSesion (){
     sessionStorage.removeItem("data");
-    setTimeout(location.href = 'http://localhost:8080', 10000);
+    setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
 }

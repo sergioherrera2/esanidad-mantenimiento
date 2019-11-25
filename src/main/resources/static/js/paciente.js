@@ -1,9 +1,13 @@
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'https://app-sanidad.herokuapp.com/'
+} else {
 var DNI = JSON.parse(sessionStorage.getItem("data"));
 var divCambioRol = document.getElementById("divCambioRol");
 var especialidadMedico = JSON.parse(sessionStorage.getItem("especialidadMedico"));
 
 
-var recurso = "http://localhost:8080/citasPaciente";
+var recurso = "https://app-sanidad.herokuapp.com/citasPaciente";
 var datosDNIP = [];
 var datosES = [];
 var datosF = [];
@@ -42,16 +46,16 @@ console.log(especialidadMedico);
 if(especialidadMedico == null){
 	document.getElementById('divCambioRol').style.display = 'none';
 }
-
+}
 function cambiarRol(){
 	
 	alert("Esta cambiando el rol a Trabajador...")
-	setTimeout(location.href = 'http://localhost:8080/doctor', 10000);
+	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/doctor', 10000);
 	
 }
 
 function eliminarCita(id) {
-	var recurso = "http://localhost:8080/anularCita";
+	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
 	var data = {
 		dniPaciente : datosDNIP[id],
 		especialidad : datosES[id],
@@ -72,7 +76,7 @@ function eliminarCita(id) {
 		if (data.type == "OK") {
 			console.log("eliminar");
 			console.log(data);
-			setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
+			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/paciente', 10000);
 		}
 	}), 10000);
 }
@@ -81,12 +85,12 @@ function modificarCita(id){
 	sessionStorage.setItem("fecha", JSON.stringify(datosF[id]));
 	sessionStorage.setItem("dni", JSON.stringify(datosDNIP[id]));
 	sessionStorage.setItem("especialidad", JSON.stringify(datosES[id]));
-	location.href = 'http://localhost:8080/modificarCita';
+	location.href = 'https://app-sanidad.herokuapp.com/modificarCita';
 }
 
 function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
-	var recurso = "http://localhost:8080/anularCita";
+	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
 
 	var cabecera = '<tr>' + '<th>FECHA</th>' + '<th>DNI PACIENTE</th>'
 			+ '<th>ESPECIALIDAD</th>' + '</tr>';
@@ -107,5 +111,5 @@ function cerrarSesion (){
 	sessionStorage.removeItem("data");
 	sessionStorage.removeItem("dniDoctor");
 	sessionStorage.removeItem("especialidadMedico");
-	setTimeout(location.href = 'http://localhost:8080/', 10000);
+	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
 }

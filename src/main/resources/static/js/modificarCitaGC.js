@@ -1,5 +1,9 @@
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'https://app-sanidad.herokuapp.com/'
+} else {
 var contenidoDespegableHoras = true;
-
+}
 
 function restaurarH(){
 	
@@ -22,7 +26,7 @@ function obtenerH() {
 	Fecha=Fecha.replace("-","/");
 	
 	if(contenidoDespegableHoras == true){
-	var recurso = "http://localhost:8080/getHoras";
+	var recurso = "https://app-sanidad.herokuapp.com/getHoras";
     var data = {
     	dniPaciente : JSON.parse(sessionStorage.getItem("dniPacienteGC")),
     	especialidad : JSON.parse(sessionStorage.getItem("especialidadPacienteGC")),
@@ -92,7 +96,7 @@ function modificarCita (){
 	  fecha=fecha.replace("-","/");
 	  fecha = fecha + ' ' + document.getElementById("horaFecha").value + ':00';
 	  
-		var recurso = "http://localhost:8080/modificarCita";
+		var recurso = "https://app-sanidad.herokuapp.com/modificarCita";
 			var data = {
 				type: "cita",
 				dniPaciente: DNI,
@@ -121,7 +125,7 @@ function modificarCita (){
 					
 					
 					alert("OK: se ha procesado correctamente la petición de modificación de la cita.");
-					setTimeout(location.href = 'http://localhost:8080/gestorCitas', 10000);
+					setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestorCitas', 10000);
 					
 					
 				} else {

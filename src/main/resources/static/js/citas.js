@@ -1,7 +1,10 @@
 
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'https://app-sanidad.herokuapp.com/'
+} else {
 var contenidoDespegable = true;
 var contenidoDespegableHoras = true;
-
 function volverAPedir(){
 	
 	contenidoDespegableHoras = true;
@@ -11,7 +14,7 @@ function volverAPedir(){
 		  }
 	
 }
-
+}
 
 function obtenerHoras() {
 	
@@ -23,7 +26,7 @@ function obtenerHoras() {
 	
 	
 	if(contenidoDespegableHoras == true){
-	var recurso = "http://localhost:8080/getHoras";
+	var recurso = "https://app-sanidad.herokuapp.com/getHoras";
     var data = {
     	dniPaciente : JSON.parse(sessionStorage.getItem("data")),
     	especialidad : document.getElementById("especialidad").value,
@@ -88,7 +91,7 @@ function mostrarEspecializaciones(){
 	
 	
 	if(contenidoDespegable == true){
-    var recurso = "http://localhost:8080/consultarEspecialdiadPaciente";
+    var recurso = "https://app-sanidad.herokuapp.com/consultarEspecialdiadPaciente";
         var data = {
         		dniPaciente : JSON.parse(sessionStorage.getItem("data")),
         };
@@ -160,7 +163,7 @@ function pedirCita() {
   fecha=fecha.replace("T"," ");
   fecha=fecha.replace("-","/");
   fecha=fecha.replace("-","/");
-    var recurso = "http://localhost:8080/citas";
+    var recurso = "https://app-sanidad.herokuapp.com/citas";
         var data = {
             type: "cita",
             dniPaciente: DNI,
@@ -184,7 +187,7 @@ function pedirCita() {
             console.log(data.type);
             if (data.type == "OK") {
               
-                setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
+                setTimeout(location.href = 'https://app-sanidad.herokuapp.com/paciente', 10000);
 
             } else {
                 if (data.type="error") {

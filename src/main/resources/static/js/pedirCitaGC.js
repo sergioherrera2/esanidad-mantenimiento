@@ -1,9 +1,13 @@
+if(sessionStorage.getItem("data") == null){
+	alert("no tienes acceso a esta vista");
+	location.href = 'https://app-sanidad.herokuapp.com/'
+} else {
 var contenidoDespegable = true;
 var contenidoDespegableHoras = true;
 
 var inputDNI = document.getElementById("dni").value = JSON.parse(sessionStorage
 		.getItem("dniPacienteGC"));
-
+}
 function volverAPedir() {
 
 	contenidoDespegableHoras = true;
@@ -58,7 +62,7 @@ function mostrarEspecializaciones() {
 		
 		}
 		
-		var recurso = "http://localhost:8080/consultarEspecialdiadPaciente";
+		var recurso = "https://app-sanidad.herokuapp.com/consultarEspecialdiadPaciente";
 		var selectEspecializacion = document.getElementById("especialidad");
 		var data = {
 			dniPaciente : document.getElementById("dni").value,
@@ -133,7 +137,7 @@ function mostrarHora() {
 	Fecha = Fecha.replace("-", "/");
 
 	if (contenidoDespegableHoras == true) {
-		var recurso = "http://localhost:8080/getHoras";
+		var recurso = "https://app-sanidad.herokuapp.com/getHoras";
 		var data = {
 			dniPaciente : document.getElementById("dni").value,
 			especialidad : document.getElementById("especialidad").value,
@@ -194,7 +198,7 @@ function pedirCita() {
 	fecha = fecha.replace("T", " ");
 	fecha = fecha.replace("-", "/");
 	fecha = fecha.replace("-", "/");
-	var recurso = "http://localhost:8080/pedirCita";
+	var recurso = "https://app-sanidad.herokuapp.com/pedirCita";
 	var data = {
 		type : "cita",
 		dniPaciente : DNI,
@@ -222,7 +226,7 @@ function pedirCita() {
 								if (data.type == "OK") {
 									alert("OK: se ha procesado correctamente la petición de creación de la cita.");
 									setTimeout(
-											location.href = 'http://localhost:8080/gestorCitas',
+											location.href = 'https://app-sanidad.herokuapp.com/gestorCitas',
 											10000);
 
 								} else {
