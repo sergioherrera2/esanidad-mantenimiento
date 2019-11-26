@@ -615,6 +615,7 @@ public class Manager {
 				if(fechaInicioCita.isAfter(fechaFinCita) || fechaInicioCita.equals(fechaFinCita)) {
 					continuar = false;
 				}
+				
 			}
 		}
 		return lista;
