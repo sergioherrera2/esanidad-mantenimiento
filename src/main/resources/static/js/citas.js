@@ -163,6 +163,7 @@ function pedirCita() {
   fecha=fecha.replace("T"," ");
   fecha=fecha.replace("-","/");
   fecha=fecha.replace("-","/");
+  fecha=fecha+" "+document.getElementById("horaFecha").value+":00";
     var recurso = "https://app-sanidad.herokuapp.com/pedirCita";
         var data = {
             type: "cita",
