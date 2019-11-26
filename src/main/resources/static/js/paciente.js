@@ -106,6 +106,8 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 				+ datosDNIP[i] + '</td>' + '<td>' + datosES[i]
 				+ '</td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="eliminarCita(id);">' + 'Eliminar' + '</a></td>' + '<td><a id='+i+' href="javascript:void(0);" onclick="modificarCita(id);">' + 'Modificar' + '</a></td>' + '</tr>';
 	}
+	$("#tablaCabecera").append(cabecera);
+	$("#tablaCuerpo").append(cuerpo);
 }
 function cerrarSesion (){
 	sessionStorage.removeItem("data");
