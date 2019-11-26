@@ -609,7 +609,6 @@ public class Manager {
 				while(fechaInicioCita.isBefore(fechaFinCita)) {
 					lista.add(DateTimeFormatter.ofPattern("HH:mm").format(fechaInicioCita));
 					fechaInicioCita = fechaInicioCita.plusMinutes(duracion);
-					
 				}
 			}
 			for(int i = 0; i<citasMedico.size(); i++) {
