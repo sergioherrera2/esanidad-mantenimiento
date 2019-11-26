@@ -601,6 +601,13 @@ public class Manager {
 		List<String> lista = new ArrayList<String>();
 		boolean continuar = true;
 		while(continuar) {
+			if(citasMedico.size() == 0) {
+				continuar = false;
+				while(fechaInicioCita.isBefore(fechaFinCita)) {
+					lista.add(DateTimeFormatter.ofPattern("HH:mm").format(fechaInicioCita));
+					fechaInicioCita = fechaInicioCita.plusMinutes(duracion);
+				}
+			}
 			for(int i = 0; i<citasMedico.size(); i++) {
 				LocalDateTime fechaCita = citasMedico.get(i).getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 				LocalDateTime fechaCitaDuracion = fechaCita.plusMinutes(duracion);
