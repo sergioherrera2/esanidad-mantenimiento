@@ -383,6 +383,7 @@ public class WebController {
 		return respuesta;
 	}
 	
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	@PostMapping(value = "/getHoras")
 	public Map<String, Object> getHoras(@RequestBody Map<String, String> jso) throws Exception {
 		String especialidad = jso.get("especialidad");
