@@ -156,11 +156,12 @@ function pedirCita() {
     var especialidad = document.getElementById("especialidad").value;
     var DNI = JSON.parse(sessionStorage.getItem("data"));
 
-  fecha =fecha.substring(8,10)+fecha.substring(4,8)+fecha.substring(0,4)+fecha.substring(10,fecha.length)+":00";
+  fecha =fecha.substring(8,10)+fecha.substring(4,8)+fecha.substring(0,4)+fecha.substring(10,fecha.length);
   fecha=fecha.replace("T"," ");
   fecha=fecha.replace("-","/");
   fecha=fecha.replace("-","/");
-    var recurso = "http://localhost:8080/citas";
+  fecha=fecha+document.getElementById("horaFecha");
+    var recurso = "http://localhost:8080/pedirCita";
         var data = {
             type: "cita",
             dniPaciente: DNI,
