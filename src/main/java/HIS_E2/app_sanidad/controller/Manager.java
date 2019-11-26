@@ -620,6 +620,7 @@ public class Manager {
 						lista.add(DateTimeFormatter.ofPattern("HH:mm").format(fechaInicioCita));
 					}
 				}
+				
 				fechaInicioCita = fechaInicioCita.plusMinutes(duracion);
 				fechaInicioDuracion = fechaInicioCita.plusMinutes(duracion);
 				if(fechaInicioCita.isAfter(fechaFinCita) || fechaInicioCita.equals(fechaFinCita)) {
