@@ -163,7 +163,7 @@ function pedirCita() {
   fecha=fecha.replace("T"," ");
   fecha=fecha.replace("-","/");
   fecha=fecha.replace("-","/");
-    var recurso = "https://app-sanidad.herokuapp.com/citas";
+    var recurso = "https://app-sanidad.herokuapp.com/pedirCita";
         var data = {
             type: "cita",
             dniPaciente: DNI,
@@ -180,6 +180,7 @@ function pedirCita() {
                     withCredentials: true
                 },
                 headers: {
+                    
                     'Content-Type': 'application/json'
                 },
             })
