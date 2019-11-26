@@ -611,6 +611,7 @@ public class Manager {
 					fechaInicioCita = fechaInicioCita.plusMinutes(duracion);
 				}
 			}
+			
 			for(int i = 0; i<citasMedico.size(); i++) {
 				LocalDateTime fechaCita = citasMedico.get(i).getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 				LocalDateTime fechaCitaDuracion = fechaCita.plusMinutes(duracion);
