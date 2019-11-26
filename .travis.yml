@@ -13,3 +13,4 @@ deploy:
     provider: heroku
     api_key:
         secure: 9416fe1c-ba23-4f9b-80fe-8e4973afbdc1
+    app: esanidad
