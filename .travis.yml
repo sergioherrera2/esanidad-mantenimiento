@@ -12,5 +12,5 @@ notifications:
 deploy:
     provider: heroku
     api_key:
-        secure: 9416fe1c-ba23-4f9b-80fe-8e4973afbdc1
+        secure: 204b5735-52d7-41a7-b6ac-fa2a80bf0b82
     app: esanidad
