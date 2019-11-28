@@ -82,7 +82,8 @@ function mostrarMedicos(datosDNI) {
 		};
 		data = JSON.stringify(data);
 		cuerpo_medico += '<tr>' + '<td>' + datosDNI[i] + '</td>'
-				+ '<td><a id='+ i +' href="javascript:void(0);" onclick="eliminarMedico(id);">' + 'Eliminar' + '</a></td>';
+				+ '<td><a id='+ i +' href="javascript:void(0);" onclick="eliminarMedico(id);">' + 'Eliminar' + '</a></td>'
+				+ '<td><a id='+i+' href="javascript:void(0);" onclick="modificarMedico(id);">' + 'Modificar' + '</a></td>' + '</tr>';
 	}
 	$("#tablaMedicoCuerpo").append(cuerpo_medico);
 }
