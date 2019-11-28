@@ -46,7 +46,7 @@ public class StepsdefsSprint4gestorCitas {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com");
+	    driver.get("https://esanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");

@@ -62,7 +62,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("https://esanidad.herokuapp.com/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -148,14 +148,14 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-user\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha\":\""+arg3+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/pedirCita")
+				  .url("https://esanidad.herokuapp.com/pedirCita")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
 				  .addHeader("Accept", "*/*")
 				  .addHeader("Cache-Control", "no-cache")
 				  .addHeader("Postman-Token", "026c8d66-5ccb-453f-b1b4-c6f351f126ee,ca3db196-6148-4d81-a889-94d79002afe4")
-				  .addHeader("Host", "app-sanidad.herokuapp.com")
+				  .addHeader("Host", "esanidad.herokuapp.com")
 				  .addHeader("Accept-Encoding", "gzip, deflate")
 				  .addHeader("Content-Length", "84")
 				  .addHeader("Connection", "keep-alive")
@@ -360,14 +360,14 @@ public void envío_petición_Post_con_todos_los_campos_de_modificar_cita_dni_use
 	RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fechaActual\": \""+arg3+"\",\"fechaModificar\":\""+arg4+"\"}");
 	 
 	 request = new Request.Builder()
-			  .url("https://app-sanidad.herokuapp.com/modificarCita")
+			  .url("https://esanidad.herokuapp.com/modificarCita")
 			  .post(body)
 			  .addHeader("Content-Type", "application/json")
 			  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
 			  .addHeader("Accept", "*/*")
 			  .addHeader("Cache-Control", "no-cache")
 			  .addHeader("Postman-Token", "026c8d66-5ccb-453f-b1b4-c6f351f126ee,ca3db196-6148-4d81-a889-94d79002afe4")
-			  .addHeader("Host", "app-sanidad.herokuapp.com")
+			  .addHeader("Host", "esanidad.herokuapp.com")
 			  .addHeader("Accept-Encoding", "gzip, deflate")
 			  .addHeader("Content-Length", "84")
 			  .addHeader("Connection", "keep-alive")
@@ -434,14 +434,14 @@ public void se_elmina_correctamente_la_cita_dni_user_especialidad_fecha_Result(S
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-user\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha\":\""+arg3+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/modificarCita")
+				  .url("https://esanidad.herokuapp.com/modificarCita")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
 				  .addHeader("Accept", "*/*")
 				  .addHeader("Cache-Control", "no-cache")
 				  .addHeader("Postman-Token", "026c8d66-5ccb-453f-b1b4-c6f351f126ee,ca3db196-6148-4d81-a889-94d79002afe4")
-				  .addHeader("Host", "app-sanidad.herokuapp.com")
+				  .addHeader("Host", "esanidad.herokuapp.com")
 				  .addHeader("Accept-Encoding", "gzip, deflate")
 				  .addHeader("Content-Length", "84")
 				  .addHeader("Connection", "keep-alive")

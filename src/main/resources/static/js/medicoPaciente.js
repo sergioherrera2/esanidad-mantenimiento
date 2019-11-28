@@ -2,7 +2,7 @@ function crearMedicoPaciente() {
     var medico = document.getElementById("dniMedico").value;
     var paciente = document.getElementById("dniPaciente").value;
 
-    var recurso = "https://app-sanidad.herokuapp.com/crearMedicoPaciente";
+    var recurso = "https://esanidad.herokuapp.com/crearMedicoPaciente";
     var data = {
         type: "medico-paciente",
         dniMedico: medico,
@@ -24,7 +24,7 @@ function crearMedicoPaciente() {
         console.log(data.type);
         console.log(data.message);
         if (data.type == "OK") {
-            setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
+            setTimeout(location.href = 'https://esanidad.herokuapp.com/gestor', 10000);
         } else {
             if (data.type="error") {
                 alert("Error al crear la relación médico-paciente, contacte con el servicio de soporte.");
@@ -35,5 +35,5 @@ function crearMedicoPaciente() {
 
 function cerrarSesion (){
     sessionStorage.removeItem("data");
-    setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+    setTimeout(location.href = 'https://esanidad.herokuapp.com/', 10000);
 }

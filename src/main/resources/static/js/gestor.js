@@ -1,9 +1,9 @@
 if(sessionStorage.getItem("data") == null){
 	alert("no tienes acceso a esta vista");
-	location.href = 'https://app-sanidad.herokuapp.com/'
+	location.href = 'https://esanidad.herokuapp.com/'
 } else {
 var DNI = JSON.parse(sessionStorage.getItem("data"));
-var recurso = "https://app-sanidad.herokuapp.com/consultaEspecialidades";
+var recurso = "https://esanidad.herokuapp.com/consultaEspecialidades";
 var datosNombre = [];
 var datosDuracion = [];
 var datosHoraInicio = [];
@@ -47,7 +47,7 @@ function mostrarEspecialidades(datosNombre, datosDuracion, datosHoraInicio, dato
 	$("#tablaEspecialidadCuerpo").append(cuerpo_especialidades);
 }
 
-var recurso = "https://app-sanidad.herokuapp.com/listaMedicos";
+var recurso = "https://esanidad.herokuapp.com/listaMedicos";
 var datosDNI = [];
 
 var data = {
@@ -88,7 +88,7 @@ function mostrarMedicos(datosDNI) {
 }
 
 function eliminarEspecialidad(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/eliminarEspecialidad";
+	var recurso = "https://esanidad.herokuapp.com/eliminarEspecialidad";
 	var data = {
 		nombreEspecialidad: datosNombre[id]
 	}
@@ -107,13 +107,13 @@ function eliminarEspecialidad(id) {
 		if (data.type == "OK") {
 			console.log(data);
 			console.log("especialidad eliminada");
-			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
+			setTimeout(location.href = 'https://esanidad.herokuapp.com/gestor', 10000);
 		}
 	}), 10000);
 }
 
 function eliminarMedico(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/eliminarMedico";
+	var recurso = "https://esanidad.herokuapp.com/eliminarMedico";
 	var data = {
 		dni: datosDNI[id]
 	}
@@ -132,7 +132,7 @@ function eliminarMedico(id) {
 		if (data.type == "OK") {
 			console.log(data);
 			console.log("médico eliminado");
-			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
+			setTimeout(location.href = 'https://esanidad.herokuapp.com/gestor', 10000);
 		}
 	}), 10000);
 }
@@ -142,10 +142,10 @@ function modificarEspecialidad(id){
 	sessionStorage.setItem("tiempo", JSON.stringify(datosDuracion[id]));
 	sessionStorage.setItem("inicio", JSON.stringify(datosHoraInicio[id]));
 	sessionStorage.setItem("fin", JSON.stringify(datosHoraFin[id]));
-	location.href = 'https://app-sanidad.herokuapp.com/modificarEspecialidad'
+	location.href = 'https://esanidad.herokuapp.com/modificarEspecialidad'
 }
 
 function cerrarSesion (){
 	sessionStorage.removeItem("data");
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+	setTimeout(location.href = 'https://esanidad.herokuapp.com/', 10000);
 }

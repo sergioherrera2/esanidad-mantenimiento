@@ -1,6 +1,6 @@
 if(sessionStorage.getItem("data") == null){
 	alert("no tienes acceso a esta vista");
-	location.href = 'https://app-sanidad.herokuapp.com/'
+	location.href = 'https://esanidad.herokuapp.com/'
 } else {
 var tiempo = JSON.parse(sessionStorage.getItem("tiempo"));
 var inicio = JSON.parse(sessionStorage.getItem("inicio"));
@@ -18,7 +18,7 @@ function modificarEspecialidad (){
 	var fin = JSON.parse(sessionStorage.getItem("fin"));
 	var horaFinNew = document.getElementById("horaFin").value;
 
-	var recurso = "https://app-sanidad.herokuapp.com/modificarEspecialidad";
+	var recurso = "https://esanidad.herokuapp.com/modificarEspecialidad";
 	var data = {
 		type: "modificar especialidad",
 		nombreEspecialidad: nombre,
@@ -44,7 +44,7 @@ function modificarEspecialidad (){
 	.done(function(data, textStatus, jqXHR) {
 		console.log(data.type);
 		if (data.type == "OK") {
-			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
+			setTimeout(location.href = 'https://esanidad.herokuapp.com/gestor', 10000);
 			sessionStorage.removeItem("tiempo");
 			sessionStorage.removeItem("inicio");
 			sessionStorage.removeItem("fin");

@@ -3,7 +3,7 @@ function crearEspecialidad() {
   var tiempo = document.getElementById("tiempoCita").value;
   var inicio = document.getElementById("horaInicio").value;
   var fin = document.getElementById("horaFin").value;
-  var recurso = "https://app-sanidad.herokuapp.com/crearEspecialidad";
+  var recurso = "https://esanidad.herokuapp.com/crearEspecialidad";
   var data = {
       type: "especialidad",
       nombreEspecialidad: nombre,
@@ -31,7 +31,7 @@ function crearEspecialidad() {
     console.log(data.type);
     console.log(data.message);
     if (data.type == "OK") {
-        setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestor', 10000);
+        setTimeout(location.href = 'https://esanidad.herokuapp.com/gestor', 10000);
     } else {
         if (data.type="error") {
             alert("Error al crear la especialidad, contacte con el servicio de soporte.");
@@ -42,5 +42,5 @@ function crearEspecialidad() {
 
 function cerrarSesion (){
     sessionStorage.removeItem("data");
-    setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+    setTimeout(location.href = 'https://esanidad.herokuapp.com/', 10000);
 }

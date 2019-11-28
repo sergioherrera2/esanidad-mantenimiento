@@ -65,7 +65,7 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("https://esanidad.herokuapp.com/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -106,10 +106,10 @@ public class StepsdefsSprint3Register extends JunitTests2{
 	}
 		if(arg1.equals("OK")) {
 			String new_url = driver.getCurrentUrl();
-			 assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/")); 
+			 assertTrue(new_url.equals("https://esanidad.herokuapp.com/")); 
 		}else {
 			String new_url = driver.getCurrentUrl();
-			 assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/register")); 
+			 assertTrue(new_url.equals("https://esanidad.herokuapp.com/register")); 
 		}                               
 		
 		
@@ -147,14 +147,14 @@ public class StepsdefsSprint3Register extends JunitTests2{
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"nombre\":\""+arg2+"\",\"apellidos\":\""+arg3+"\",\"pass\":\""+arg4+"\",\"numSS\":\""+arg5+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/register")
+				  .url("https://esanidad.herokuapp.com/register")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
 				  .addHeader("Accept", "*/*")
 				  .addHeader("Cache-Control", "no-cache")
 				  .addHeader("Postman-Token", "026c8d66-5ccb-453f-b1b4-c6f351f126ee,ca3db196-6148-4d81-a889-94d79002afe4")
-				  .addHeader("Host", "app-sanidad.herokuapp.com")
+				  .addHeader("Host", "esanidad.herokuapp.com")
 				  .addHeader("Accept-Encoding", "gzip, deflate")
 				  .addHeader("Content-Length", "84")
 				  .addHeader("Connection", "keep-alive")

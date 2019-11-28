@@ -1,6 +1,6 @@
 if(sessionStorage.getItem("data") == null){
 	alert("no tienes acceso a esta vista");
-	location.href = 'https://app-sanidad.herokuapp.com/'
+	location.href = 'https://esanidad.herokuapp.com/'
 } else {
 var datosDNIP = [];
 var datosES = [];
@@ -61,7 +61,7 @@ function mostrarBtnBuscar(){
 	datosF = [];
 	
 	mostrarContenido(datosDNIP,datosES,datosF);
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestorCitas', 10000);
+	setTimeout(location.href = 'https://esanidad.herokuapp.com/gestorCitas', 10000);
 }
 
 function mostrarCitas(){
@@ -70,7 +70,7 @@ function mostrarCitas(){
 var cargarCitas = JSON.parse(sessionStorage.getItem("dniPacienteGC"));
 
 var DNI = document.getElementById("dni").value;
-var recurso = "https://app-sanidad.herokuapp.com/citasPaciente";
+var recurso = "https://esanidad.herokuapp.com/citasPaciente";
 
 var data = {
 	dni : DNI,
@@ -107,7 +107,7 @@ setTimeout($.ajax({
 
 }
 function eliminarCita(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
+	var recurso = "https://esanidad.herokuapp.com/anularCita";
 	var data = {
 		dniPaciente : datosDNIP[id],
 		especialidad : datosES[id],
@@ -129,7 +129,7 @@ function eliminarCita(id) {
 			console.log("eliminar");
 			console.log(data);
 			alert("OK: se ha procesado correctamente la petición de eliminación de la cita.");
-			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/gestorCitas', 10000);
+			setTimeout(location.href = 'https://esanidad.herokuapp.com/gestorCitas', 10000);
 		}
 		else{
 			
@@ -145,12 +145,12 @@ function modificarCita(id){
 	sessionStorage.setItem("fechaPacienteGC", JSON.stringify(datosF[id]));
 	sessionStorage.setItem("dniPacienteGC", JSON.stringify(datosDNIP[id]));
 	sessionStorage.setItem("especialidadPacienteGC", JSON.stringify(datosES[id]));
-	location.href = 'https://app-sanidad.herokuapp.com/modificarCitaGC';
+	location.href = 'https://esanidad.herokuapp.com/modificarCitaGC';
 }
 
 function mostrarContenido(datosDNIP,datosES,datosF) {
 	var cuerpo = "";
-	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
+	var recurso = "https://esanidad.herokuapp.com/anularCita";
 
 	var cabecera = '<tr>' + '<th>FECHA</th>' + '<th>DNI PACIENTE</th>'
 			+ '<th>ESPECIALIDAD</th>' + '</tr>';
@@ -172,7 +172,7 @@ function mostrarContenido(datosDNIP,datosES,datosF) {
 function cerrarSesion (){
 	
 	sessionStorage.removeItem("dniPacienteGC");
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+	setTimeout(location.href = 'https://esanidad.herokuapp.com/', 10000);
 	
 }
 

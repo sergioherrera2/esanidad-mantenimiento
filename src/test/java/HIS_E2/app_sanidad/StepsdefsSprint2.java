@@ -53,7 +53,7 @@ public class StepsdefsSprint2 {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("https://esanidad.herokuapp.com/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -65,7 +65,7 @@ public class StepsdefsSprint2 {
 	    }
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    String new_url = driver.getCurrentUrl();
-	    assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/register")); 
+	    assertTrue(new_url.equals("https://esanidad.herokuapp.com/register")); 
 		
 	}
 	@When("^Relleno todos los campos Nombre (.*),Apellidos (.*) DNI (.*) NumeroSS (.*)  Password (.*), Repetir_password (.*)$")
@@ -147,7 +147,7 @@ public class StepsdefsSprint2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"nombre\":\"Antonio\",\"apellidos\": \"Pulido Hernández\",\"pass\":\"1234\",\"numSS\":\"123456789012\"}");
 		 request = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/register")
+		  .url("http://esanidad.herokuapp.com/register")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")

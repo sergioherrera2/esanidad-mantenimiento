@@ -40,7 +40,7 @@ public class StepsdefsSprint2Login {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"contrasenia\":\"1234\"}");
 		     request = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/")
+		  .url("http://esanidad.herokuapp.com/")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -106,7 +106,7 @@ public class StepsdefsSprint2Login {
 			    driver = new FirefoxDriver();		
 			    driver.manage().window().maximize();
 			    
-		    driver.get("http://app-sanidad.herokuapp.com");
+		    driver.get("http://esanidad.herokuapp.com");
 		    }catch(Exception e) {
 		    	driver.quit();
 		    	fail("No se puede conectar a la aplicacion");

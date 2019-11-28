@@ -120,7 +120,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearMedicoPaciente")
+		  .url("https://esanidad.herokuapp.com/crearMedicoPaciente")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -154,7 +154,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarPacienteMedico")
+		  .url("https://esanidad.herokuapp.com/eliminarPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -206,7 +206,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni_paciente\":\"\",\"dni_medico\":\"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearPacienteMedico")
+		  .url("https://esanidad.herokuapp.com/crearPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -244,7 +244,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com");
+	    driver.get("https://esanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
