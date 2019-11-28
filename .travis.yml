@@ -1,6 +1,7 @@
 language: java
 script:
 - chmod 777 ./src/test/resources/HIS_E2/app_sanidad/geckodriver
+- mvn clean
 - mvn test
 dist: xenial
 services:
