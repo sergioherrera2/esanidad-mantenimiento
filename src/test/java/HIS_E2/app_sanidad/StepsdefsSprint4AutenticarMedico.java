@@ -78,7 +78,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"pass\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/autenticar")
+		  .url("http://localhost:8080/autenticar")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")

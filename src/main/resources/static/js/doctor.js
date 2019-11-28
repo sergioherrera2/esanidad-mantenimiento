@@ -1,6 +1,6 @@
 if(sessionStorage.getItem("data") == null){
 	alert("no tienes acceso a esta vista");
-	location.href = 'https://app-sanidad.herokuapp.com/'
+	location.href = 'http://localhost:8080/'
 } else {
 var datosDNIP = [];
 	var datosES = [];
@@ -15,7 +15,7 @@ var datosDNIP = [];
 
 function obtenerCitaPaciente(){
 var DNI = JSON.parse(sessionStorage.getItem("dniDoctor"));
-var recurso = "https://app-sanidad.herokuapp.com/getCitas";
+var recurso = "http://localhost:8080/getCitas";
 var año = (document.getElementById("fecha").value).substr(0,4);
 var mes = (document.getElementById("fecha").value).substr(5,2);
 var dia = (document.getElementById("fecha").value).substr(8,2);
@@ -61,11 +61,11 @@ setTimeout($.ajax({
 
 function cambioRolPaciente(){
 	alert("Esta cambiando el rol a Paciente...");
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/paciente', 10000);
+	setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
 }
 
 function eliminarCita(id) {
-	var recurso = "https://app-sanidad.herokuapp.com/anularCita";
+	var recurso = "http://localhost:8080/anularCita";
 	var data = {
 		dniPaciente : datosDNIP[id],
 		especialidad : datosES[id],
@@ -86,7 +86,7 @@ function eliminarCita(id) {
 		if (data.type == "OK") {
 			console.log("eliminar");
 			console.log(data);
-			setTimeout(location.href = 'https://app-sanidad.herokuapp.com/eliminarCP', 10000);
+			setTimeout(location.href = 'http://localhost:8080/eliminarCP', 10000);
 		}
 	}), 10000);
 }
@@ -118,6 +118,6 @@ function cerrarSesion (){
 	
 	sessionStorage.removeItem("dniDoctor");
 	sessionStorage.removeItem("especialidadMedico");
-	setTimeout(location.href = 'https://app-sanidad.herokuapp.com/', 10000);
+	setTimeout(location.href = 'http://localhost:8080/', 10000);
 	
 }

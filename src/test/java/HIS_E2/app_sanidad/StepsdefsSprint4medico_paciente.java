@@ -120,7 +120,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearMedicoPaciente")
+		  .url("http://localhost:8080/crearMedicoPaciente")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -154,7 +154,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"dniMedico\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarPacienteMedico")
+		  .url("http://localhost:8080/eliminarPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -206,7 +206,7 @@ public class StepsdefsSprint4medico_paciente extends JunitTests2 {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni_paciente\":\"\",\"dni_medico\":\"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearPacienteMedico")
+		  .url("http://localhost:8080/crearPacienteMedico")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")

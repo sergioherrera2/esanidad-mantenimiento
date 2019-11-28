@@ -64,7 +64,7 @@ public class Stepdefs {
 	       driver.findElement(By.name("btnLogin")).click();
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       String new_url = driver.getCurrentUrl();
-	       assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/citas"));
+	       assertTrue(new_url.equals("http://localhost:8080/citas"));
 	       driver.quit();
 	}
 	
@@ -104,7 +104,7 @@ public class Stepdefs {
 			driver.findElement(By.name("btnLogin")).click();
 			 driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		       String new_url = driver.getCurrentUrl();
-		       assertFalse(new_url.equals("https://app-sanidad.herokuapp.com/citas"));
+		       assertFalse(new_url.equals("http://localhost:8080/citas"));
 		}catch(UnhandledAlertException f) {
 			driver.quit();
 			

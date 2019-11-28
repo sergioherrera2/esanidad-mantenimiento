@@ -62,7 +62,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("http://localhost:8080/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -148,7 +148,7 @@ public class StepsdefsSprint3Citas extends JunitTests2{
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-user\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha\":\""+arg3+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/pedirCita")
+				  .url("http://localhost:8080/pedirCita")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
@@ -360,7 +360,7 @@ public void envío_petición_Post_con_todos_los_campos_de_modificar_cita_dni_use
 	RequestBody body = RequestBody.create(mediaType, "{\"dniPaciente\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fechaActual\": \""+arg3+"\",\"fechaModificar\":\""+arg4+"\"}");
 	 
 	 request = new Request.Builder()
-			  .url("https://app-sanidad.herokuapp.com/modificarCita")
+			  .url("http://localhost:8080/modificarCita")
 			  .post(body)
 			  .addHeader("Content-Type", "application/json")
 			  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
@@ -434,7 +434,7 @@ public void se_elmina_correctamente_la_cita_dni_user_especialidad_fecha_Result(S
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-user\":\""+arg1+"\",\"especialidad\":\""+arg2+"\",\"fecha\":\""+arg3+"\"}");
 		 
 		 request = new Request.Builder()
-				  .url("https://app-sanidad.herokuapp.com/modificarCita")
+				  .url("http://localhost:8080/modificarCita")
 				  .post(body)
 				  .addHeader("Content-Type", "application/json")
 				  .addHeader("User-Agent", "PostmanRuntime/7.19.0")
