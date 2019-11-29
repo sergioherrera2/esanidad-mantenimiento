@@ -8,7 +8,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -512,14 +515,13 @@ public class Manager {
 	 * @return la lista de dnis de medicos.
 	 * @throws Exception.
 	 */
-	public List<String> listaMedicos() throws Exception {
-		List<Medico> medicos = medicoRepo.findAll();
-		List<String> dnis = new ArrayList<String>();
-		for(int i = 0; i < medicos.size(); i++) {
-			dnis.add(Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getDni())));
-		}
-		return dnis;
-	}
+  public List<Medico> listaMedicos() throws Exception {
+    
+    List<Medico> medicos = medicoRepo.findAll();
+  
+    
+    return medicos;
+  }
 	
 	/**
 	 * Crea una relacion medico-paciente.

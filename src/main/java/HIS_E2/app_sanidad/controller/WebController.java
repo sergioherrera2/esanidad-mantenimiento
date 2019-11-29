@@ -1,6 +1,7 @@
 package HIS_E2.app_sanidad.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Medico;
@@ -339,13 +341,17 @@ public class WebController {
 	 */
 	@PostMapping(value = "/listaMedicos")
 	public Map<String, Object> listaMedicos(@RequestBody Map<String, String> jso) throws Exception {
-		List<String> lista = Manager.get().listaMedicos();
+		List<Medico> medicos = Manager.get().listaMedicos();
 		Map<String, Object> respuesta = new HashMap<String, Object>();
 		respuesta.put("type", "OK");
-		respuesta.put("numero", lista.size());
-		for(int i = 0; i < lista.size(); i++) {
-			respuesta.put("dni"+i, lista.get(i));
-		}
+		respuesta.put("numero", medicos.size());
+    for(int i = 0; i < medicos.size(); i++) {
+      respuesta.put("dni"+i,Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getDni())));
+      respuesta.put("nombre"+i,Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getNombre())));
+      //respuesta.put("especialidad"+i,Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getIdEspecialidad())));
+      
+    }
+    
 		return respuesta;
 	}
 	

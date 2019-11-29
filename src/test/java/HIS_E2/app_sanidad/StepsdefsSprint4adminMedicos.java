@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
@@ -36,7 +37,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 	private String medico_dni;
 	private String medico_especialidad;
 	private Medico medico;
-	private List<String> medicosDNIs;
+	private List<Medico> medicosDNIs;
 	@Autowired
 	private MedicoRepository medicoRepo;
 	private Usuario user_admin = new Usuario();
@@ -222,7 +223,7 @@ public class StepsdefsSprint4adminMedicos extends JunitTests2{
 	@When("^pido lista de médicos web$")
 	public void pido_lista_de_médicos_web() {
 		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"especialidad\":\"Podología\"}");
+		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"nombre\":\"Hector Cespedes\",\"especialidad\":\"Podología\"}");
 		 request = new Request.Builder()
 		  .url("http://localhost:8080/listaMedicos")
 		  .post(body)
