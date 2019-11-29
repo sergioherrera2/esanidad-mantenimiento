@@ -15,10 +15,10 @@ Then borro la especialidad nombre "<nombre>",duracion "<duracion_mod>",hora inic
 
  
 Examples:
-	|nombre         | duracion     |hora_inicio| hora_final        | duracion_mod     |hora_inicio_mod| hora_final_mod   |response             |
-	| Podología     |   15         |  9:00     | 14:00             | 10               |10:00          | 15:00            | OK                  |
-	| Podología     |   15         |  9:00     | 14:00             | -1               |9:00           | 14:00            | Error               |
-	| Podología     |   15         |  9:00     | 14:00             | 0                |9:00           | 14:00            | Error               |
+	|nombre        	  | duracion     |hora_inicio| hora_final        | duracion_mod     |hora_inicio_mod| hora_final_mod   |response             |
+	| Psiquiatría     |   15         |  9:00     | 14:00             | 10               |10:00          | 15:00            | OK                  |
+	| Psiquiatría     |   15         |  9:00     | 14:00             | -1               |9:00           | 14:00            | Error               |
+	| Psiquiatría     |   15         |  9:00     | 14:00             | 0                |9:00           | 14:00            | Error               |
 #	| Podología     |   15         |  9:00     | 14:00             | 15               |9:00           | 14:00            | Error               |
 #	| Podología     |   15         |  9:00     | 14:00             | 15               |9:00           | 14:00            | Error               |
 #	| Podología     |   15         |  9:00     | 14:00             | 15               |9:00           | 14:00            | Error               |

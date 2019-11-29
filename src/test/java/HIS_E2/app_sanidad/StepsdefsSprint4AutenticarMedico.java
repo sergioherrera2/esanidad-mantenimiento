@@ -78,7 +78,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"pass\":\""+arg2+"\"}");
 		 request = new Request.Builder()
-		  .url("http://localhost:8080/autenticar")
+		  .url("https://esanidad.herokuapp.com/autenticar")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -133,7 +133,7 @@ public class StepsdefsSprint4AutenticarMedico extends JunitTests2{
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com");
+	    driver.get("https://esanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
