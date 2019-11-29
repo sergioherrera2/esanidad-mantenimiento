@@ -53,7 +53,7 @@ public class StepsdefsSprint2 {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com/register");
+	    driver.get("http://localhost:8080/register");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -65,7 +65,7 @@ public class StepsdefsSprint2 {
 	    }
 	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    String new_url = driver.getCurrentUrl();
-	    assertTrue(new_url.equals("https://app-sanidad.herokuapp.com/register")); 
+	    assertTrue(new_url.equals("http://localhost:8080/register")); 
 		
 	}
 	@When("^Relleno todos los campos Nombre (.*),Apellidos (.*) DNI (.*) NumeroSS (.*)  Password (.*), Repetir_password (.*)$")

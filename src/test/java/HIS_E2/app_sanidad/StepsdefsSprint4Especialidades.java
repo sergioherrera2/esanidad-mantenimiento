@@ -156,7 +156,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"tiempoCita\":\""+arg2+"\",\"horaInicio\":\""+arg3+"\",\"horaFin\":\""+arg4+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/crearEspecialidad")
+		  .url("http://localhost:8080/crearEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -309,7 +309,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"tiempoCita\":\""+arg2+"\",\"horaInicio\":\""+arg3+"\",\"horaFin\":\""+arg4+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/eliminarEspecialidad")
+		  .url("http://localhost:8080/eliminarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -360,7 +360,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni-admin\":\""+arg1+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/consultaEspecialidades")
+		  .url("http://localhost:8080/consultaEspecialidades")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -420,7 +420,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"duracionOld\":\""+arg2+"\",\"horaInicioOld\":\""+arg3+"\",\"horaFinOld\":\""+arg4+"\",\"N_duracion\":\""+arg5+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/modificarEspecialidad")
+		  .url("http://localhost:8080/modificarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -517,7 +517,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		RequestBody body = RequestBody.create(mediaType, "{\"nombreEspecialidad\":\""+arg1+"\",\"duracionOld\":\""+arg2+"\",\"horaInicioOld\":\""+arg3+"\",\"horaFinOld\":\""+arg4+"\",\"duracionNew\":"
 				+ "\""+arg5+"\",\"horaInicioNew\":\""+arg6+"\",\"horaFinNew\":\""+arg7+"\"}");
 		 request = new Request.Builder()
-		  .url("https://app-sanidad.herokuapp.com/modificarEspecialidad")
+		  .url("http://localhost:8080/modificarEspecialidad")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
