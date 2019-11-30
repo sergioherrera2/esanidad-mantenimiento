@@ -11,7 +11,7 @@ public class Usuario {
   String nombre;
   String apellidos;
   String contrs;
-  Centro centroSalud;
+  String centroSalud;
 
   public Usuario(String dni, String nombre, String apellidos, String contrs) throws Exception {
     super();
@@ -57,11 +57,11 @@ public class Usuario {
     this.contrs = contrs;
   }
 
-  public Centro getCentroSalud() {
+  public String getCentroSalud() {
     return centroSalud;
   }
 
-  public void setCentroSalud(Centro centroSalud) {
+  public void setCentroSalud(String centroSalud) {
     this.centroSalud = centroSalud;
   }
 

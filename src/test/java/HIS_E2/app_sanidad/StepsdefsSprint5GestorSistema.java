@@ -47,7 +47,7 @@ public class StepsdefsSprint5GestorSistema {
 
   @When("^asigno el centro \"([^\"]*)\"$")
   public void asigno_el_centro(String arg1) {
-    medico.setCentroSalud(centro);
+    medico.setCentroSalud(centro.getNombre());
 
     try {
       Manager.get().eliminarMedico(medico.getDni());

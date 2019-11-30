@@ -8,9 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -696,7 +694,7 @@ public class Manager {
     return centro;
   }
 
-  public Medico crearMedico(String dni, String idEspecialidad, Centro centroSalud) throws Exception {
+  public Medico crearMedico(String dni, String idEspecialidad, String centro) throws Exception {
     Usuario user = userRepo.findByDni(Cifrador.cifrar(dni));
     if (user == null) {
       throw new Exception("El medico debe estar registrado como usuario");
@@ -707,7 +705,7 @@ public class Manager {
     Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()),
         Cifrador.descifrar(user.getApellidos()), user.getContrs(), idEspecialidad);
     medico.setContrs(user.getContrs());
-    medico.setCentroSalud(centroSalud);
+    medico.setCentroSalud(centro);
     medicoRepo.insert(medico);
     return medico;
 
