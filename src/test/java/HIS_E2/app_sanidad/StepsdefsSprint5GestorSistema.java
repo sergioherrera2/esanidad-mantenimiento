@@ -1,6 +1,8 @@
 package HIS_E2.app_sanidad;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +29,7 @@ public class StepsdefsSprint5GestorSistema {
       Medico test = new Medico("71360861A", "Sergio", "Herrera Piqueras", "123456", "Traumatólogo");
       Manager.get().crearMedico(test.getDni(), test.getIdEspecialidad());
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      fail("Debería haberse creado el médico con los datos de prueba");
       e.printStackTrace();
     }
   }
@@ -37,7 +39,7 @@ public class StepsdefsSprint5GestorSistema {
     try {
       medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      fail("No se ha encontrado el médico");
       e.printStackTrace();
     }
 
@@ -50,14 +52,14 @@ public class StepsdefsSprint5GestorSistema {
     try {
       Manager.get().eliminarMedico(medico.getDni());
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      fail("Fallo actualizando el centro del médico: debería borrarse el médico antiguo");
       e.printStackTrace();
     }
 
     try {
       Manager.get().crearMedico(medico.getDni(), medico.getIdEspecialidad(), medico.getCentroSalud());
     } catch (Exception e1) {
-      // TODO Auto-generated catch block
+      fail("Debería haberse creado el médico");
       e1.printStackTrace();
     }
 
@@ -66,11 +68,12 @@ public class StepsdefsSprint5GestorSistema {
   @Then("^el médico se ha guardado con dni \"([^\"]*)\", centro \"([^\"]*)\"$")
   public void el_médico_se_ha_guardado_con_dni_centro(String arg1, String arg2) {
     Medico medico2 = medicoRepo.findByDni(medico.getDni());
-    assertNotEquals(medico2.getCentroSalud(), null);
+    //assertNotEquals(medico2.getCentroSalud(), null);
+    assertTrue(medico2.getCentroSalud() != null);
     try {
       Manager.get().eliminarMedico(medico2.getDni());
     } catch (Exception e) {
-      // TODO Auto-generated catch block
+      fail("Debería haberse borrado el médico de prueba");
       e.printStackTrace();
     }
   }
