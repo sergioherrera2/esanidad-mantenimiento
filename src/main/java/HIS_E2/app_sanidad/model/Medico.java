@@ -14,6 +14,10 @@ public class Medico extends Usuario {
     this.idEspecialidad = idEspecialidad;
   }
 
+  public Medico() {
+
+  }
+
   public String getIdEspecialidad() {
     return idEspecialidad;
   }

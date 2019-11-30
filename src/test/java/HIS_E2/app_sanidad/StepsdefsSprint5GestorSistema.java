@@ -19,8 +19,8 @@ public class StepsdefsSprint5GestorSistema {
 
   @Autowired
   MedicoRepository medicoRepo;
-  Centro centro;
-  Medico medico;
+  Centro centro = new Centro();
+  Medico medico = new Medico();
 
   @Given("^tengo un centro su nombre \"([^\"]*)\",localidad \"([^\"]*)\"$")
   public void tengo_un_centro_su_nombre_localidad(String nombreCentro, String localidadCentro) {
@@ -68,7 +68,7 @@ public class StepsdefsSprint5GestorSistema {
   @Then("^el médico se ha guardado con dni \"([^\"]*)\", centro \"([^\"]*)\"$")
   public void el_médico_se_ha_guardado_con_dni_centro(String arg1, String arg2) {
     Medico medico2 = medicoRepo.findByDni(medico.getDni());
-    //assertNotEquals(medico2.getCentroSalud(), null);
+    // assertNotEquals(medico2.getCentroSalud(), null);
     assertTrue(medico2.getCentroSalud() != null);
     try {
       Manager.get().eliminarMedico(medico2.getDni());
