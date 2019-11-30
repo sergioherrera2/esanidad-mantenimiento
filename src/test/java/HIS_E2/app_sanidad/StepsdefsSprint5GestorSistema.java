@@ -1,10 +1,7 @@
 package HIS_E2.app_sanidad;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import HIS_E2.app_sanidad.controller.Manager;
 import HIS_E2.app_sanidad.model.Centro;
@@ -17,7 +14,6 @@ import cucumber.api.java.en.When;
 
 public class StepsdefsSprint5GestorSistema {
 
-  @Autowired
   MedicoRepository medicoRepo;
   Centro centro = new Centro();
   Medico medico = new Medico();
@@ -26,8 +22,8 @@ public class StepsdefsSprint5GestorSistema {
   public void tengo_un_centro_su_nombre_localidad(String nombreCentro, String localidadCentro) {
     centro = Manager.get().consultarCentro(nombreCentro, localidadCentro);
     try {
-      Medico test = new Medico("71360861A", "Sergio", "Herrera Piqueras", "123456", "Traumatólogo");
-      Manager.get().crearMedico(test.getDni(), test.getIdEspecialidad());
+      Medico test = new Medico("71360861A", "Sergio", "Herrera Piqueras", "Sa123456", "Traumatólogo");
+      medico = Manager.get().crearMedico(test.getDni(), test.getIdEspecialidad());
     } catch (Exception e) {
       fail("Debería haberse creado el médico con los datos de prueba");
       e.printStackTrace();
