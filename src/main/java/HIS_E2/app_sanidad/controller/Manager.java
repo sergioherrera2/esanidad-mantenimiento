@@ -16,12 +16,14 @@ import org.springframework.stereotype.Service;
 import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
+import HIS_E2.app_sanidad.model.Horario;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
 import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
 import HIS_E2.app_sanidad.repositories.CitaRepository;
 import HIS_E2.app_sanidad.repositories.EspecialidadRepository;
+import HIS_E2.app_sanidad.repositories.HorarioRepository;
 import HIS_E2.app_sanidad.repositories.MedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteMedicoRepository;
 import HIS_E2.app_sanidad.repositories.PacienteRepository;
@@ -61,6 +63,11 @@ public class Manager {
 	 */
 	@Autowired
 	private EspecialidadRepository especialidadRepo;
+	 /**
+   * repositorio de horarios.
+   */
+  @Autowired
+  private HorarioRepository horarioRepo;
 	/**
 	 * repositorio de PacientesMedicos.
 	 */
@@ -469,6 +476,83 @@ public class Manager {
 		especialidadRepo.insert(esp);
 		return esp;
 	}
+	
+  /**
+   * Crea un horario con los datos dados y la inserta en la base de datos.
+   * @param dni.
+   * @param tiempoCita.
+   * @param horaInicio.
+   * @param horaFin.
+   * @return el horario insertado.
+   * @throws ParseException.
+   */
+  public Horario crearHorario(String dni, String tiempoCita, String horaInicio, String horaFin) throws Exception {
+    Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicio);
+    Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFin);
+    int tiempoCitaInt = Integer.parseInt(tiempoCita);
+    if(tiempoCitaInt <= 0 || tiempoCitaInt > 60) {
+      throw new Exception("La duracion de la cita de la especialidad debe ser mayor que 0 y menor o igual que 60");
+    }
+    Horario horario = new Horario(dni, tiempoCitaInt, horaInicioDate, horaFinDate);
+    if(horarioRepo.findCustomHorario(dni) != null) {
+      throw new Exception("Horario ya existente");
+    }
+    horarioRepo.insert(horario);
+    return horario;
+  }
+  
+  /**
+  * Elimina un horario dado un dni de medico.
+  * @param dni.
+  * @return el horario eliminado.
+  */
+ public Horario eliminarHorario(String dni) throws Exception{
+   Usuario user = userRepo.findByDni(Cifrador.cifrar(dni));
+   if(user == null) {
+     throw new Exception("El medico debe estar registrado como usuario");
+   }
+   Horario lista = horarioRepo.findCustomHorario(dni);
+   horarioRepo.delete(lista);
+   return lista;
+ }
+ 
+ 
+ /**
+ * Consulta las especialidades existentes.
+ * @return la lista con las especialidades encontradas.
+ */
+public List<Horario> consultarHorarios(){
+  List<Horario> lista = horarioRepo.findAll();
+  return lista;
+}
+  
+	 /**
+   * Modifica el horario con los valores New.
+   * @param dni.
+   * @param duracionOld.
+   * @param horaInicioOld.
+   * @param horaFinOld.
+   * @param duracionNew.
+   * @param horaInicioNew.
+   * @param horaFinNew.
+   * @return el horario modificado.
+   * @throws Exception.
+   */
+	
+	
+  public Horario modificarHorario(String dni, String duracionOld, String horaInicioOld, String horaFinOld, String duracionNew, String horaInicioNew, String horaFinNew) throws Exception {
+    Horario horario = horarioRepo.findCustomHorario(dni);
+    horarioRepo.delete(horario);
+    int duracionNewInt = Integer.parseInt(duracionNew);
+    Date horaInicioDate = new SimpleDateFormat("HH:mm").parse(horaInicioNew);
+    Date horaFinDate = new SimpleDateFormat("HH:mm").parse(horaFinNew);
+    if(duracionNewInt <= 0 || duracionNewInt > 60) {
+      throw new Exception("La duracion de la cita de la especialidad debe ser mayor que 0 y menor o igual que 60");
+    }
+    Horario hor = new Horario(dni, duracionNewInt, horaInicioDate, horaFinDate);
+    horarioRepo.insert(hor);
+    return hor;
+  }
 	
 	/**
 	 * Metodo para crear medico en el sistema.

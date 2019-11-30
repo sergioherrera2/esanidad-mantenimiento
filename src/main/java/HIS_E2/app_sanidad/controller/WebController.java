@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
+import HIS_E2.app_sanidad.model.Horario;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
@@ -297,6 +298,85 @@ public class WebController {
 		respuesta.put("resultado", new ObjectMapper().writeValueAsString(especialidad));
 		return respuesta;
 	}
+	
+	 /**
+   * Recibe peticiones POST de creacion de horario.
+   * @param jso
+   * @return el mensaje con el horario creada
+   * @throws Exception.
+   */
+  @PostMapping(value = "/crearHorario")
+  public Map<String, Object> crearHorario(@RequestBody Map<String, String> jso) throws Exception{
+    String dni = jso.get("dniMedico");
+    String tiempoCita = jso.get("tiempoCita");
+    String horaInicio = jso.get("horaInicio");
+    String horaFin = jso.get("horaFin");
+    Horario horario = Manager.get().crearHorario(dni, tiempoCita, horaInicio, horaFin);
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    respuesta.put("type", "OK");
+    respuesta.put("resultado", new ObjectMapper().writeValueAsString(horario));
+    return respuesta;
+  }
+  
+  /**
+   * Recibe peticiones POST de la eliminación de horario.
+   * @param jso.
+   * @return el mensaje con el horario creado.
+   * @throws Exception.
+   */
+  @PostMapping(value = "/eliminarHorario")
+  public Map<String, Object> eliminarHorario(@RequestBody Map<String, String> jso) throws Exception{
+    String dni = jso.get("dniMedico");
+    Horario horario = Manager.get().eliminarHorario(dni);
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    respuesta.put("type", "OK");
+    respuesta.put("resultado", new ObjectMapper().writeValueAsString(horario));
+    return respuesta;
+  }
+  
+  /**
+   * Recibe peticiones POST de consulta de horarios.
+   * @param jso
+   * @return la lista de horarios.
+   * @throws Exception.
+   */
+  @PostMapping(value = "/consultaHorarios")
+  public Map<String, Object> consultarHorarios(@RequestBody Map<String, String> jso) throws Exception{
+    List<Horario> lista = Manager.get().consultarHorarios();
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+    respuesta.put("type", "OK");
+    respuesta.put("numero", lista.size());
+    for(int i = 0; i<lista.size(); i++) {
+      respuesta.put("dniMedico"+i, lista.get(i).getdniMedico());
+      respuesta.put("duracionCita"+i, lista.get(i).getDuracionCita());
+      respuesta.put("horaInicio"+i,formatter.format(lista.get(i).getHoraInicio()));
+      respuesta.put("horaFin"+i,formatter.format(lista.get(i).getHoraFin()));
+    }
+    return respuesta;
+  }
+  
+  /**
+   * Recibe peticiones POST de modificacion de horarios.
+   * @param jso el cuerpo de la peticion.
+   * @return la horario modificado.
+   * @throws Exception.
+   */
+  @PostMapping(value = "/modificarHorario")
+  public Map<String, Object> modificarHorario(@RequestBody Map<String, String> jso) throws Exception{
+    String dni = jso.get("dniMedico");
+    String duracionOld = jso.get("duracionOld");
+    String horaInicioOld = jso.get("horaInicioOld");
+    String horaFinOld = jso.get("horaFinOld");
+    String duracionNew = jso.get("duracionNew");
+    String horaInicioNew = jso.get("horaInicioNew");
+    String horaFinNew = jso.get("horaFinNew");
+    Horario horario = Manager.get().modificarHorario(dni, duracionOld, horaInicioOld, horaFinOld, duracionNew, horaInicioNew, horaFinNew);
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    respuesta.put("type", "OK");
+    respuesta.put("resultado", new ObjectMapper().writeValueAsString(horario));
+    return respuesta;
+  }
 	
 	/**
 	 * Recibe peticiones POST de creación de médicos.
