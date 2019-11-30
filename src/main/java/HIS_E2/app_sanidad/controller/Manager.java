@@ -686,12 +686,14 @@ public class Manager {
   }
 
   public Centro consultarCentro(String nombre, String localidad) {
-    Centro centro = centroRepo.findByNombre(nombre, localidad);
-    if (centro != null) {
-      return centro;
-    } else {
+    Centro centro;
+    try {
+      centro = centroRepo.findByNombre(nombre, localidad);
+    } catch (NullPointerException n) {
       return null;
     }
+
+    return centro;
   }
 
   public Medico crearMedico(String dni, String idEspecialidad, Centro centroSalud) throws Exception {
