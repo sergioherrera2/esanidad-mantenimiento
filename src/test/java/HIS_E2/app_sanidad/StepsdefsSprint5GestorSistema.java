@@ -9,7 +9,6 @@ import HIS_E2.app_sanidad.model.Centro;
 import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.repositories.MedicoRepository;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -24,6 +23,13 @@ public class StepsdefsSprint5GestorSistema {
   @Given("^tengo un centro su nombre \"([^\"]*)\",localidad \"([^\"]*)\"$")
   public void tengo_un_centro_su_nombre_localidad(String nombreCentro, String localidadCentro) {
     centro = Manager.get().consultarCentro(nombreCentro, localidadCentro);
+    try {
+      Medico test = new Medico("71360861A", "Sergio", "Herrera Piqueras", "123456", "Traumatólogo");
+      Manager.get().crearMedico(test.getDni(), test.getIdEspecialidad());
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   @Given("^Tengo de un medico su dni \"([^\"]*)\"$")
@@ -61,5 +67,11 @@ public class StepsdefsSprint5GestorSistema {
   public void el_médico_se_ha_guardado_con_dni_centro(String arg1, String arg2) {
     Medico medico2 = medicoRepo.findByDni(medico.getDni());
     assertNotEquals(medico2.getCentroSalud(), null);
+    try {
+      Manager.get().eliminarMedico(medico2.getDni());
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 }

@@ -11,7 +11,7 @@ Feature: Asignar centros a médicos
 
   Examples:
 		| dni       | centro															| localidad		| response  |
-		| 97637789Y | Ciudad Real III 									  | Ciudad Real	| OK        |
-		| 97637789Y |              											  | Ciudad Real	| Error     |
+		| 71360861A | Ciudad Real III 									  | Ciudad Real	| OK        |
+		| 71360861A |              											  | Ciudad Real	| Error     |
 		|           | Hospital General Ciudad Real    	  | 						| Error     |
-		| 97637789Y | Hospital General Ciudad Real				| Ciudad Real	| OK	      |
+		| 71360861A | Hospital General Ciudad Real				| Ciudad Real	| OK	      |
