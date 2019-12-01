@@ -693,6 +693,17 @@ public class Manager {
 
     return centro;
   }
+  
+  public List<Centro> consultarCentros() {
+    List<Centro> centro;
+    try {
+      centro = centroRepo.findAll();
+    } catch (NullPointerException n) {
+      return null;
+    }
+
+    return centro;
+  }
 
   public Medico crearMedico(String dni, String idEspecialidad, String centro) throws Exception {
     Usuario user = userRepo.findByDni(Cifrador.cifrar(dni));

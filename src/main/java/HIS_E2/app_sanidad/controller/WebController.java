@@ -460,6 +460,19 @@ public class WebController {
     respuesta.put("localidadCentro", centro.getLocalidad());
     return respuesta;
   }
+  
+  @PostMapping(value = "/consultaCentros")
+  public Map<String, Object> consultarCentros(@RequestBody Map<String, String> jso) throws Exception {
+    List<Centro> centro = Manager.get().consultarCentros();
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    respuesta.put("type", "OK");
+    respuesta.put("numero", centro.size());
+    for(int i=0; i<centro.size(); i++){
+    respuesta.put("nombreCentro"+i, centro.get(i).getNombre());
+    respuesta.put("localidadCentro"+i, centro.get(i).getLocalidad());
+    }
+    return respuesta;
+  }
 
   /**
    * Recoge las excepciones generadas por la aplicación.

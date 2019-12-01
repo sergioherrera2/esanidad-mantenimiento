@@ -13,7 +13,7 @@ function validateLogin() {
     controlLogin(Dni, contraseña);
 
     function mandarDatos(Dni, contraseña) {
-        var recurso = "https://esanidad.herokuapp.com/autenticar";
+        var recurso = "http://localhost:8080/autenticar";
         var data = {
             dni: Dni,
             pass: contraseña,
@@ -41,11 +41,11 @@ function validateLogin() {
 
                         if (data.especialidad == 'Gestor Citas') {
                             sessionStorage.setItem("data", JSON.stringify(Dni));
-                            setTimeout(location.href = 'https://esanidad.herokuapp.com/gestorCitas', 10000);
+                            setTimeout(location.href = 'http://localhost:8080/gestorCitas', 10000);
                         } else {
                             if (data.especialidad == 'Gestor Sistema') {
                                 sessionStorage.setItem("data", JSON.stringify(Dni));
-                                setTimeout(location.href = 'https://esanidad.herokuapp.com/gestor', 10000);
+                                setTimeout(location.href = 'http://localhost:8080/gestor', 10000);
                             } else {
 
                                 if (data.especialidad != null && data.especialidad != undefined && data.especialidad != 'Gestor Citas' && data.especialidad != 'Gestor Sistema') {
@@ -55,7 +55,7 @@ function validateLogin() {
                                 } else {
                                     sessionStorage.setItem("data", JSON.stringify(Dni));
                                 }
-                                setTimeout(location.href = 'https://esanidad.herokuapp.com/paciente', 10000);
+                                setTimeout(location.href = 'http://localhost:8080/paciente', 10000);
                             }
 
                         }
