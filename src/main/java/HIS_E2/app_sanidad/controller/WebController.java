@@ -369,8 +369,8 @@ public class WebController {
     respuesta.put("type", "OK");
     respuesta.put("numero", medicos.size());
     for (int i = 0; i < medicos.size(); i++) {
-      respuesta.put("dni" + i, Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getDni())));
-      respuesta.put("nombre" + i, Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getNombre())));
+      respuesta.put("dni" + i, Cifrador.descifrar(medicos.get(i).getDni()));
+      respuesta.put("nombre" + i, Cifrador.descifrar(medicos.get(i).getNombre()));
       // respuesta.put("especialidad"+i,Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getIdEspecialidad())));
 
     }
