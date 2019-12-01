@@ -279,28 +279,7 @@ public class WebController {
 		}
 		return respuesta;
 	}
-	
-	/**
-	 * Recibe peticiones POST de modificacion de especialidades.
-	 * @param jso el cuerpo de la peticion.
-	 * @return la especialidad modificada.
-	 * @throws Exception.
-	 */
-	@PostMapping(value = "/modificarEspecialidad")
-	public Map<String, Object> modificarEspecialidad(@RequestBody Map<String, String> jso) throws Exception{
-		String nombre = jso.get("nombreEspecialidad");
-		String duracionOld = jso.get("duracionOld");
-		String horaInicioOld = jso.get("horaInicioOld");
-		String horaFinOld = jso.get("horaFinOld");
-		String duracionNew = jso.get("duracionNew");
-		String horaInicioNew = jso.get("horaInicioNew");
-		String horaFinNew = jso.get("horaFinNew");
-		Especialidad especialidad = Manager.get().modificarEspecialidad(nombre, duracionOld, horaInicioOld, horaFinOld, duracionNew, horaInicioNew, horaFinNew);
-		Map<String, Object> respuesta = new HashMap<String, Object>();
-		respuesta.put("type", "OK");
-		respuesta.put("resultado", new ObjectMapper().writeValueAsString(especialidad));
-		return respuesta;
-	}
+
 	
 	 /**
    * Recibe peticiones POST de creacion de horario.
@@ -351,7 +330,7 @@ public class WebController {
     respuesta.put("type", "OK");
     respuesta.put("numero", lista.size());
     for (int i = 0; i < lista.size(); i++) {
-      respuesta.put("nombreEspecialidad" + i, lista.get(i).getNombreEspecialidad());
+      respuesta.put("nombreEspecialidad" + i, lista.get(i).getdniMedico());
       respuesta.put("duracionCita" + i, lista.get(i).getDuracionCita());
       respuesta.put("horaInicio" + i, formatter.format(lista.get(i).getHoraInicio()));
       respuesta.put("horaFin" + i, formatter.format(lista.get(i).getHoraFin()));
@@ -375,7 +354,7 @@ public class WebController {
     String duracionNew = jso.get("duracionNew");
     String horaInicioNew = jso.get("horaInicioNew");
     String horaFinNew = jso.get("horaFinNew");
-    Horario horario = Manager.get().modificarHorario(dni, duracionOld, horaInicioOld, horaFinOld, duracionNew, horaInicioNew, horaFinNew);
+    Horario horario = Manager.get().modificarHorario(nombre, duracionOld, horaInicioOld, horaFinOld, duracionNew, horaInicioNew, horaFinNew);
     Map<String, Object> respuesta = new HashMap<String, Object>();
     respuesta.put("type", "OK");
     respuesta.put("resultado", new ObjectMapper().writeValueAsString(horario));
