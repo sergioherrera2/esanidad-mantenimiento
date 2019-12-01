@@ -9,16 +9,14 @@ import org.springframework.stereotype.Repository;
 import HIS_E2.app_sanidad.model.PacienteMedico;
 
 @Repository
-public interface PacienteMedicoRepository
-	extends MongoRepository<PacienteMedico, String> {
+public interface PacienteMedicoRepository extends MongoRepository<PacienteMedico, String> {
 
-	@Query(value = "{ 'dniPaciente' : ?0, 'especialidad' : ?1}")
-	PacienteMedico findCustomMedico(String dniPaciente,
-			String especialidad);
+  @Query(value = "{ 'dniPaciente' : ?0, 'especialidad' : ?1}")
+  PacienteMedico findCustomMedico(String dniPaciente, String especialidad);
 
-	@Query(value = "{ 'dniMedico' : ?0}")
-	List<PacienteMedico> findCustomDniMedico(String dniMedico);
-	
-	@Query(value = "{ 'dniPaciente' : ?0}")
-	List<PacienteMedico> findCustomDniPaciente(String dniPaciente);
+  @Query(value = "{ 'dniMedico' : ?0}")
+  List<PacienteMedico> findCustomDniMedico(String dniMedico);
+
+  @Query(value = "{ 'dniPaciente' : ?0}")
+  List<PacienteMedico> findCustomDniPaciente(String dniPaciente);
 }

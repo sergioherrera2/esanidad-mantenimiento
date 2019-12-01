@@ -8,6 +8,7 @@ import HIS_E2.app_sanidad.model.Centro;
 
 @Repository
 public interface CentroRepository extends MongoRepository<Centro, String> {
-  @Query(value = "{ 'nombreCentro' : ?0, 'localidadCentro' : ?0}")
+  @Query(value = "{ 'nombre' : ?0, 'localidad' : ?1}")
   Centro findByNombre(String nombreCentro, String localidadCentro);
+
 }
