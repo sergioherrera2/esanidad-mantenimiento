@@ -40,7 +40,7 @@ public class Stepdefs {
 		    driver = new FirefoxDriver();		
 		    driver.manage().window().maximize();
 		    
-	    driver.get("https://app-sanidad.herokuapp.com");
+	    driver.get("https://esanidad.herokuapp.com");
 	    }catch(Exception e) {
 	    	driver.quit();
 	    	fail("Can't connect to application");
@@ -64,7 +64,7 @@ public class Stepdefs {
 	       driver.findElement(By.name("btnLogin")).click();
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       String new_url = driver.getCurrentUrl();
-	       assertTrue(new_url.equals("http://localhost:8080/citas"));
+	       assertTrue(new_url.equals("https://esanidad.herokuapp.com/citas"));
 	       driver.quit();
 	}
 	
@@ -104,7 +104,7 @@ public class Stepdefs {
 			driver.findElement(By.name("btnLogin")).click();
 			 driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		       String new_url = driver.getCurrentUrl();
-		       assertFalse(new_url.equals("http://localhost:8080/citas"));
+		       assertFalse(new_url.equals("https://esanidad.herokuapp.com/citas"));
 		}catch(UnhandledAlertException f) {
 			driver.quit();
 			

@@ -1,6 +1,7 @@
 package HIS_E2.app_sanidad.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import HIS_E2.app_sanidad.model.Centro;
+import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
 import HIS_E2.app_sanidad.model.Horario;
@@ -347,24 +350,25 @@ public class WebController {
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
     respuesta.put("type", "OK");
     respuesta.put("numero", lista.size());
-    for(int i = 0; i<lista.size(); i++) {
-      respuesta.put("dniMedico"+i, lista.get(i).getdniMedico());
-      respuesta.put("duracionCita"+i, lista.get(i).getDuracionCita());
-      respuesta.put("horaInicio"+i,formatter.format(lista.get(i).getHoraInicio()));
-      respuesta.put("horaFin"+i,formatter.format(lista.get(i).getHoraFin()));
+    for (int i = 0; i < lista.size(); i++) {
+      respuesta.put("nombreEspecialidad" + i, lista.get(i).getNombreEspecialidad());
+      respuesta.put("duracionCita" + i, lista.get(i).getDuracionCita());
+      respuesta.put("horaInicio" + i, formatter.format(lista.get(i).getHoraInicio()));
+      respuesta.put("horaFin" + i, formatter.format(lista.get(i).getHoraFin()));
     }
     return respuesta;
   }
-  
+
   /**
-   * Recibe peticiones POST de modificacion de horarios.
+   * Recibe peticiones POST de modificacion de especialidades.
+   * 
    * @param jso el cuerpo de la peticion.
-   * @return la horario modificado.
+   * @return la especialidad modificada.
    * @throws Exception.
    */
-  @PostMapping(value = "/modificarHorario")
-  public Map<String, Object> modificarHorario(@RequestBody Map<String, String> jso) throws Exception{
-    String dni = jso.get("dniMedico");
+  @PostMapping(value = "/modificarEspecialidad")
+  public Map<String, Object> modificarEspecialidad(@RequestBody Map<String, String> jso) throws Exception {
+    String nombre = jso.get("nombreEspecialidad");
     String duracionOld = jso.get("duracionOld");
     String horaInicioOld = jso.get("horaInicioOld");
     String horaFinOld = jso.get("horaFinOld");

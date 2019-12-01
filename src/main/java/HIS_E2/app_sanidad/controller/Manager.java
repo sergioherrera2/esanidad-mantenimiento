@@ -9,10 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import HIS_E2.app_sanidad.model.Centro;
 import HIS_E2.app_sanidad.model.Cifrador;
 import HIS_E2.app_sanidad.model.Cita;
 import HIS_E2.app_sanidad.model.Especialidad;
@@ -21,6 +23,7 @@ import HIS_E2.app_sanidad.model.Medico;
 import HIS_E2.app_sanidad.model.Paciente;
 import HIS_E2.app_sanidad.model.PacienteMedico;
 import HIS_E2.app_sanidad.model.Usuario;
+import HIS_E2.app_sanidad.repositories.CentroRepository;
 import HIS_E2.app_sanidad.repositories.CitaRepository;
 import HIS_E2.app_sanidad.repositories.EspecialidadRepository;
 import HIS_E2.app_sanidad.repositories.HorarioRepository;
@@ -31,6 +34,7 @@ import HIS_E2.app_sanidad.repositories.UserRepository;
 
 /**
  * Clase Manager de la aplicación.
+ * 
  * @author Miguel.
  */
 @Service

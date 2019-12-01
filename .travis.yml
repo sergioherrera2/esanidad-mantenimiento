@@ -7,8 +7,6 @@ services:
   - xvfb
 addons:
   firefox: "70.0"
-notifications:
-  slack: hisespacio:0qEQjO7RRhAMmk67zdatTrtr
 deploy:
     provider: heroku
     api_key:

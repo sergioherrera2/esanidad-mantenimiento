@@ -1,5 +1,5 @@
-function borrarCitaPaciente(){
-	
-	setTimeout(location.href = 'http://localhost:8080/doctor', 10000);
-	
+function borrarCitaPaciente() {
+
+    setTimeout(location.href = 'https://esanidad.herokuapp.com/doctor', 10000);
+
 }

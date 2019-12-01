@@ -6,68 +6,68 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "usuario")
 public class Usuario {
 
-	@Indexed(unique=true)
-	String dni;
-	String nombre;
-	String apellidos;
-	String contrs;
-	int centroSalud;
+  @Indexed(unique = true)
+  String dni;
+  String nombre;
+  String apellidos;
+  String contrs;
+  String centroSalud;
 
-	public Usuario(String dni, String nombre, String apellidos, String contrs) throws Exception {
-		super();
-		this.dni = Cifrador.cifrar(dni);
-		this.nombre = Cifrador.cifrar(nombre);
-		this.apellidos = Cifrador.cifrar(apellidos);
-		this.contrs = Cifrador.cifrarHash(contrs);
-	}
-	public Usuario() {
+  public Usuario(String dni, String nombre, String apellidos, String contrs) throws Exception {
+    super();
+    this.dni = Cifrador.cifrar(dni);
+    this.nombre = Cifrador.cifrar(nombre);
+    this.apellidos = Cifrador.cifrar(apellidos);
+    this.contrs = Cifrador.cifrarHash(contrs);
+  }
 
-	}
-	public String getDni() {
-		return dni;
-	}
+  public Usuario() {
 
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
+  }
 
-	public String getNombre() {
-		return nombre;
-	}
+  public String getDni() {
+    return dni;
+  }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+  public void setDni(String dni) {
+    this.dni = dni;
+  }
 
-	public String getApellidos() {
-		return apellidos;
-	}
+  public String getNombre() {
+    return nombre;
+  }
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
 
-	public String getContrs(){
-		return contrs;
-	}
+  public String getApellidos() {
+    return apellidos;
+  }
 
-	public void setContrs(String contrs) {
-		this.contrs = contrs;
-	}
+  public void setApellidos(String apellidos) {
+    this.apellidos = apellidos;
+  }
 
-	public int getCentroSalud() {
-		return centroSalud;
-	}
+  public String getContrs() {
+    return contrs;
+  }
 
-	public void setCentroSalud(int centroSalud) {
-		this.centroSalud = centroSalud;
-	}
+  public void setContrs(String contrs) {
+    this.contrs = contrs;
+  }
 
-	@Override
-	public String toString() {
-		return "Usuario [dni=" + dni + ", nombre=" + nombre
-				+ ", apellidos=" + apellidos
-				+ ", contrs=" + contrs
-				+ ", centroSalud=" + centroSalud + "]";
-	}
+  public String getCentroSalud() {
+    return centroSalud;
+  }
+
+  public void setCentroSalud(String centroSalud) {
+    this.centroSalud = centroSalud;
+  }
+
+  @Override
+  public String toString() {
+    return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", contrs=" + contrs
+        + ", centroSalud=" + centroSalud + "]";
+  }
 }

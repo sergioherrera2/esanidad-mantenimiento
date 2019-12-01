@@ -41,7 +41,7 @@ public class StepsdefsSprint2Citas {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"dni2\":\"05727690A\",\"fecha\": \"29/06/1998\",\"hora\":\"16:30\"}");
 		 request1 = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/getCitas")
+		  .url("http://esanidad.herokuapp.com/getCitas")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
@@ -112,7 +112,7 @@ public class StepsdefsSprint2Citas {
 			    driver = new FirefoxDriver();		
 			    driver.manage().window().maximize();
 			    
-		    driver.get("http://app-sanidad.herokuapp.com");
+		    driver.get("http://esanidad.herokuapp.com");
 		    }catch(Exception e) {
 		    	driver.quit();
 		    	fail("Can't connect to application");
@@ -127,7 +127,7 @@ public class StepsdefsSprint2Citas {
 		 driver.findElement(By.name("btnLogin")).click();
 	       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       String new_url = driver.getCurrentUrl();
-	       assertTrue(new_url.equals("http://localhost:8080/citas"));
+	       assertTrue(new_url.equals("https://esanidad.herokuapp.com/citas"));
 	    
 	}
 
@@ -155,7 +155,7 @@ public class StepsdefsSprint2Citas {
 		MediaType mediaType = MediaType.parse("application/json");
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\"05726690N\",\"pass\":\"1234\"}");
 		 request = new Request.Builder()
-		  .url("http://app-sanidad.herokuapp.com/citas")
+		  .url("http://esanidad.herokuapp.com/citas")
 		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .addHeader("cache-control", "no-cache")
