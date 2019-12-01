@@ -394,23 +394,25 @@ public class WebController {
 		return respuesta;
 	}
 	
-	/**
-	 * Recibe peticiones POST de listar los medicos.
-	 * @param jso el cuerpo de la peticion.
-	 * @return la lista de dnis de medicos.
-	 * @throws Exception.
-	 */
-	@PostMapping(value = "/listaMedicos")
-	public Map<String, Object> listaMedicos(@RequestBody Map<String, String> jso) throws Exception {
-		List<String> lista = Manager.get().listaMedicos();
-		Map<String, Object> respuesta = new HashMap<String, Object>();
-		respuesta.put("type", "OK");
-		respuesta.put("numero", lista.size());
-		for(int i = 0; i < lista.size(); i++) {
-			respuesta.put("dni"+i, lista.get(i));
-		}
-		return respuesta;
-	}
+  /**
+   * Recibe peticiones POST de listar los medicos.
+   * 
+   * @param jso el cuerpo de la peticion.
+   * @return la lista de dnis de medicos.
+   * @throws Exception.
+   */
+  @PostMapping(value = "/listaMedicos")
+  public Map<String, Object> listaMedicos(@RequestBody Map<String, String> jso) throws Exception {
+    List<Medico> medicos = Manager.get().listaMedicos();
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    respuesta.put("numero", medicos.size());
+    for (int i = 0; i < medicos.size(); i++) {
+      respuesta.put("dni" + i, Cifrador.descifrar(medicos.get(i).getDni()));
+      respuesta.put("nombre" + i, Cifrador.descifrar(medicos.get(i).getNombre()));
+      // respuesta.put("especialidad"+i,Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getIdEspecialidad())));
+    }
+    return respuesta;
+    }
 	
 	/**
 	 * Recibe peticiones POST de creacion de Medico-paciente.

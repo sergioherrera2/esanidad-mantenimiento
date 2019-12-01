@@ -57,6 +57,11 @@ public class Manager {
 	 */
 	@Autowired
 	private MedicoRepository medicoRepo;
+  /**
+   * repositorio de PacientesMedicos.
+   */
+  @Autowired
+  private CentroRepository centroRepo;
 	/**
 	 * repositorio de citas.
 	 */
@@ -594,20 +599,7 @@ public List<Horario> consultarHorarios(){
 		medicoRepo.delete(medico);
 		return medico;
 	}
-	
-	/**
-	 * Metodo para listar los dni de los medicos.
-	 * @return la lista de dnis de medicos.
-	 * @throws Exception.
-	 */
-	public List<String> listaMedicos() throws Exception {
-		List<Medico> medicos = medicoRepo.findAll();
-		List<String> dnis = new ArrayList<String>();
-		for(int i = 0; i < medicos.size(); i++) {
-			dnis.add(Cifrador.descifrar(Cifrador.descifrar(medicos.get(i).getDni())));
-		}
-		return dnis;
-	}
+
 	
 	/**
 	 * Crea una relacion medico-paciente.
@@ -728,4 +720,44 @@ public List<Horario> consultarHorarios(){
 	    }
 	    return lista;
 	  }
+	
+  public Centro consultarCentro(String nombre, String localidad) {
+    Centro centro;
+    try {
+      centro = centroRepo.findByNombre(nombre, localidad);
+    } catch (NullPointerException n) {
+      return null;
+    }
+
+    return centro;
+  }
+    /**
+     * Metodo para listar los dni de los medicos.
+     * 
+     * @return la lista de dnis de medicos.
+     * @throws Exception.
+     */
+    public List<Medico> listaMedicos() throws Exception {
+
+      List<Medico> medicos = medicoRepo.findAll();
+
+      return medicos;
+    }
+  
+  public Medico crearMedico(String dni, String idEspecialidad, String centro) throws Exception {
+    Usuario user = userRepo.findByDni(Cifrador.cifrar(dni));
+    if (user == null) {
+      throw new Exception("El medico debe estar registrado como usuario");
+    }
+    if (especialidadRepo.findCustomEspecialidad(idEspecialidad) == null) {
+      throw new Exception("Especialidad no existente");
+    }
+    Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()),
+        Cifrador.descifrar(user.getApellidos()), user.getContrs(), idEspecialidad);
+    medico.setContrs(user.getContrs());
+    medico.setCentroSalud(centro);
+    medicoRepo.insert(medico);
+    return medico;
+
+  }
 }
