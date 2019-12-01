@@ -12,4 +12,5 @@ public interface MedicoRepository extends MongoRepository<Medico, String> {
 	@Query(value = "{ 'dni' : ?0 }")
 	Medico findByDni(String dni);
 
+	
 }

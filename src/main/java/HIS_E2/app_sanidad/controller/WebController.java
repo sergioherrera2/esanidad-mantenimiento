@@ -473,6 +473,17 @@ public class WebController {
     }
     return respuesta;
   }
+  
+  @PostMapping(value = "/asignarCentro")
+  public Map<String, Object> asignarCentro(@RequestBody Map<String, String> jso) throws Exception {
+    String dniMedico = jso.get("dniMedico");
+    String nombreCentro = jso.get("nombreCentro");
+    Medico medCen = Manager.get().asignarCentro(dniMedico, nombreCentro);
+    Map<String, Object> respuesta = new HashMap<String, Object>();
+    respuesta.put("type", "OK");
+    respuesta.put("resultado", new ObjectMapper().writeValueAsString(medCen));
+    return respuesta;
+  }
 
   /**
    * Recoge las excepciones generadas por la aplicación.

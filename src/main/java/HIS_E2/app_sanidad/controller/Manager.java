@@ -521,6 +521,7 @@ public class Manager {
     if (especialidadRepo.findCustomEspecialidad(especialidad) == null) {
       throw new Exception("Especialidad no existente");
     }
+  
     Medico medico = new Medico(Cifrador.descifrar(user.getDni()), Cifrador.descifrar(user.getNombre()),
         Cifrador.descifrar(user.getApellidos()), user.getContrs(), especialidad);
     medico.setContrs(user.getContrs());
@@ -703,6 +704,21 @@ public class Manager {
     }
 
     return centro;
+  }
+  
+  public Medico asignarCentro(String dniMedico, String nombreCentro) throws Exception {
+    Medico medico = medicoRepo.findByDni(Cifrador.cifrar(dniMedico));
+    Centro centro = centroRepo.findByNombre(nombreCentro, "Ciudad Real");
+    if (userRepo.findByDni(Cifrador.cifrar(dniMedico)) == null) {
+      throw new Exception("El Dni no corresponde con un paciente");
+    }
+    if (centroRepo.findByNombre(nombreCentro, "Ciudad Real") == null) {
+      throw new Exception("El centro asignado no existe");
+    }
+    
+    medico.setCentroSalud(centro.getNombre());
+    userRepo.save(medico); //NO SE COMO ACTUALIZAR EL MEDICO
+    return medico;
   }
 
   public Medico crearMedico(String dni, String idEspecialidad, String centro) throws Exception {
