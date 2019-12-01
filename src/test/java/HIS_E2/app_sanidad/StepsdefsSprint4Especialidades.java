@@ -54,7 +54,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	private Especialidad especialidad;
 	
 	
-	
+	/*
 	@Given("^Tengo dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\"$")
 	public void tengo_dni_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7) {
 		try {
@@ -91,7 +91,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		
 		try {
 			
-		     /*Modificar por horario*/
+		     
 		     especialidad = Manager.get().crearEspecialidad(dni, duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad);
 		     if(arg1.equals("Error")){
 		    	 fail("debería haber un error al insertar (Borrar de la base de datos)");
@@ -111,7 +111,7 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		
 
 		if(arg5.equals("OK")) {
-		  /*Modificar por horario*/
+		  
 			Especialidad especialidad =especialidadRepo.findCustomEspecialidad(arg1);
 			int duracion=0;
 			try {
@@ -119,7 +119,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 			}catch(Exception e) {
 				fail("La duración no es un número");
 			}
-			/*Modificar por horario*/
 			if(especialidad.getDuracionCita()!=duracion || !especialidad.getNombreEspecialidad().equals(arg1)){
 				fail("La especialidad insertada y la guardada no coinciden");
 				
@@ -132,7 +131,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	public void borro_la_especialidad_dni_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		if(arg5.equals("OK")) {
 			try {
-			/*Modificar por horario*/
 			Especialidad especialidad_borrada = Manager.get().eliminarEspecialidad(arg1);
 			assertNotNull(especialidad_borrada);
 			}catch(Exception e) {
@@ -156,7 +154,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@When("^Envio peticion crear especialidad dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void envio_peticion_crear_especialidad_dni_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		MediaType mediaType = MediaType.parse("application/json");
-		/*Modificar por horario*/
 		RequestBody body = RequestBody.create(mediaType, "{\"dniEspecialidad\":\""+arg1+"\",\"tiempoCita\":\""+arg2+"\",\"horaInicio\":\""+arg3+"\",\"horaFin\":\""+arg4+"\"}");
 		 request = new Request.Builder()
 		  .url("https://esanidad.herokuapp.com/crearEspecialidad")
@@ -231,7 +228,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@When("^relleno los campos dni dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\"$")
 	public void relleno_los_campos_dni_dni_duracion_hora_inico_hora_final(String arg1, String arg2, String arg3, String arg4) {
 		try {
-		  /*Modificar por horario*/
 		driver.findElement(By.name("href_crearEspecialidad")).click();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	       driver.findElement(By.name("dni")).sendKeys(arg1);							
@@ -247,7 +243,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@Then("^Presiono el boton crear especialidad y recibo respuesta \"([^\"]*)\"$")
 	public void presion_el_boton_crear_especialidad_y_recibo_respuesta(String arg1) {
 		try {
-		  /*Modificar por horario*/
 			 driver.findElement(By.name("btnCrearEspecialidad")).click();
 			   Alert alert = driver.switchTo().alert();
 		        String alertText = alert.getText();
@@ -271,7 +266,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@Then("^la especialidad ha sido borrada correctamente dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_borrada_correctamente_dni_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 	   if(arg5.equals("OK")) {
-	     /*Modificar por horario*/
 		   Especialidad especialidad = especialidadRepo.findCustomEspecialidad(arg1);
 		   
 		 assertNull(especialidad);
@@ -302,7 +296,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 
 	@Then("^la especialidad se ha borrado dni \"([^\"]*)\",duracion\"([^\"]*)\",response\"([^\"]*)\"$")
 	public void la_especialidad_se_ha_borrado_dni_duracion_response(String arg1, String arg2, String arg3) {
-	  /*Modificar por horario*/
 		Especialidad especialidades = especialidadRepo.findCustomEspecialidad(arg1);
 		if(especialidades!=null) {
 			 //especialidadRepo.deleteCustomespecialidad(arg1);
@@ -313,7 +306,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@When("^Envio peticion eliminar especialidad dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inico \"([^\"]*)\",hora final \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void envio_peticion_eliminar_especialidad_dni_duracion_hora_inico_hora_final_response(String arg1, String arg2, String arg3, String arg4, String arg5) {
 		MediaType mediaType = MediaType.parse("application/json");
-		/*Modificar por horario*/
 		RequestBody body = RequestBody.create(mediaType, "{\"dniEspecialidad\":\""+arg1+"\",\"tiempoCita\":\""+arg2+"\",\"horaInicio\":\""+arg3+"\",\"horaFin\":\""+arg4+"\"}");
 		 request = new Request.Builder()
 		  .url("https://esanidad.herokuapp.com/eliminarEspecialidad")
@@ -334,8 +326,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@When("^Pido la lista de especialidades \"([^\"]*)\"$")
 	public void pido_la_lista_de_especialidades(String arg1) {
 		try {
-			
-		  /*Modificar por horario*/
 			lista_especialidades = Manager.get().consultarEspecialidades();
 		     
 
@@ -414,8 +404,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	public void la_especialidad_ha_sido_modificada_correctamente_dni_nueva_duracion(String arg1, String arg2, String arg3) {
 		if(arg3.equals("OK")) {
 			int duracion = 0;
-			duracion = Integer.parseInt(arg2);
-			/*Modificar por horario*/
 			especialidad = especialidadRepo.findCustomEspecialidad(arg1);
 			if(especialidad.getDuracionCita()!= duracion) {
 				fail("la especialidad no se ha modificado correctamente");
@@ -462,7 +450,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 		       driver.findElement(By.name("duracion_mod")).sendKeys(arg1);							
 		       driver.findElement(By.name("hora_inicio_mod")).sendKeys(arg2);
 		       driver.findElement(By.name("hora_final_mod")).sendKeys(arg3);	
-		       /*Modificar por horario*/
 			 driver.findElement(By.name("btnModificarEspecialidad")).click();
 			   Alert alert = driver.switchTo().alert();
 		        String alertText = alert.getText();
@@ -490,8 +477,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	public void modifico_la_especialidad_response(String arg1) {
 		
 		try {
-			
-		  /*Modificar por horario*/
 		     especialidad = Manager.get().modificarEspecialidad(dni, 
 			duracion_especialidad,hora_inicio_especialidad,hora_final_especialidad,duracion_especialidad_mod,hora_inicio_especialidad_mod,hora_final_especialidad_mod);
 		     
@@ -511,7 +496,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@Then("^la especialidad ha sido modificada correctamente dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_dni_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8) {
 		if(arg8.equals("OK")) {
-		  /*Modificar por horario*/
 			assertEquals(especialidad.getNombreEspecialidad(),arg1);
 			assertEquals(especialidad.getDuracionCita(),arg5);
 			//	assertEquals(especialidad.getHoraInicio,arg6);
@@ -525,7 +509,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 	@When("^Envio peticion modificar especialidad dni \"([^\"]*)\",duracion \"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",duracion_mod \"([^\"]*)\", hora_inicio_mod \"([^\"]*)\", hora_final_mod \"([^\"]*)\",response \"([^\"]*)\"$")
 	public void envio_peticion_modificar_especialidad_dni_duracion_hora_inicio_hora_final_duracion_mod_hora_inicio_mod_hora_final_mod_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8) {
 		MediaType mediaType = MediaType.parse("application/json");
-		/*Modificar por horario*/
 		RequestBody body = RequestBody.create(mediaType, "{\"dni\":\""+arg1+"\",\"duracionOld\":\""+arg2+"\",\"horaInicioOld\":\""+arg3+"\",\"horaFinOld\":\""+arg4+"\",\"duracionNew\":"
 				+ "\""+arg5+"\",\"horaInicioNew\":\""+arg6+"\",\"horaFinNew\":\""+arg7+"\"}");
 		 request = new Request.Builder()
@@ -583,7 +566,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 
 	@Then("^la especialidad ha sido modificada correctamente dni\"([^\"]*)\",duracion\"([^\"]*)\",hora inicio \"([^\"]*)\",hora final \"([^\"]*)\",nueva duracion\"([^\"]*)\", response \"([^\"]*)\"$")
 	public void la_especialidad_ha_sido_modificada_correctamente_dni_duracion_hora_inicio_hora_final_nueva_duracion_response(String arg1, String arg2, String arg3, String arg4, String arg5, String arg6) {
-	  /*Modificar por horario*/
 	  Especialidad especialidades = especialidadRepo.findCustomEspecialidad(arg1);
 
 		if(especialidades !=null) {
@@ -592,6 +574,6 @@ public class StepsdefsSprint4Especialidades extends JunitTests2{
 			fail("La especialidad Tal vez no se haya borrad bien, se intentará borrar de la base de datos");
 		}
 	}
-
+  */
 
 }
